@@ -115,6 +115,8 @@ CREATE TABLE IF NOT EXISTS public.products (
   warranty_expiry_date date NOT NULL,
   receipt_url text,
   image_url text,
+  retailer text,
+  purchase_price numeric(10,2),
   notes text,
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now()
