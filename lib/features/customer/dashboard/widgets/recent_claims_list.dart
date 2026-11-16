@@ -40,11 +40,14 @@ class RecentClaimsList extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Recent Claims',
-                style: theme.textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: isDark ? AppColors.onBackgroundDark : AppColors.onBackgroundLight,
+              Expanded(
+                child: Text(
+                  'Recent Claims',
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: isDark ? AppColors.onBackgroundDark : AppColors.onBackgroundLight,
+                  ),
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               TextButton(

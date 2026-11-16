@@ -7,11 +7,13 @@ import '../models/product_model.dart';
 class ProductCard extends StatelessWidget {
   final ProductModel product;
   final VoidCallback? onTap;
+  final EdgeInsetsGeometry? margin;
 
   const ProductCard({
     super.key,
     required this.product,
     this.onTap,
+    this.margin,
   });
 
   @override
@@ -21,7 +23,7 @@ class ProductCard extends StatelessWidget {
 
     return Card(
       elevation: 0,
-      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
+      margin: margin ?? const EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12.0),
         side: BorderSide(
@@ -113,24 +115,32 @@ class ProductCard extends StatelessWidget {
                           color: isDark ? AppColors.gray400 : AppColors.gray500,
                         ),
                         const SizedBox(width: 4),
-                        Text(
-                          'Purchased: ${DateFormatter.formatDisplayDate(product.purchaseDate)}',
-                          style: theme.textTheme.labelSmall?.copyWith(
-                            color: isDark ? AppColors.gray400 : AppColors.gray500,
+                        Expanded(
+                          child: Text(
+                            'Purchased: ${DateFormatter.formatDisplayDate(product.purchaseDate)}',
+                            style: theme.textTheme.labelSmall?.copyWith(
+                              color: isDark ? AppColors.gray400 : AppColors.gray500,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        const Spacer(),
-                        Text(
-                          product.daysRemaining >= 0
-                              ? '${product.daysRemaining}d remaining'
-                              : 'Expired',
-                          style: theme.textTheme.labelSmall?.copyWith(
-                            fontWeight: FontWeight.w600,
-                            color: product.daysRemaining <= 7
-                                ? AppColors.error
-                                : product.daysRemaining <= 30
-                                    ? AppColors.warning
-                                    : AppColors.success,
+                        const SizedBox(width: 8),
+                        Flexible(
+                          child: Text(
+                            product.daysRemaining >= 0
+                                ? '${product.daysRemaining}d remaining'
+                                : 'Expired',
+                            style: theme.textTheme.labelSmall?.copyWith(
+                              fontWeight: FontWeight.w600,
+                              color: product.daysRemaining <= 7
+                                  ? AppColors.error
+                                  : product.daysRemaining <= 30
+                                      ? AppColors.warning
+                                      : AppColors.success,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                       ],

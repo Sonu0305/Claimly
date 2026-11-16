@@ -65,13 +65,17 @@ class ExpiryCarousel extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Expiry Alerts (${expiringProducts.length})',
-                style: theme.textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: isDark ? AppColors.onBackgroundDark : AppColors.onBackgroundLight,
+              Expanded(
+                child: Text(
+                  'Expiry Alerts (${expiringProducts.length})',
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: isDark ? AppColors.onBackgroundDark : AppColors.onBackgroundLight,
+                  ),
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
+              const SizedBox(width: 8),
               Text(
                 'Action Needed',
                 style: theme.textTheme.labelSmall?.copyWith(

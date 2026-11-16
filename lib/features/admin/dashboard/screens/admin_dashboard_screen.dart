@@ -1,9 +1,11 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../core/constants/app_breakpoints.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/widgets/error_view.dart';
 import '../../../../core/widgets/loading_indicator.dart';
+import '../../../../core/widgets/responsive_content_wrapper.dart';
 import '../controllers/admin_dashboard_controller.dart';
 import '../models/admin_analytics_model.dart';
 
@@ -48,103 +50,179 @@ class AdminDashboardScreen extends ConsumerWidget {
     ThemeData theme,
     bool isDark,
   ) {
-    return SingleChildScrollView(
-      physics: const AlwaysScrollableScrollPhysics(),
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // 4 KPI Cards Grid
-          GridView.count(
-            crossAxisCount: 2,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            crossAxisSpacing: 12.0,
-            mainAxisSpacing: 12.0,
-            childAspectRatio: 1.35,
-            children: [
-              _buildKpiCard(
-                key: const Key('admin_kpi_total_claims'),
-                title: 'Total Claims',
-                value: '${data.totalClaims}',
-                icon: Icons.assignment_outlined,
-                color: AppColors.primary,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final bodyWidth = constraints.maxWidth;
+        final int crossAxisCount;
+        final double childAspectRatio;
+        if (bodyWidth < 320) {
+          crossAxisCount = 1;
+          childAspectRatio = 2.4;
+        } else if (bodyWidth < 900) {
+          crossAxisCount = 2;
+          childAspectRatio = bodyWidth <= 360 ? 0.88 : (bodyWidth < 480 ? 1.0 : 1.35);
+        } else {
+          crossAxisCount = 4;
+          childAspectRatio = 1.25;
+        }
+        final isMobile = bodyWidth < AppBreakpoints.tabletMin;
+
+        return SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          padding: const EdgeInsets.symmetric(vertical: 16.0),
+          child: ResponsiveContentWrapper(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // 4 KPI Cards Grid
+                GridView.count(
+                  crossAxisCount: crossAxisCount,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  crossAxisSpacing: 12.0,
+                  mainAxisSpacing: 12.0,
+                  childAspectRatio: childAspectRatio,
+              children: [
+                _buildKpiCard(
+                  key: const Key('admin_kpi_total_claims'),
+                  title: 'Total Claims',
+                  value: '${data.totalClaims}',
+                  icon: Icons.assignment_outlined,
+                  color: AppColors.primary,
+                  isDark: isDark,
+                  theme: theme,
+                ),
+                _buildKpiCard(
+                  key: const Key('admin_kpi_active_claims'),
+                  title: 'Active Claims',
+                  value: '${data.activeClaims}',
+                  icon: Icons.hourglass_top_outlined,
+                  color: AppColors.claimUnderReview,
+                  isDark: isDark,
+                  theme: theme,
+                ),
+                _buildKpiCard(
+                  key: const Key('admin_kpi_approval_rate'),
+                  title: 'Approval Rate',
+                  value: '${data.approvalRate.toStringAsFixed(1)}%',
+                  icon: Icons.verified_outlined,
+                  color: AppColors.success,
+                  isDark: isDark,
+                  theme: theme,
+                ),
+                _buildKpiCard(
+                  key: const Key('admin_kpi_avg_resolution'),
+                  title: 'Avg Resolution Time',
+                  value: '${data.avgResolutionDays.toStringAsFixed(1)}d',
+                  icon: Icons.speed,
+                  color: AppColors.secondary,
+                  isDark: isDark,
+                  theme: theme,
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+
+            if (isMobile) ...[
+              // Chart 1: Status Breakdown Donut Pie Chart
+              _buildChartContainer(
+                title: 'Claims by Status Breakdown',
                 isDark: isDark,
                 theme: theme,
+                child: SizedBox(
+                  key: const Key('admin_analytics_chart'),
+                  height: 220,
+                  child: _buildStatusPieChart(data.statusBreakdown, isDark),
+                ),
               ),
-              _buildKpiCard(
-                key: const Key('admin_kpi_active_claims'),
-                title: 'Active Claims',
-                value: '${data.activeClaims}',
-                icon: Icons.hourglass_top_outlined,
-                color: AppColors.claimUnderReview,
+              const SizedBox(height: 20),
+
+              // Chart 2: Claims by Type Bar Chart
+              _buildChartContainer(
+                title: 'Claims by Resolution Type',
                 isDark: isDark,
                 theme: theme,
+                child: SizedBox(
+                  height: 200,
+                  child: _buildTypeBarChart(data.claimsByType, isDark),
+                ),
               ),
-              _buildKpiCard(
-                key: const Key('admin_kpi_approval_rate'),
-                title: 'Approval Rate',
-                value: '${data.approvalRate.toStringAsFixed(1)}%',
-                icon: Icons.verified_outlined,
-                color: AppColors.success,
+              const SizedBox(height: 20),
+
+              // Chart 3: 30-Day Submissions Trend Line Chart
+              _buildChartContainer(
+                title: '30-Day Claim Submission Trend',
                 isDark: isDark,
                 theme: theme,
+                child: SizedBox(
+                  height: 200,
+                  child: _buildSubmissionLineChart(data.submissionsLast30Days, isDark),
+                ),
               ),
-              _buildKpiCard(
-                key: const Key('admin_kpi_avg_resolution'),
-                title: 'Avg Resolution Time',
-                value: '${data.avgResolutionDays.toStringAsFixed(1)}d',
-                icon: Icons.speed,
-                color: AppColors.secondary,
-                isDark: isDark,
-                theme: theme,
+              const SizedBox(height: 20),
+
+              // Section 4: Top Issue Categories Table
+              _buildTopIssuesCard(data.topIssueCategories, isDark, theme),
+            ] else ...[
+              // 2x2 Responsive Chart Grid for Tablet & Desktop
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: _buildChartContainer(
+                      title: 'Claims by Status Breakdown',
+                      isDark: isDark,
+                      theme: theme,
+                      child: SizedBox(
+                        key: const Key('admin_analytics_chart'),
+                        height: 220,
+                        child: _buildStatusPieChart(data.statusBreakdown, isDark),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: _buildChartContainer(
+                      title: 'Claims by Resolution Type',
+                      isDark: isDark,
+                      theme: theme,
+                      child: SizedBox(
+                        height: 220,
+                        child: _buildTypeBarChart(data.claimsByType, isDark),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: _buildChartContainer(
+                      title: '30-Day Claim Submission Trend',
+                      isDark: isDark,
+                      theme: theme,
+                      child: SizedBox(
+                        height: 240,
+                        child: _buildSubmissionLineChart(data.submissionsLast30Days, isDark),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: _buildTopIssuesCard(data.topIssueCategories, isDark, theme),
+                  ),
+                ],
               ),
             ],
-          ),
-          const SizedBox(height: 20),
-
-          // Chart 1: Status Breakdown Donut Pie Chart
-          _buildChartContainer(
-            title: 'Claims by Status Breakdown',
-            isDark: isDark,
-            theme: theme,
-            child: SizedBox(
-              key: const Key('admin_analytics_chart'),
-              height: 220,
-              child: _buildStatusPieChart(data.statusBreakdown, isDark),
-            ),
-          ),
-          const SizedBox(height: 20),
-
-          // Chart 2: Claims by Type Bar Chart
-          _buildChartContainer(
-            title: 'Claims by Resolution Type',
-            isDark: isDark,
-            theme: theme,
-            child: SizedBox(
-              height: 200,
-              child: _buildTypeBarChart(data.claimsByType, isDark),
-            ),
-          ),
-          const SizedBox(height: 20),
-
-          // Chart 3: 30-Day Submissions Trend Line Chart
-          _buildChartContainer(
-            title: '30-Day Claim Submission Trend',
-            isDark: isDark,
-            theme: theme,
-            child: SizedBox(
-              height: 200,
-              child: _buildSubmissionLineChart(data.submissionsLast30Days, isDark),
-            ),
-          ),
-          const SizedBox(height: 20),
-
-          // Section 4: Top Issue Categories Table
-          _buildTopIssuesCard(data.topIssueCategories, isDark, theme),
-          const SizedBox(height: 24),
-        ],
+            const SizedBox(height: 24),
+          ],
+        ),
       ),
+    );
+      },
     );
   }
 
@@ -168,7 +246,7 @@ class AdminDashboardScreen extends ConsumerWidget {
       ),
       color: isDark ? AppColors.surfaceDark : AppColors.surfaceLight,
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -181,26 +259,33 @@ class AdminDashboardScreen extends ConsumerWidget {
               ),
               child: Icon(icon, color: color, size: 20.0),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  value,
-                  style: theme.textTheme.headlineSmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: isDark ? AppColors.onSurfaceDark : AppColors.onSurfaceLight,
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      value,
+                      style: theme.textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: isDark ? AppColors.onSurfaceDark : AppColors.onSurfaceLight,
+                      ),
+                    ),
                   ),
-                ),
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: isDark ? AppColors.gray400 : AppColors.gray600,
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: isDark ? AppColors.gray400 : AppColors.gray600,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
@@ -473,14 +558,18 @@ class AdminDashboardScreen extends ConsumerWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          c.category,
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w600,
-                            color: isDark ? AppColors.onSurfaceDark : AppColors.onSurfaceLight,
+                        Expanded(
+                          child: Text(
+                            c.category,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600,
+                              color: isDark ? AppColors.onSurfaceDark : AppColors.onSurfaceLight,
+                            ),
                           ),
                         ),
+                        const SizedBox(width: 8),
                         Text(
                           '${c.count} (${(pct * 100).toStringAsFixed(0)}%)',
                           style: TextStyle(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:claimly/core/constants/app_colors.dart';
+import 'package:claimly/core/widgets/responsive_content_wrapper.dart';
 import 'package:claimly/features/customer/products/controllers/products_controller.dart';
 import 'package:claimly/features/customer/products/models/product_model.dart';
 import '../controllers/wizard_controller.dart';
@@ -91,27 +92,30 @@ class _ClaimWizardScreenState extends ConsumerState<ClaimWizardScreen> {
             onPressed: _handleCancel,
           ),
         ),
-        body: Column(
-          children: [
-            // Visual Progress Header
-            WizardStepperHeader(currentStep: state.currentStep),
+        body: ResponsiveContentWrapper(
+          maxWidth: 840,
+          padding: EdgeInsets.zero,
+          child: Column(
+            children: [
+              // Visual Progress Header
+              WizardStepperHeader(currentStep: state.currentStep),
 
-            // Step Content
-            Expanded(
-              child: IndexedStack(
-                index: state.currentStep,
-                children: [
-                  StepProductSelection(initialProduct: _preselectedProduct),
-                  StepClaimType(initialProduct: _preselectedProduct),
-                  StepIssueDetails(initialProduct: _preselectedProduct),
-                  StepAttachments(initialProduct: _preselectedProduct),
-                  StepReviewSubmit(initialProduct: _preselectedProduct),
-                ],
+              // Step Content
+              Expanded(
+                child: IndexedStack(
+                  index: state.currentStep,
+                  children: [
+                    StepProductSelection(initialProduct: _preselectedProduct),
+                    StepClaimType(initialProduct: _preselectedProduct),
+                    StepIssueDetails(initialProduct: _preselectedProduct),
+                    StepAttachments(initialProduct: _preselectedProduct),
+                    StepReviewSubmit(initialProduct: _preselectedProduct),
+                  ],
+                ),
               ),
-            ),
 
-            // Wizard Bottom Navigation Bar
-            Container(
+              // Wizard Bottom Navigation Bar
+              Container(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
               decoration: BoxDecoration(
                 color: isDark ? AppColors.surfaceDark : AppColors.surfaceLight,
@@ -181,6 +185,7 @@ class _ClaimWizardScreenState extends ConsumerState<ClaimWizardScreen> {
           ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 }

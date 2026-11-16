@@ -122,28 +122,42 @@ class StepReviewSubmit extends ConsumerWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'Automated Triage Score',
-                      style: theme.textTheme.titleSmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.primary,
+                    Expanded(
+                      child: Text(
+                        'Automated Triage Score',
+                        overflow: TextOverflow.ellipsis,
+                        style: theme.textTheme.titleSmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.primary,
+                        ),
                       ),
                     ),
+                    const SizedBox(width: 8),
                     StatusBadge(status: warrantyStatus, fontSize: 11),
                   ],
                 ),
                 const SizedBox(height: 10),
-                Row(
+                Wrap(
+                  alignment: WrapAlignment.spaceBetween,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  spacing: 8,
+                  runSpacing: 6,
                   children: [
-                    Text(
-                      '$estimatedPriority',
-                      style: theme.textTheme.headlineMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.primary,
+                    Text.rich(
+                      TextSpan(
+                        text: '$estimatedPriority',
+                        style: theme.textTheme.headlineMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.primary,
+                        ),
+                        children: const [
+                          TextSpan(
+                            text: ' / 100',
+                            style: TextStyle(fontSize: 14, color: AppColors.gray600),
+                          ),
+                        ],
                       ),
                     ),
-                    const Text(' / 100', style: TextStyle(fontSize: 14, color: AppColors.gray600)),
-                    const Spacer(),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                       decoration: BoxDecoration(
@@ -269,19 +283,29 @@ class StepReviewSubmit extends ConsumerWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 13,
-              color: isDark ? AppColors.gray400 : AppColors.gray600,
+          Flexible(
+            flex: 2,
+            child: Text(
+              label,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: 13,
+                color: isDark ? AppColors.gray400 : AppColors.gray600,
+              ),
             ),
           ),
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-              color: isDark ? AppColors.onSurfaceDark : AppColors.onSurfaceLight,
+          const SizedBox(width: 16),
+          Flexible(
+            flex: 3,
+            child: Text(
+              value,
+              textAlign: TextAlign.end,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: isDark ? AppColors.onSurfaceDark : AppColors.onSurfaceLight,
+              ),
             ),
           ),
         ],

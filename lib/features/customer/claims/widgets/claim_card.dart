@@ -8,11 +8,13 @@ import 'claim_priority_chip.dart';
 class ClaimCard extends StatelessWidget {
   final ClaimModel claim;
   final VoidCallback? onTap;
+  final EdgeInsetsGeometry? margin;
 
   const ClaimCard({
     super.key,
     required this.claim,
     this.onTap,
+    this.margin,
   });
 
   @override
@@ -22,7 +24,7 @@ class ClaimCard extends StatelessWidget {
 
     return Card(
       elevation: 0,
-      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
+      margin: margin ?? const EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12.0),
         side: BorderSide(
@@ -42,16 +44,20 @@ class ClaimCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    claim.claimNumber,
-                    style: const TextStyle(
-                      fontFamily: 'monospace',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13,
-                      letterSpacing: 0.5,
-                      color: AppColors.primary,
+                  Expanded(
+                    child: Text(
+                      claim.claimNumber,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontFamily: 'monospace',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                        letterSpacing: 0.5,
+                        color: AppColors.primary,
+                      ),
                     ),
                   ),
+                  const SizedBox(width: 8),
                   StatusBadge(status: claim.status),
                 ],
               ),
@@ -82,10 +88,14 @@ class ClaimCard extends StatelessWidget {
               const SizedBox(height: 10),
 
               // Bottom Row: Date & Priority
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Wrap(
+                alignment: WrapAlignment.spaceBetween,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: 8.0,
+                runSpacing: 6.0,
                 children: [
                   Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(
                         Icons.access_time,
@@ -98,6 +108,8 @@ class ClaimCard extends StatelessWidget {
                         style: theme.textTheme.labelSmall?.copyWith(
                           color: isDark ? AppColors.gray400 : AppColors.gray500,
                         ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ],
                   ),

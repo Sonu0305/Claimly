@@ -7,6 +7,7 @@ import '../../../../core/theme/theme_provider.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/app_text_field.dart';
 import '../../../../core/widgets/loading_indicator.dart';
+import '../../../../core/widgets/responsive_content_wrapper.dart';
 import '../controllers/profile_controller.dart';
 
 class CustomerProfileScreen extends ConsumerStatefulWidget {
@@ -108,10 +109,13 @@ class _CustomerProfileScreenState extends ConsumerState<CustomerProfileScreen> {
         ],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
+        padding: const EdgeInsets.symmetric(vertical: 16.0),
+        child: ResponsiveContentWrapper(
+          maxWidth: 760,
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
             // User Profile Header Card
             Container(
               padding: const EdgeInsets.all(20.0),
@@ -192,11 +196,11 @@ class _CustomerProfileScreenState extends ConsumerState<CustomerProfileScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _statColumn('Total Products', '${state.totalProducts}', isDark),
+                  Expanded(child: _statColumn('Total Products', '${state.totalProducts}', isDark)),
                   const SizedBox(height: 36, child: VerticalDivider()),
-                  _statColumn('Active Warranties', '${state.activeWarranties}', isDark, color: AppColors.statusActive),
+                  Expanded(child: _statColumn('Active Warranties', '${state.activeWarranties}', isDark, color: AppColors.statusActive)),
                   const SizedBox(height: 36, child: VerticalDivider()),
-                  _statColumn('Total Claims', '${state.totalClaims}', isDark, color: AppColors.secondary),
+                  Expanded(child: _statColumn('Total Claims', '${state.totalClaims}', isDark, color: AppColors.secondary)),
                 ],
               ),
             ),
@@ -218,11 +222,14 @@ class _CustomerProfileScreenState extends ConsumerState<CustomerProfileScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'Personal Information',
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: isDark ? AppColors.onSurfaceDark : AppColors.onSurfaceLight,
+                      Expanded(
+                        child: Text(
+                          'Personal Information',
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: isDark ? AppColors.onSurfaceDark : AppColors.onSurfaceLight,
+                          ),
                         ),
                       ),
                       IconButton(
@@ -324,38 +331,86 @@ class _CustomerProfileScreenState extends ConsumerState<CustomerProfileScreen> {
                   borderRadius: BorderRadius.circular(16.0),
                   border: Border.all(color: AppColors.claimUnderReview.withAlpha(60)),
                 ),
-                child: Row(
-                  children: [
-                    const Icon(Icons.admin_panel_settings, color: AppColors.claimUnderReview, size: 28),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    final isCompact = constraints.maxWidth < 500;
+                    if (isCompact) {
+                      return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Administrator Mode',
-                            style: theme.textTheme.titleSmall?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.claimUnderReview,
-                            ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Icon(Icons.admin_panel_settings, color: AppColors.claimUnderReview, size: 28),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Administrator Mode',
+                                      style: theme.textTheme.titleSmall?.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.claimUnderReview,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 2),
+                                    const Text(
+                                      'Access analytics, review global claims, and manage users.',
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
-                          const SizedBox(height: 2),
-                          const Text(
-                            'Access analytics, review global claims, and manage users.',
-                            style: TextStyle(fontSize: 12),
+                          const SizedBox(height: 12),
+                          ElevatedButton(
+                            onPressed: () => context.go(RouteConstants.adminDashboard),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.claimUnderReview,
+                              foregroundColor: Colors.white,
+                            ),
+                            child: const Text('Open Portal'),
                           ),
                         ],
-                      ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () => context.go(RouteConstants.adminDashboard),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.claimUnderReview,
-                        foregroundColor: Colors.white,
-                      ),
-                      child: const Text('Open Portal'),
-                    ),
-                  ],
+                      );
+                    }
+                    return Row(
+                      children: [
+                        const Icon(Icons.admin_panel_settings, color: AppColors.claimUnderReview, size: 28),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Administrator Mode',
+                                style: theme.textTheme.titleSmall?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.claimUnderReview,
+                                ),
+                              ),
+                              const SizedBox(height: 2),
+                              const Text(
+                                'Access analytics, review global claims, and manage users.',
+                                style: TextStyle(fontSize: 12),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        ElevatedButton(
+                          onPressed: () => context.go(RouteConstants.adminDashboard),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.claimUnderReview,
+                            foregroundColor: Colors.white,
+                          ),
+                          child: const Text('Open Portal'),
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ),
               const SizedBox(height: 16),
@@ -372,11 +427,13 @@ class _CustomerProfileScreenState extends ConsumerState<CustomerProfileScreen> {
           ],
         ),
       ),
-    );
+    ),
+  );
   }
 
   Widget _statColumn(String label, String value, bool isDark, {Color? color}) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Text(
           value,
@@ -389,6 +446,9 @@ class _CustomerProfileScreenState extends ConsumerState<CustomerProfileScreen> {
         const SizedBox(height: 4),
         Text(
           label,
+          textAlign: TextAlign.center,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
           style: TextStyle(
             fontSize: 11,
             color: isDark ? AppColors.gray400 : AppColors.gray600,
@@ -411,12 +471,17 @@ class _CustomerProfileScreenState extends ConsumerState<CustomerProfileScreen> {
               color: isDark ? AppColors.gray400 : AppColors.gray600,
             ),
           ),
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-              color: isDark ? AppColors.onSurfaceDark : AppColors.onSurfaceLight,
+          const SizedBox(width: 16),
+          Flexible(
+            child: Text(
+              value,
+              textAlign: TextAlign.end,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: isDark ? AppColors.onSurfaceDark : AppColors.onSurfaceLight,
+              ),
             ),
           ),
         ],

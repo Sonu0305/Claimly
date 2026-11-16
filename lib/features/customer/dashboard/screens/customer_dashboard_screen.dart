@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../core/constants/app_breakpoints.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/router/route_constants.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/error_view.dart';
 import '../../../../core/widgets/loading_indicator.dart';
+import '../../../../core/widgets/responsive_content_wrapper.dart';
 import '../../../auth/controllers/auth_controller.dart';
 import '../controllers/dashboard_controller.dart';
 import '../widgets/dashboard_kpi_card.dart';
@@ -22,6 +24,7 @@ class CustomerDashboardScreen extends ConsumerWidget {
     final userProfile = ref.watch(authControllerProvider).asData?.value;
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
+    final isDesktop = MediaQuery.sizeOf(context).width >= AppBreakpoints.desktopMin;
 
     final displayName = userProfile?.fullName ?? 'User';
 
@@ -39,7 +42,12 @@ class CustomerDashboardScreen extends ConsumerWidget {
               child: const Icon(Icons.shield_outlined, color: Colors.white, size: 20),
             ),
             const SizedBox(width: 10),
-            const Text('Claimly Dashboard'),
+            const Flexible(
+              child: Text(
+                'Claimly Dashboard',
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
           ],
         ),
         actions: [
@@ -68,13 +76,13 @@ class CustomerDashboardScreen extends ConsumerWidget {
             return SingleChildScrollView(
               physics: const AlwaysScrollableScrollPhysics(),
               padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  // Welcome Header
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Column(
+              child: ResponsiveContentWrapper(
+                padding: EdgeInsets.zero,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    // Welcome Header
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -93,57 +101,66 @@ class CustomerDashboardScreen extends ConsumerWidget {
                         ),
                       ],
                     ),
-                  ),
-                  const SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
-                  // KPI 2x2 Grid
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: GridView.count(
-                      crossAxisCount: 2,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      crossAxisSpacing: 12.0,
-                      mainAxisSpacing: 12.0,
-                      childAspectRatio: 1.35,
-                      children: [
-                        DashboardKpiCard(
-                          title: 'Active Warranties',
-                          value: state.activeWarrantiesCount.toString(),
-                          icon: Icons.verified_outlined,
-                          color: AppColors.statusActive,
-                          onTap: () => context.go(RouteConstants.customerProducts),
-                        ),
-                        DashboardKpiCard(
-                          title: 'Pending Claims',
-                          value: state.pendingClaimsCount.toString(),
-                          icon: Icons.hourglass_top_outlined,
-                          color: AppColors.claimUnderReview,
-                          onTap: () => context.go(RouteConstants.customerClaims),
-                        ),
-                        DashboardKpiCard(
-                          title: 'Approved Claims',
-                          value: state.approvedClaimsCount.toString(),
-                          icon: Icons.check_circle_outline,
-                          color: AppColors.claimApproved,
-                          onTap: () => context.go(RouteConstants.customerClaims),
-                        ),
-                        DashboardKpiCard(
-                          title: 'Expiring Soon',
-                          value: state.expiringSoonCount.toString(),
-                          icon: Icons.warning_amber_rounded,
-                          color: AppColors.statusExpiring,
-                          onTap: () => context.go(RouteConstants.customerProducts),
-                        ),
-                      ],
+                    // KPI Responsive Grid
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        final bodyWidth = constraints.maxWidth;
+                        final crossAxisCount = bodyWidth < 900 ? 2 : 4;
+                        final double childAspectRatio;
+                        if (bodyWidth < 480) {
+                          childAspectRatio = 1.10;
+                        } else if (bodyWidth < 900) {
+                          childAspectRatio = 1.35;
+                        } else {
+                          childAspectRatio = 1.20;
+                        }
+
+                        return GridView.count(
+                          crossAxisCount: crossAxisCount,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          crossAxisSpacing: 12.0,
+                          mainAxisSpacing: 12.0,
+                          childAspectRatio: childAspectRatio,
+                          children: [
+                            DashboardKpiCard(
+                              title: 'Active Warranties',
+                              value: state.activeWarrantiesCount.toString(),
+                              icon: Icons.verified_outlined,
+                              color: AppColors.statusActive,
+                              onTap: () => context.go(RouteConstants.customerProducts),
+                            ),
+                            DashboardKpiCard(
+                              title: 'Pending Claims',
+                              value: state.pendingClaimsCount.toString(),
+                              icon: Icons.hourglass_top_outlined,
+                              color: AppColors.claimUnderReview,
+                              onTap: () => context.go(RouteConstants.customerClaims),
+                            ),
+                            DashboardKpiCard(
+                              title: 'Approved Claims',
+                              value: state.approvedClaimsCount.toString(),
+                              icon: Icons.check_circle_outline,
+                              color: AppColors.claimApproved,
+                              onTap: () => context.go(RouteConstants.customerClaims),
+                            ),
+                            DashboardKpiCard(
+                              title: 'Expiring Soon',
+                              value: state.expiringSoonCount.toString(),
+                              icon: Icons.warning_amber_rounded,
+                              color: AppColors.statusExpiring,
+                              onTap: () => context.go(RouteConstants.customerProducts),
+                            ),
+                          ],
+                        );
+                      },
                     ),
-                  ),
-                  const SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
-                  // Quick Action Buttons
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Row(
+                    // Quick Action Buttons
+                    Row(
                       children: [
                         Expanded(
                           child: AppButton(
@@ -163,17 +180,33 @@ class CustomerDashboardScreen extends ConsumerWidget {
                         ),
                       ],
                     ),
-                  ),
-                  const SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
-                  // Expiry Countdown Alerts Carousel
-                  ExpiryCarousel(expiringProducts: state.expiringSoonProducts),
-                  const SizedBox(height: 16),
+                    // Expiry Carousel & Recent Claims
+                    if (isDesktop)
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: ExpiryCarousel(expiringProducts: state.expiringSoonProducts),
+                          ),
+                          const SizedBox(width: 20),
+                          Expanded(
+                            child: RecentClaimsList(claims: state.recentClaims),
+                          ),
+                        ],
+                      )
+                    else ...[
+                      // Expiry Countdown Alerts Carousel
+                      ExpiryCarousel(expiringProducts: state.expiringSoonProducts),
+                      const SizedBox(height: 16),
 
-                  // Recent Claims Feed
-                  RecentClaimsList(claims: state.recentClaims),
-                  const SizedBox(height: 24),
-                ],
+                      // Recent Claims Feed
+                      RecentClaimsList(claims: state.recentClaims),
+                    ],
+                    const SizedBox(height: 24),
+                  ],
+                ),
               ),
             );
           },
@@ -182,4 +215,3 @@ class CustomerDashboardScreen extends ConsumerWidget {
     );
   }
 }
-

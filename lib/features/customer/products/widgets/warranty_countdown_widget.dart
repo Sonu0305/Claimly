@@ -50,31 +50,37 @@ class WarrantyCountdownWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                statusTitle,
-                style: theme.textTheme.titleSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: statusColor,
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: statusColor.withAlpha(25),
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Text(
-                  daysRemaining >= 0 ? '$daysRemaining Days Left' : '0 Days Left',
-                  style: theme.textTheme.labelSmall?.copyWith(
+          SizedBox(
+            width: double.infinity,
+            child: Wrap(
+              alignment: WrapAlignment.spaceBetween,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              spacing: 8,
+              runSpacing: 6,
+              children: [
+                Text(
+                  statusTitle,
+                  style: theme.textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: statusColor,
                   ),
                 ),
-              ),
-            ],
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: statusColor.withAlpha(25),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Text(
+                    daysRemaining >= 0 ? '$daysRemaining Days Left' : '0 Days Left',
+                    style: theme.textTheme.labelSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: statusColor,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 14),
 
@@ -94,43 +100,52 @@ class WarrantyCountdownWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Purchase Date',
-                    style: theme.textTheme.labelSmall?.copyWith(
-                      color: isDark ? AppColors.gray400 : AppColors.gray500,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Purchase Date',
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.labelSmall?.copyWith(
+                        color: isDark ? AppColors.gray400 : AppColors.gray500,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    DateFormatter.formatDisplayDate(product.purchaseDate),
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: isDark ? AppColors.onSurfaceDark : AppColors.onSurfaceLight,
+                    const SizedBox(height: 2),
+                    Text(
+                      DateFormatter.formatDisplayDate(product.purchaseDate),
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: isDark ? AppColors.onSurfaceDark : AppColors.onSurfaceLight,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    'Expires On',
-                    style: theme.textTheme.labelSmall?.copyWith(
-                      color: isDark ? AppColors.gray400 : AppColors.gray500,
+              const SizedBox(width: 8),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      'Expires On',
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.labelSmall?.copyWith(
+                        color: isDark ? AppColors.gray400 : AppColors.gray500,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    DateFormatter.formatDisplayDate(product.warrantyExpiryDate),
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: isDark ? AppColors.onSurfaceDark : AppColors.onSurfaceLight,
+                    const SizedBox(height: 2),
+                    Text(
+                      DateFormatter.formatDisplayDate(product.warrantyExpiryDate),
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: isDark ? AppColors.onSurfaceDark : AppColors.onSurfaceLight,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),

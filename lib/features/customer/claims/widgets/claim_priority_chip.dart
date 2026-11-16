@@ -37,12 +37,16 @@ class ClaimPriorityChip extends StatelessWidget {
         children: [
           Icon(Icons.bolt, size: 14, color: color),
           const SizedBox(width: 3),
-          Text(
-            '$priority/100 • $label',
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.bold,
-              color: color,
+          Flexible(
+            child: Text(
+              '$priority/100 • $label',
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.bold,
+                color: color,
+              ),
             ),
           ),
         ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../core/constants/app_breakpoints.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/router/route_constants.dart';
 import '../notifications/controllers/notifications_controller.dart';
@@ -55,6 +56,116 @@ class CustomerShellScreen extends ConsumerWidget {
     final selectedIndex = _calculateSelectedIndex(context);
     final unreadCount = ref.watch(unreadNotificationsCountProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final width = MediaQuery.sizeOf(context).width;
+    final isMobile = width < AppBreakpoints.tabletMin;
+    final isDesktop = width >= AppBreakpoints.desktopMin;
+
+    if (!isMobile) {
+      return Scaffold(
+        body: Row(
+          children: [
+            NavigationRail(
+              selectedIndex: selectedIndex,
+              onDestinationSelected: (index) => _onItemTapped(index, context),
+              extended: isDesktop,
+              backgroundColor: isDark ? AppColors.surfaceDark : AppColors.surfaceLight,
+              indicatorColor: AppColors.primary.withAlpha(40),
+              leading: isDesktop
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.shield_outlined, color: AppColors.primary, size: 28),
+                          const SizedBox(width: 10),
+                          Text(
+                            'Claimly',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: isDark ? Colors.white : AppColors.onSurfaceLight,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16.0),
+                      child: Icon(Icons.shield_outlined, color: AppColors.primary, size: 28),
+                    ),
+              destinations: [
+                const NavigationRailDestination(
+                  icon: KeyedSubtree(
+                    key: Key('nav_item_home'),
+                    child: Icon(Icons.dashboard_outlined),
+                  ),
+                  selectedIcon: KeyedSubtree(
+                    key: Key('nav_item_home'),
+                    child: Icon(Icons.dashboard, color: AppColors.primary),
+                  ),
+                  label: Text('Home'),
+                ),
+                const NavigationRailDestination(
+                  icon: KeyedSubtree(
+                    key: Key('nav_item_products'),
+                    child: Icon(Icons.inventory_2_outlined),
+                  ),
+                  selectedIcon: KeyedSubtree(
+                    key: Key('nav_item_products'),
+                    child: Icon(Icons.inventory_2, color: AppColors.primary),
+                  ),
+                  label: Text('Products'),
+                ),
+                const NavigationRailDestination(
+                  icon: KeyedSubtree(
+                    key: Key('nav_item_claims'),
+                    child: Icon(Icons.assignment_outlined),
+                  ),
+                  selectedIcon: KeyedSubtree(
+                    key: Key('nav_item_claims'),
+                    child: Icon(Icons.assignment, color: AppColors.primary),
+                  ),
+                  label: Text('Claims'),
+                ),
+                NavigationRailDestination(
+                  icon: KeyedSubtree(
+                    key: const Key('nav_item_notifications'),
+                    child: Badge(
+                      key: const Key('nav_unread_badge'),
+                      isLabelVisible: unreadCount > 0,
+                      label: Text('$unreadCount'),
+                      child: const Icon(Icons.notifications_outlined),
+                    ),
+                  ),
+                  selectedIcon: KeyedSubtree(
+                    key: const Key('nav_item_notifications'),
+                    child: Badge(
+                      isLabelVisible: unreadCount > 0,
+                      label: Text('$unreadCount'),
+                      child: const Icon(Icons.notifications, color: AppColors.primary),
+                    ),
+                  ),
+                  label: const Text('Alerts'),
+                ),
+                const NavigationRailDestination(
+                  icon: KeyedSubtree(
+                    key: Key('nav_item_profile'),
+                    child: Icon(Icons.person_outline),
+                  ),
+                  selectedIcon: KeyedSubtree(
+                    key: Key('nav_item_profile'),
+                    child: Icon(Icons.person, color: AppColors.primary),
+                  ),
+                  label: Text('Profile'),
+                ),
+              ],
+            ),
+            const VerticalDivider(thickness: 1, width: 1),
+            Expanded(child: child),
+          ],
+        ),
+      );
+    }
 
     return Scaffold(
       body: child,
@@ -108,4 +219,3 @@ class CustomerShellScreen extends ConsumerWidget {
     );
   }
 }
-

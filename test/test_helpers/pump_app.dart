@@ -15,6 +15,7 @@ extension PumpAppTester on WidgetTester {
     ThemeData? theme,
     GoRouter? router,
     bool wrapScaffold = false,
+    TextScaler? textScaler,
   }) async {
     final mockSupabase = MockSupabaseClient();
     final mockAuth = MockGoTrueClient();
@@ -32,6 +33,16 @@ extension PumpAppTester on WidgetTester {
     final effectiveTheme = theme ?? AppTheme.lightTheme;
     final effectiveDarkTheme = theme ?? AppTheme.darkTheme;
 
+    Widget buildWithScaler(BuildContext context, Widget? child) {
+      if (textScaler != null) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(textScaler: textScaler),
+          child: child!,
+        );
+      }
+      return child!;
+    }
+
     if (router != null) {
       await pumpWidget(
         ProviderScope(
@@ -41,6 +52,7 @@ extension PumpAppTester on WidgetTester {
             darkTheme: effectiveDarkTheme,
             themeMode: themeMode,
             routerConfig: router,
+            builder: buildWithScaler,
           ),
         ),
       );
@@ -53,6 +65,7 @@ extension PumpAppTester on WidgetTester {
             darkTheme: effectiveDarkTheme,
             themeMode: themeMode,
             home: wrapScaffold ? Scaffold(body: widget) : widget,
+            builder: buildWithScaler,
           ),
         ),
       );

@@ -35,7 +35,7 @@ class DashboardKpiCard extends StatelessWidget {
         onTap: onTap,
         borderRadius: BorderRadius.circular(16.0),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -44,43 +44,50 @@ class DashboardKpiCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(8.0),
                     decoration: BoxDecoration(
                       color: color.withAlpha(30),
-                      borderRadius: BorderRadius.circular(12.0),
+                      borderRadius: BorderRadius.circular(10.0),
                     ),
-                    child: Icon(icon, color: color, size: 22.0),
+                    child: Icon(icon, color: color, size: 20.0),
                   ),
                   if (onTap != null)
                     Icon(
                       Icons.arrow_forward_ios,
-                      size: 14.0,
+                      size: 12.0,
                       color: isDark ? AppColors.gray500 : AppColors.gray400,
                     ),
                 ],
               ),
-              const SizedBox(height: 12),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    value,
-                    style: theme.textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: isDark ? AppColors.onSurfaceDark : AppColors.onSurfaceLight,
+              const SizedBox(height: 8),
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        value,
+                        style: theme.textTheme.headlineMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: isDark ? AppColors.onSurfaceDark : AppColors.onSurfaceLight,
+                        ),
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    title,
-                    style: theme.textTheme.labelMedium?.copyWith(
-                      color: isDark ? AppColors.gray400 : AppColors.gray600,
-                      fontWeight: FontWeight.w500,
+                    const SizedBox(height: 2),
+                    Text(
+                      title,
+                      style: theme.textTheme.labelMedium?.copyWith(
+                        color: isDark ? AppColors.gray400 : AppColors.gray600,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),

@@ -100,8 +100,10 @@ class ClaimTimelineWidget extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            Wrap(
+                              alignment: WrapAlignment.spaceBetween,
+                              spacing: 8,
+                              runSpacing: 4,
                               children: [
                                 StatusBadge(status: item.toStatus, fontSize: 11),
                                 Text(

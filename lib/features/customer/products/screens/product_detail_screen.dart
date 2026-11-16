@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../core/constants/app_breakpoints.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/router/route_constants.dart';
 import '../../../../core/utils/currency_formatter.dart';
 import '../../../../core/utils/date_formatter.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/loading_indicator.dart';
+import '../../../../core/widgets/responsive_content_wrapper.dart';
 import '../../../../core/widgets/status_badge.dart';
 import '../controllers/products_controller.dart';
 import '../models/product_model.dart';
@@ -123,6 +125,8 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
+    final width = MediaQuery.sizeOf(context).width;
+    final isSplitView = width >= 800;
 
     if (_isLoading) {
       return Scaffold(
@@ -157,9 +161,142 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
 
     final product = _product!;
 
+    final leftOverview = Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        // Image & Header Card
+        if (product.imageUrl != null && product.imageUrl!.isNotEmpty)
+          ClipRRect(
+            borderRadius: BorderRadius.circular(16.0),
+            child: Image.network(
+              product.imageUrl!,
+              height: 200,
+              width: double.infinity,
+              fit: BoxFit.cover,
+              errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+            ),
+          ),
+        if (product.imageUrl != null && product.imageUrl!.isNotEmpty)
+          const SizedBox(height: 16),
+
+        // Name, Category & Status Badge
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    product.name,
+                    style: theme.textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: isDark ? AppColors.onBackgroundDark : AppColors.onBackgroundLight,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    product.category,
+                    style: theme.textTheme.titleSmall?.copyWith(
+                      color: AppColors.primary,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            StatusBadge.fromWarrantyStatus(
+              product.status,
+              key: const Key('product_status_badge'),
+            ),
+          ],
+        ),
+        const SizedBox(height: 20),
+
+        // Warranty Countdown Widget
+        WarrantyCountdownWidget(product: product),
+        const SizedBox(height: 20),
+
+        // Receipt Section
+        if (product.receiptUrl != null && product.receiptUrl!.isNotEmpty) ...[
+          OutlinedButton.icon(
+            icon: const Icon(Icons.receipt_long),
+            label: const Text('View Purchase Receipt'),
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Receipt document ready for viewing')),
+              );
+            },
+          ),
+          const SizedBox(height: 16),
+        ],
+
+        // Action: File Claim
+        AppButton(
+          text: 'File a Claim for this Product',
+          icon: const Icon(Icons.assignment_add),
+          onPressed: () {
+            context.push('${RouteConstants.claimWizard}?productId=${product.id}');
+          },
+        ),
+      ],
+    );
+
+    final specificationsCard = Container(
+      padding: const EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        color: isDark ? AppColors.surfaceDark : AppColors.surfaceLight,
+        borderRadius: BorderRadius.circular(16.0),
+        border: Border.all(
+          color: isDark ? AppColors.borderDark : AppColors.borderLight,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Specifications',
+            style: theme.textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: isDark ? AppColors.onSurfaceDark : AppColors.onSurfaceLight,
+            ),
+          ),
+          const Divider(height: 24),
+          _specRow('Brand', product.brand ?? '—', isDark),
+          _specRow('Model Number', product.modelNumber ?? '—', isDark),
+          _specRow('Serial Number', product.serialNumber ?? '—', isDark),
+          _specRow('Retailer', product.retailer ?? '—', isDark),
+          if (product.price != null)
+            _specRow('Purchase Price', CurrencyFormatter.format(product.price!), isDark),
+          _specRow('Purchase Date', DateFormatter.formatDisplayDate(product.purchaseDate), isDark),
+          _specRow('Warranty Expiry', DateFormatter.formatDisplayDate(product.warrantyExpiryDate), isDark),
+          _specRow('Warranty Period', '${product.warrantyPeriodMonths} Months', isDark),
+          if (product.notes != null && product.notes!.isNotEmpty) ...[
+            const SizedBox(height: 8),
+            Text(
+              'Notes',
+              style: TextStyle(
+                fontSize: 12,
+                color: isDark ? AppColors.gray400 : AppColors.gray600,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              product.notes!,
+              style: TextStyle(
+                fontSize: 14,
+                color: isDark ? AppColors.onSurfaceDark : AppColors.onSurfaceLight,
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(product.name),
+        title: Text(product.name, overflow: TextOverflow.ellipsis),
         actions: [
           IconButton(
             key: const Key('product_delete_btn'),
@@ -170,139 +307,33 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
         ],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // Image & Header Card
-            if (product.imageUrl != null && product.imageUrl!.isNotEmpty)
-              ClipRRect(
-                borderRadius: BorderRadius.circular(16.0),
-                child: Image.network(
-                  product.imageUrl!,
-                  height: 200,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                  errorBuilder: (_, __, ___) => const SizedBox.shrink(),
-                ),
-              ),
-            const SizedBox(height: 16),
-
-            // Name, Category & Status Badge
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        product.name,
-                        style: theme.textTheme.headlineSmall?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: isDark ? AppColors.onBackgroundDark : AppColors.onBackgroundLight,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        product.category,
-                        style: theme.textTheme.titleSmall?.copyWith(
-                          color: AppColors.primary,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                StatusBadge.fromWarrantyStatus(
-                  product.status,
-                  key: const Key('product_status_badge'),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-
-            // Warranty Countdown Widget
-            WarrantyCountdownWidget(product: product),
-            const SizedBox(height: 20),
-
-            // Product Specifications Card
-            Container(
-              padding: const EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
-                color: isDark ? AppColors.surfaceDark : AppColors.surfaceLight,
-                borderRadius: BorderRadius.circular(16.0),
-                border: Border.all(
-                  color: isDark ? AppColors.borderDark : AppColors.borderLight,
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Specifications',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: isDark ? AppColors.onSurfaceDark : AppColors.onSurfaceLight,
+        padding: const EdgeInsets.symmetric(vertical: 16.0),
+        child: ResponsiveContentWrapper(
+          maxWidth: AppBreakpoints.maxContentWidth,
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: isSplitView
+              ? Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      flex: 5,
+                      child: leftOverview,
                     ),
-                  ),
-                  const Divider(height: 24),
-                  _specRow('Brand', product.brand ?? '—', isDark),
-                  _specRow('Model Number', product.modelNumber ?? '—', isDark),
-                  _specRow('Serial Number', product.serialNumber ?? '—', isDark),
-                  _specRow('Retailer', product.retailer ?? '—', isDark),
-                  if (product.price != null)
-                    _specRow('Purchase Price', CurrencyFormatter.format(product.price!), isDark),
-                  _specRow('Purchase Date', DateFormatter.formatDisplayDate(product.purchaseDate), isDark),
-                  _specRow('Warranty Expiry', DateFormatter.formatDisplayDate(product.warrantyExpiryDate), isDark),
-                  _specRow('Warranty Period', '${product.warrantyPeriodMonths} Months', isDark),
-                  if (product.notes != null && product.notes!.isNotEmpty) ...[
-                    const SizedBox(height: 8),
-                    Text(
-                      'Notes',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: isDark ? AppColors.gray400 : AppColors.gray600,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      product.notes!,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: isDark ? AppColors.onSurfaceDark : AppColors.onSurfaceLight,
-                      ),
+                    const SizedBox(width: 24),
+                    Expanded(
+                      flex: 5,
+                      child: specificationsCard,
                     ),
                   ],
-                ],
-              ),
-            ),
-            const SizedBox(height: 20),
-
-            // Receipt Section
-            if (product.receiptUrl != null && product.receiptUrl!.isNotEmpty) ...[
-              OutlinedButton.icon(
-                icon: const Icon(Icons.receipt_long),
-                label: const Text('View Purchase Receipt'),
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Receipt document ready for viewing')),
-                  );
-                },
-              ),
-              const SizedBox(height: 16),
-            ],
-
-            // Action: File Claim
-            AppButton(
-              text: 'File a Claim for this Product',
-              icon: const Icon(Icons.assignment_add),
-              onPressed: () {
-                context.push('${RouteConstants.claimWizard}?productId=${product.id}');
-              },
-            ),
-          ],
+                )
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    leftOverview,
+                    const SizedBox(height: 20),
+                    specificationsCard,
+                  ],
+                ),
         ),
       ),
     );
@@ -314,19 +345,29 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 13,
-              color: isDark ? AppColors.gray400 : AppColors.gray600,
+          Flexible(
+            flex: 2,
+            child: Text(
+              label,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: 13,
+                color: isDark ? AppColors.gray400 : AppColors.gray600,
+              ),
             ),
           ),
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-              color: isDark ? AppColors.onSurfaceDark : AppColors.onSurfaceLight,
+          const SizedBox(width: 12),
+          Flexible(
+            flex: 3,
+            child: Text(
+              value,
+              textAlign: TextAlign.end,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: isDark ? AppColors.onSurfaceDark : AppColors.onSurfaceLight,
+              ),
             ),
           ),
         ],

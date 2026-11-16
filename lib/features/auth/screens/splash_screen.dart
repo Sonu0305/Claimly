@@ -62,9 +62,11 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     return Scaffold(
       backgroundColor: isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
             Container(
               width: 96,
               height: 96,
@@ -106,6 +108,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
           ],
         ),
       ),
-    );
+    ),
+  );
   }
 }
