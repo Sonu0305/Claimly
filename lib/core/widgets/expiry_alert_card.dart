@@ -106,6 +106,7 @@ class ExpiryAlertCard extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: urgency.buttonColor,
                         foregroundColor: Colors.white,
+                        minimumSize: const Size(0, 36.0),
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16.0,
                           vertical: 8.0,

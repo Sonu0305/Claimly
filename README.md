@@ -124,7 +124,8 @@ Claimly/
 ├── integration_test/                           # Headless Flutter integration test suites
 └── tool/
     ├── run_e2e_tests.sh                        # Master automated test runner CLI
-    └── seed_test_db.sh                         # Database seeding and fixture management utility
+    ├── seed_test_db.sh                         # Database seeding and fixture management utility
+    └── seed_demo_data.sh                       # Presentation & demo multi-persona data seeder
 ```
 
 ---
@@ -200,6 +201,7 @@ Explore the comprehensive project documentation in the `docs/` folder:
 - **[Project Engineering Report](docs/PROJECT_REPORT.md)**: 8-Chapter comprehensive academic/engineering report including literature survey, requirements analysis, 6 Mermaid design diagrams, implementation specifications, verified test case matrix, and security audit.
 - **[API & Database Documentation](docs/API_DOCUMENTATION.md)**: Complete database schema reference, custom enums, SQL functions, triggers, 37 Row Level Security (RLS) policies, storage buckets, and Edge Function JSON contracts.
 - **[Setup & Deployment Guide](docs/SETUP_GUIDE.md)**: Step-by-step developer setup, database migration, Edge Function deployment, and test execution instructions.
+- **[Live Presentation & Demo Walkthrough](docs/DEMO_WALKTHROUGH.md)**: Stage-ready 4-act live presentation script with realistic test personas, real-time WebSocket sync demo, and PDF export guide.
 - **[User & Administrator Manual](docs/USER_MANUAL.md)**: Screen-by-screen walkthrough for customers and administrators, 5-step wizard guide, and 10 troubleshooting FAQs.
 
 ---
