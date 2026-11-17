@@ -26,6 +26,9 @@ if [ $# -gt 0 ]; then
     --seed)
       ACTION="seed"
       ;;
+    --demo)
+      exec "$SCRIPT_DIR/seed_demo_data.sh" --seed
+      ;;
     --clean)
       ACTION="clean"
       ;;
@@ -33,7 +36,7 @@ if [ $# -gt 0 ]; then
       ACTION="verify"
       ;;
     -h|--help)
-      echo "Usage: $(basename "$0") [--seed | --clean | --verify]"
+      echo "Usage: $(basename "$0") [--seed | --demo | --clean | --verify]"
       exit 0
       ;;
     *)
