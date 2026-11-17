@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Background Gradient: Rich Electric Blue to Deep Indigo -->
+    <linearGradient id="claimlyBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="42%" stop-color="#2563EB"/>
+      <stop offset="78%" stop-color="#1D4ED8"/>
+      <stop offset="100%" stop-color="#1E3A8A"/>
+    </linearGradient>
+
+    <!-- Top Gloss Sheen -->
+    <linearGradient id="topSheen" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.28"/>
+      <stop offset="45%" stop-color="#FFFFFF" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Squircle Border Highlight -->
+    <linearGradient id="squircleBorder" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#93C5FD" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#1E40AF" stop-opacity="0.15"/>
+    </linearGradient>
+
+    <!-- Shield Plate Gradient -->
+    <linearGradient id="shieldPlate" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F1F5F9"/>
+    </linearGradient>
+
+    <!-- Checkmark Gradient: Claimly Royal Blue to Deep Navy -->
+    <linearGradient id="checkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#1E40AF"/>
+    </linearGradient>
+
+    <!-- Shadow for Shield Plate -->
+    <filter id="shieldShadow" x="-20%" y="-15%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#0F172A" flood-opacity="0.38"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0F172A" flood-opacity="0.18"/>
+    </filter>
+
+    <!-- Shadow for Checkmark -->
+    <filter id="checkShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#0F172A" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+
+  <!-- Squircle Base -->
+  <rect x="20" y="20" width="472" height="472" rx="108" fill="url(#claimlyBg)"/>
+
+  <!-- Top Glass Highlight -->
+  <rect x="20" y="20" width="472" height="236" rx="108" fill="url(#topSheen)"/>
+
+  <!-- Inner Stroke Highlight -->
+  <rect x="21.5" y="21.5" width="469" height="469" rx="106.5" fill="none" stroke="url(#squircleBorder)" stroke-width="3"/>
+
+  <!-- Shield Shape (Golden ratio curves, optically centered) -->
+  <g filter="url(#shieldShadow)">
+    <path d="M 256, 84
+             C 334, 84 388, 108 396, 114
+             C 396, 252 344, 364 256, 418
+             C 168, 364 116, 252 116, 114
+             C 124, 108 178, 84 256, 84 Z"
+          fill="url(#shieldPlate)"/>
+    <path d="M 256, 86
+             C 332, 86 385, 110 393, 115
+             C 393, 250 342, 360 256, 414
+             C 170, 360 119, 250 119, 115
+             C 127, 110 180, 86 256, 86 Z"
+          fill="none" stroke="#E2E8F0" stroke-width="2" opacity="0.6"/>
+  </g>
+
+  <!-- High-Precision Verification Checkmark -->
+  <g filter="url(#checkShadow)">
+    <path d="M 198, 246
+             L 240, 288
+             L 320, 196"
+          fill="none"
+          stroke="url(#checkGrad)"
+          stroke-width="38"
+          stroke-linecap="round"
+          stroke-linejoin="round"/>
+  </g>
+</svg>
