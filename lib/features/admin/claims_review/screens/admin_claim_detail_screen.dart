@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/constants/app_breakpoints.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/network/supabase_client.dart';
+import '../../../../core/utils/date_formatter.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/app_text_field.dart';
 import '../../../../core/widgets/loading_indicator.dart';
@@ -65,7 +66,7 @@ class _AdminClaimDetailScreenState extends ConsumerState<AdminClaimDetailScreen>
           .from('claims')
           .select('''
             *,
-            profiles!claims_user_id_fkey(id, full_name, email, phone_number),
+            profiles!claims_user_id_fkey(id, full_name, phone_number, avatar_url),
             products!claims_product_id_fkey(id, name, brand, model_number, serial_number, warranty_expiry_date),
             claim_attachments(*),
             claim_timeline(*)
@@ -97,27 +98,17 @@ class _AdminClaimDetailScreenState extends ConsumerState<AdminClaimDetailScreen>
 
     try {
       final client = ref.read(supabaseClientProvider);
-      final currentUserId = client.auth.currentUser?.id;
 
       await client.from('claims').update({
         'status': _selectedStatus,
         'priority': _priority.toInt(),
         'admin_notes': _adminNotesController.text.trim().isEmpty ? null : _adminNotesController.text.trim(),
         'resolution_notes': _resolutionNotesController.text.trim().isEmpty ? null : _resolutionNotesController.text.trim(),
+        'resolved_at': (_selectedStatus == 'approved' || _selectedStatus == 'rejected' || _selectedStatus == 'resolved')
+            ? DateTime.now().toIso8601String()
+            : null,
         'updated_at': DateTime.now().toIso8601String(),
       }).eq('id', widget.claimId);
-
-      // Audit log entry
-      if (currentUserId != null) {
-        await client.from('claim_timeline').insert({
-          'claim_id': widget.claimId,
-          'status': _selectedStatus,
-          'title': 'Status Updated by Administrator',
-          'description': 'Claim status set to $_selectedStatus. Priority: ${_priority.toInt()}. Notes: ${_resolutionNotesController.text.trim()}',
-          'created_by': currentUserId,
-          'created_at': DateTime.now().toIso8601String(),
-        });
-      }
 
       if (!mounted) return;
 
@@ -175,7 +166,13 @@ class _AdminClaimDetailScreenState extends ConsumerState<AdminClaimDetailScreen>
     final profile = claim['profiles'] as Map<String, dynamic>?;
     final product = claim['products'] as Map<String, dynamic>?;
     final attachments = claim['claim_attachments'] as List<dynamic>? ?? [];
-    final timeline = claim['claim_timeline'] as List<dynamic>? ?? [];
+    final rawTimeline = claim['claim_timeline'] as List<dynamic>? ?? [];
+    final timeline = List<dynamic>.from(rawTimeline)
+      ..sort((a, b) {
+        final aTime = DateTime.tryParse(a['created_at']?.toString() ?? '') ?? DateTime(1970);
+        final bTime = DateTime.tryParse(b['created_at']?.toString() ?? '') ?? DateTime(1970);
+        return bTime.compareTo(aTime);
+      });
 
     final leftOverview = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -326,26 +323,56 @@ class _AdminClaimDetailScreenState extends ConsumerState<AdminClaimDetailScreen>
                   ),
                 ),
                 const SizedBox(height: 12),
-                ...timeline.map((t) => Padding(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Icon(Icons.history, size: 16, color: AppColors.gray400),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(t['title'] as String? ?? '', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-                            if (t['description'] != null)
-                              Text(t['description'] as String, style: TextStyle(fontSize: 11, color: isDark ? AppColors.gray400 : AppColors.gray600)),
-                          ],
+                ...timeline.map((t) {
+                  final toStatus = t['to_status'] as String? ?? 'submitted';
+                  final notes = t['notes'] as String?;
+                  final createdAt = t['created_at'] != null ? DateTime.tryParse(t['created_at'].toString()) : null;
+
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(top: 2.0),
+                          child: Icon(Icons.history, size: 16, color: AppColors.primary),
                         ),
-                      ),
-                    ],
-                  ),
-                )),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  StatusBadge(status: toStatus, fontSize: 11),
+                                  const Spacer(),
+                                  if (createdAt != null)
+                                    Text(
+                                      DateFormatter.formatDateTime(createdAt),
+                                      style: TextStyle(
+                                        fontSize: 11,
+                                        color: isDark ? AppColors.gray400 : AppColors.gray500,
+                                      ),
+                                    ),
+                                ],
+                              ),
+                              if (notes != null && notes.isNotEmpty) ...[
+                                const SizedBox(height: 4),
+                                Text(
+                                  notes,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: isDark ? AppColors.gray300 : AppColors.gray700,
+                                  ),
+                                ),
+                              ],
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
               ],
             ),
           ),
