@@ -1,0 +1,12 @@
+{
+  "name": "claimly",
+  "version": "1.0.0",
+  "description": "Claimly: Automated Warranty & Refund Claim Assistant",
+  "private": true,
+  "scripts": {
+    "build": "./vercel-build.sh",
+    "deploy": "vercel --prod",
+    "test": "flutter test",
+    "analyze": "flutter analyze"
+  }
+}

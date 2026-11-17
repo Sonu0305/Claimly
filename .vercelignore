@@ -1,0 +1,39 @@
+# Ignore Dart / Flutter heavy caches
+.dart_tool/
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+
+# Ignore native platform builds
+build/linux/
+build/test_cache/
+build/native_assets/
+build/native_hooks/
+build/unit_test_assets/
+build/flutter_assets/
+build/*.dill
+build/*.bin.d
+linux/
+android/
+ios/
+windows/
+macos/
+
+# Tests & Tools
+test/
+integration_test/
+tool/
+docs/
+
+# IDE & Editor files
+.idea/
+*.iml
+.vscode/
+
+# Git & Logs
+.git/
+*.log
+
+# Sensitive environment files
+.env
+.env.local
