@@ -3,9 +3,16 @@
 [![Flutter](https://img.shields.io/badge/Flutter-3.38.9-02569B?logo=flutter)](https://flutter.dev)
 [![Dart](https://img.shields.io/badge/Dart-3.10.0-0175C2?logo=dart)](https://dart.dev)
 [![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL%2017-3ECF8E?logo=supabase)](https://supabase.com)
+[![Vercel Deployment](https://img.shields.io/badge/Vercel-claimly--neon.vercel.app-000000?logo=vercel&logoColor=white)](https://claimly-neon.vercel.app)
 [![Tests Passing](https://img.shields.io/badge/Tests-123%20Unit%2FWidget%20%7C%2030%20E2E%20Passed-brightgreen)](test/)
 [![Analysis Clean](https://img.shields.io/badge/flutter%20analyze-0%20errors%20%7C%200%20warnings-brightgreen)](analysis_options.yaml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+> **Live Production Deployment**: [https://claimly-neon.vercel.app](https://claimly-neon.vercel.app)
+> 
+> **Demo Accounts**:
+> - **Customer**: `sarah.jenkins@claimly.com` / `SecureP@ss2026!`
+> - **Admin**: `marcus.admin@claimly.com` / `AdminSecret2026!`
 
 **Claimly** is an automated warranty and refund claim assistant mobile and desktop application. Engineered with **Flutter 3.x** and **Supabase**, Claimly centralizes product purchases, monitors warranty expiration deadlines, automates priority triage scoring, enables client-side PDF claim dossier export, and synchronizes real-time status updates between consumers and retail store administrators.
 
@@ -165,6 +172,21 @@ flutter run -d linux
 # Android Device / Emulator
 flutter run -d <device-id>
 ```
+
+### 5. Production Web Deployment (Vercel)
+The web application is automated for zero-config CI/CD on Vercel using `vercel.json` and `vercel-build.sh`:
+```bash
+# Build locally or on CI
+npm run build
+
+# Deploy to Vercel Production
+npm run deploy:prod
+```
+The Vercel deployment features:
+- Automated single-page application (SPA) routing with HTML5 clean URLs (`usePathUrlStrategy()`)
+- Deep linking support (`/login`, `/customer/home`, `/customer/products`, `/admin/dashboard`, etc.)
+- Security headers (`X-Frame-Options: SAMEORIGIN`, `X-Content-Type-Options: nosniff`, `Referrer-Policy`)
+- Immutable static caching for CanvasKit, WASM, fonts, and assets with instant invalidation for `index.html` and `flutter_bootstrap.js`
 
 ---
 

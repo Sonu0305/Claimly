@@ -36,8 +36,15 @@ echo "==> Fetching Flutter dependencies..."
 flutter pub get
 
 # 3. Compile Flutter Web release with Supabase environment variables injected
-SUPABASE_URL="${SUPABASE_URL:-https://kvxfkfgzsapvvswjcmzj.supabase.co}"
-SUPABASE_ANON_KEY="${SUPABASE_ANON_KEY:-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt2eGZrZmd6c2FwdnZzd2pjbXpqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ0MTA0MjIsImV4cCI6MjEwOTk4NjQyMn0.aONMvkR-_3u5XP8OaJJgpaihqjrwPGqcfy9ibOJbd7o}"
+SUPABASE_URL="${SUPABASE_URL:-}"
+if [ -z "$SUPABASE_URL" ] || [ "$SUPABASE_URL" = "[SENSITIVE]" ]; then
+  SUPABASE_URL="https://kvxfkfgzsapvvswjcmzj.supabase.co"
+fi
+
+SUPABASE_ANON_KEY="${SUPABASE_ANON_KEY:-}"
+if [ -z "$SUPABASE_ANON_KEY" ] || [ "$SUPABASE_ANON_KEY" = "[SENSITIVE]" ]; then
+  SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt2eGZrZmd6c2FwdnZzd2pjbXpqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ0MTA0MjIsImV4cCI6MjEwOTk4NjQyMn0.aONMvkR-_3u5XP8OaJJgpaihqjrwPGqcfy9ibOJbd7o"
+fi
 
 echo "==> Compiling Web Release bundle..."
 flutter build web --release \

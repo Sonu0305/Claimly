@@ -7,6 +7,7 @@
     "build": "./vercel-build.sh",
     "deploy": "vercel --prod",
     "test": "flutter test",
-    "analyze": "flutter analyze"
+    "analyze": "flutter analyze",
+    "verify:prod": "python3 tool/verify_production.py"
   }
 }
