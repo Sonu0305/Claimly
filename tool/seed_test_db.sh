@@ -350,152 +350,167 @@ Future<void> runSeed(SeedClient client) async {
     stderr.writeln('Warning during pre-seed cleanup: $e');
   }
 
-  // Step 2: Create Sarah Jenkins (Customer)
+  // Step 2: Create Sarah Jenkins (Customer - both @claimly-test.com and @claimly.com)
   print('Step 2: Provisioning Sarah Jenkins (Customer)...');
-  final sarahAuth = await client.createAdminUser(
-    email: 'sarah.jenkins@claimly-test.com',
-    password: 'SecureP@ss2026!',
-    fullName: 'Sarah Jenkins',
-    role: 'customer',
-    phone: '+1-555-0144',
-  );
-  final sarahId = sarahAuth['id'] as String;
-  print('  ✓ Created Sarah Jenkins: $sarahId');
-
-  // Step 3: Create Marcus Vance (Admin)
-  print('Step 3: Provisioning Marcus Vance (Admin)...');
-  final marcusAuth = await client.createAdminUser(
-    email: 'marcus.admin@claimly-test.com',
-    password: 'AdminSecret2026!',
-    fullName: 'Marcus Vance',
-    role: 'admin',
-    phone: '+1-555-0800',
-  );
-  final marcusId = marcusAuth['id'] as String;
-
-  // Upgrade Marcus profile role to 'admin' using service_role
-  final adminPatchRes = await client.updateRow('profiles', 'id=eq.$marcusId', {'role': 'admin'});
-  if (!adminPatchRes.isSuccess) {
-    stderr.writeln('Failed to set admin role for Marcus: ${adminPatchRes.body}');
-    exit(1);
+  final sarahEmails = ['sarah.jenkins@claimly-test.com', 'sarah.jenkins@claimly.com'];
+  final sarahIds = <String>[];
+  for (final email in sarahEmails) {
+    final sarahAuth = await client.createAdminUser(
+      email: email,
+      password: 'SecureP@ss2026!',
+      fullName: 'Sarah Jenkins',
+      role: 'customer',
+      phone: '+1-555-0144',
+    );
+    final sId = sarahAuth['id'] as String;
+    sarahIds.add(sId);
+    print('  ✓ Created Sarah Jenkins ($email): $sId');
   }
-  print('  ✓ Created & Elevated Marcus Vance to Admin: $marcusId');
+  final sarahId = sarahIds[0];
 
-  // Step 4: Create John Doe (Customer)
-  print('Step 4: Provisioning John Doe (Customer)...');
-  final johnAuth = await client.createAdminUser(
-    email: 'john.customer@claimly-test.com',
-    password: 'CustomerPass123!',
-    fullName: 'John Doe',
-    role: 'customer',
-    phone: '+1-555-0188',
-  );
-  final johnId = johnAuth['id'] as String;
-  print('  ✓ Created John Doe: $johnId');
-
-  // Step 5: Seed Products for Sarah Jenkins
-  print('Step 5: Seeding 4 deterministic products for Sarah Jenkins...');
-  final products = [
-    {
-      'user_id': sarahId,
-      'name': 'Apple MacBook Pro 16"',
-      'category': 'Electronics',
-      'brand': 'Apple',
-      'model_number': 'M3 Max',
-      'serial_number': 'C02XYZ1234',
-      'purchase_date': '2026-03-01',
-      'warranty_period_months': 36,
-      'warranty_expiry_date': '2029-03-01',
-    },
-    {
-      'user_id': sarahId,
-      'name': 'Dell UltraSharp 27" Monitor',
-      'category': 'Electronics',
-      'brand': 'Dell',
-      'model_number': 'U2723QE',
-      'serial_number': 'CN-827391-A',
-      'purchase_date': '2025-11-25',
-      'warranty_period_months': 12,
-      'warranty_expiry_date': '2026-11-25',
-    },
-    {
-      'user_id': sarahId,
-      'name': 'Dyson V15 Detect Vacuum',
-      'category': 'Home Appliances',
-      'brand': 'Dyson',
-      'model_number': 'V15',
-      'serial_number': 'DY-9812-V15',
-      'purchase_date': '2024-10-01',
-      'warranty_period_months': 24,
-      'warranty_expiry_date': '2026-10-01',
-    },
-    {
-      'user_id': sarahId,
-      'name': 'Sony WH-1000XM5 Headphones',
-      'category': 'Electronics',
-      'brand': 'Sony',
-      'model_number': 'WH-1000XM5',
-      'serial_number': 'SN-WH-9921',
-      'purchase_date': '2025-11-06',
-      'warranty_period_months': 12,
-      'warranty_expiry_date': '2026-11-06',
-    },
-  ];
-
-  final createdProductIds = <String>[];
-  for (final prod in products) {
-    final pRes = await client.insertRow('products', prod);
-    if (!pRes.isSuccess) {
-      stderr.writeln('Failed to insert product ${prod['name']}: ${pRes.body}');
+  // Step 3: Create Marcus Vance (Admin - both @claimly-test.com and @claimly.com)
+  print('Step 3: Provisioning Marcus Vance (Admin)...');
+  final marcusEmails = ['marcus.admin@claimly-test.com', 'marcus.admin@claimly.com'];
+  final marcusIds = <String>[];
+  for (final email in marcusEmails) {
+    final marcusAuth = await client.createAdminUser(
+      email: email,
+      password: 'AdminSecret2026!',
+      fullName: 'Marcus Vance',
+      role: 'admin',
+      phone: '+1-555-0800',
+    );
+    final mId = marcusAuth['id'] as String;
+    marcusIds.add(mId);
+    final adminPatchRes = await client.updateRow('profiles', 'id=eq.$mId', {'role': 'admin'});
+    if (!adminPatchRes.isSuccess) {
+      stderr.writeln('Failed to set admin role for Marcus ($email): ${adminPatchRes.body}');
       exit(1);
     }
-    final pData = pRes.json as List;
-    final pid = pData[0]['id'] as String;
-    createdProductIds.add(pid);
-    print('  ✓ Seeded Product: ${prod['name']} (ID: $pid)');
+    print('  ✓ Created & Elevated Marcus Vance ($email): $mId');
+  }
+  final marcusId = marcusIds[0];
+
+  // Step 4: Create John Doe (Customer - both @claimly-test.com and @claimly.com)
+  print('Step 4: Provisioning John Doe (Customer)...');
+  final johnEmails = ['john.customer@claimly-test.com', 'john.customer@claimly.com'];
+  for (final email in johnEmails) {
+    final johnAuth = await client.createAdminUser(
+      email: email,
+      password: 'CustomerPass123!',
+      fullName: 'John Doe',
+      role: 'customer',
+      phone: '+1-555-0188',
+    );
+    print('  ✓ Created John Doe ($email): ${johnAuth['id']}');
   }
 
-  // Step 6: Seed Claim for Sarah on Product 2 (Dell Monitor)
-  print('Step 6: Seeding initial warranty claim...');
-  final dellMonitorId = createdProductIds[1];
-  final claimPayload = {
-    'user_id': sarahId,
-    'product_id': dellMonitorId,
-    'type': 'warranty',
-    'status': 'submitted',
-    'title': 'Screen horizontal line defect',
-    'description': 'Horizontal flickering lines appear after 30 minutes of display operation.',
-    'incident_date': '2026-11-01',
-    'priority': 50,
-  };
+  // Step 5: Seed Products for Sarah Jenkins (both accounts)
+  print('Step 5: Seeding deterministic products for Sarah Jenkins...');
+  String? firstClaimId;
+  String? firstDellId;
 
-  final claimRes = await client.insertRow('claims', claimPayload);
-  if (!claimRes.isSuccess) {
-    stderr.writeln('Failed to insert sample claim: ${claimRes.body}');
-    exit(1);
-  }
-  final claimData = claimRes.json as List;
-  final claimNumber = claimData[0]['claim_number'] as String;
-  final claimId = claimData[0]['id'] as String;
-  print('  ✓ Seeded Claim: $claimNumber (ID: $claimId, Status: submitted)');
+  for (final targetSarahId in sarahIds) {
+    final products = [
+      {
+        'user_id': targetSarahId,
+        'name': 'Apple MacBook Pro 16"',
+        'category': 'Electronics',
+        'brand': 'Apple',
+        'model_number': 'M3 Max',
+        'serial_number': 'C02XYZ1234',
+        'purchase_date': '2026-03-01',
+        'warranty_period_months': 36,
+        'warranty_expiry_date': '2029-03-01',
+      },
+      {
+        'user_id': targetSarahId,
+        'name': 'Dell UltraSharp 27" Monitor',
+        'category': 'Electronics',
+        'brand': 'Dell',
+        'model_number': 'U2723QE',
+        'serial_number': 'CN-827391-A',
+        'purchase_date': '2025-11-25',
+        'warranty_period_months': 12,
+        'warranty_expiry_date': '2026-11-25',
+      },
+      {
+        'user_id': targetSarahId,
+        'name': 'Dyson V15 Detect Vacuum',
+        'category': 'Home Appliances',
+        'brand': 'Dyson',
+        'model_number': 'V15',
+        'serial_number': 'DY-9812-V15',
+        'purchase_date': '2024-10-01',
+        'warranty_period_months': 24,
+        'warranty_expiry_date': '2026-10-01',
+      },
+      {
+        'user_id': targetSarahId,
+        'name': 'Sony WH-1000XM5 Headphones',
+        'category': 'Electronics',
+        'brand': 'Sony',
+        'model_number': 'WH-1000XM5',
+        'serial_number': 'SN-WH-9921',
+        'purchase_date': '2025-11-06',
+        'warranty_period_months': 12,
+        'warranty_expiry_date': '2026-11-06',
+      },
+    ];
 
-  // Step 7: Seed Notification for Sarah
-  print('Step 7: Seeding initial notification...');
-  final notifPayload = {
-    'user_id': sarahId,
-    'claim_id': claimId,
-    'type': 'warranty_expiry',
-    'title': 'Warranty Expiring Soon',
-    'message': 'Your Dell UltraSharp 27" Monitor warranty expires in 14 days.',
-    'is_read': false,
-    'metadata': {'product_id': dellMonitorId, 'days_remaining': 14},
-  };
-  final notifRes = await client.insertRow('notifications', notifPayload);
-  if (!notifRes.isSuccess) {
-    stderr.writeln('Failed to insert sample notification: ${notifRes.body}');
-    exit(1);
+    final createdProductIds = <String>[];
+    for (final prod in products) {
+      final pRes = await client.insertRow('products', prod);
+      if (!pRes.isSuccess) {
+        stderr.writeln('Failed to insert product ${prod['name']}: ${pRes.body}');
+        exit(1);
+      }
+      final pData = pRes.json as List;
+      final pid = pData[0]['id'] as String;
+      createdProductIds.add(pid);
+      print('  ✓ Seeded Product for $targetSarahId: ${prod['name']} (ID: $pid)');
+    }
+
+    // Step 6: Seed Claim for Sarah on Product 2 (Dell Monitor)
+    print('Step 6: Seeding initial warranty claim...');
+    final dellMonitorId = createdProductIds[1];
+    firstDellId ??= dellMonitorId;
+
+    final claimPayload = {
+      'user_id': targetSarahId,
+      'product_id': dellMonitorId,
+      'type': 'warranty',
+      'status': 'submitted',
+      'title': 'Screen horizontal line defect',
+      'description': 'Horizontal flickering lines appear after 30 minutes of display operation.',
+      'incident_date': '2026-11-01',
+      'priority': 50,
+    };
+
+    final claimRes = await client.insertRow('claims', claimPayload);
+    if (!claimRes.isSuccess) {
+      stderr.writeln('Failed to insert sample claim: ${claimRes.body}');
+      exit(1);
+    }
+    final claimData = claimRes.json as List;
+    final claimNumber = claimData[0]['claim_number'] as String;
+    final claimId = claimData[0]['id'] as String;
+    firstClaimId ??= claimId;
+    print('  ✓ Seeded Claim: $claimNumber (ID: $claimId, Status: submitted)');
+
+    // Step 7: Seed Notification
+    final notifPayload = {
+      'user_id': targetSarahId,
+      'claim_id': claimId,
+      'type': 'warranty_expiry',
+      'title': 'Warranty Expiring Soon',
+      'message': 'Your Dell UltraSharp 27" Monitor warranty expires in 14 days.',
+      'is_read': false,
+      'metadata': {'product_id': dellMonitorId, 'days_remaining': 14},
+    };
+    await client.insertRow('notifications', notifPayload);
+    print('  ✓ Seeded Notification for $targetSarahId');
   }
-  print('  ✓ Seeded Notification for Sarah Jenkins');
 
   // Step 8: Verify Seeded Entities
   print('Step 8: Verifying seeded fixtures in Supabase...');
