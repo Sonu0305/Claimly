@@ -68,6 +68,10 @@ echo -e "${BLUE}Target Supabase instance: ${SUPABASE_URL}${NC}"
 python3 - << 'EOF' "$ACTION" "$SUPABASE_URL" "$SERVICE_ROLE"
 import sys
 import json
+import time
+import socket
+import struct
+import subprocess
 import urllib.request
 import urllib.error
 from datetime import datetime, timedelta, timezone
@@ -76,6 +80,67 @@ action = sys.argv[1]
 supabase_url = sys.argv[2].rstrip('/')
 service_role = sys.argv[3]
 
+# --- DNS Cache & Gateway Fallback (resolves WSL2 / host firewall DNS timeouts) ---
+_DNS_CACHE = {}
+_orig_getaddrinfo = socket.getaddrinfo
+
+def _get_default_gateway():
+    try:
+        with open('/proc/net/route') as f:
+            for line in f:
+                parts = line.strip().split()
+                if len(parts) >= 3 and parts[1] == '00000000':
+                    return socket.inet_ntoa(struct.pack('<L', int(parts[2], 16)))
+    except Exception:
+        pass
+    return None
+
+def _resolve_with_gateway(host):
+    gw = _get_default_gateway()
+    if not gw:
+        return None
+    try:
+        out = subprocess.check_output(['dig', f'@{gw}', host, '+short'], text=True, timeout=3)
+        for line in out.strip().splitlines():
+            ip = line.strip()
+            if ip and not ip.startswith(';'):
+                try:
+                    socket.inet_aton(ip)
+                    return ip
+                except Exception:
+                    continue
+    except Exception:
+        pass
+    return None
+
+def _smart_getaddrinfo(host, port, family=0, type=0, proto=0, flags=0):
+    cache_key = (host, port, family, type, proto, flags)
+    if cache_key in _DNS_CACHE:
+        return _DNS_CACHE[cache_key]
+
+    # Try gateway DNS resolution first in WSL environments
+    gw_ip = _resolve_with_gateway(host)
+    if gw_ip:
+        try:
+            res = _orig_getaddrinfo(gw_ip, port, family, type, proto, flags)
+            _DNS_CACHE[cache_key] = res
+            return res
+        except Exception:
+            pass
+
+    try:
+        res = _orig_getaddrinfo(host, port, family, type, proto, flags)
+        _DNS_CACHE[cache_key] = res
+        return res
+    except socket.gaierror:
+        if gw_ip:
+            res = _orig_getaddrinfo(gw_ip, port, family, type, proto, flags)
+            _DNS_CACHE[cache_key] = res
+            return res
+        raise
+
+socket.getaddrinfo = _smart_getaddrinfo
+
 headers = {
     "apikey": service_role,
     "Authorization": "Bearer " + service_role,
@@ -83,22 +148,30 @@ headers = {
     "Prefer": "return=representation"
 }
 
-def api_call(method, path, body=None, extra_headers=None):
+def api_call(method, path, body=None, extra_headers=None, max_retries=3):
     url = f"{supabase_url}{path}"
     req_headers = dict(headers)
     if extra_headers:
         req_headers.update(extra_headers)
     data = json.dumps(body).encode('utf-8') if body is not None else None
-    req = urllib.request.Request(url, data=data, headers=req_headers, method=method)
-    try:
-        with urllib.request.urlopen(req) as resp:
-            content = resp.read().decode('utf-8')
-            return resp.status, json.loads(content) if content.strip() else None
-    except urllib.error.HTTPError as e:
-        err_body = e.read().decode('utf-8')
-        return e.code, err_body
 
-def upload_storage(bucket, path, data_bytes, content_type):
+    for attempt in range(max_retries):
+        req = urllib.request.Request(url, data=data, headers=req_headers, method=method)
+        try:
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                content = resp.read().decode('utf-8')
+                return resp.status, json.loads(content) if content.strip() else None
+        except urllib.error.HTTPError as e:
+            err_body = e.read().decode('utf-8')
+            return e.code, err_body
+        except (urllib.error.URLError, socket.error, TimeoutError) as e:
+            if attempt < max_retries - 1:
+                time.sleep(0.5 * (attempt + 1))
+                continue
+            print(f"  [Error] Network request failed after {max_retries} attempts: {e} ({method} {path})", file=sys.stderr)
+            raise
+
+def upload_storage(bucket, path, data_bytes, content_type, max_retries=3):
     url = f"{supabase_url}/storage/v1/object/{bucket}/{path}"
     req_headers = {
         "apikey": service_role,
@@ -106,12 +179,19 @@ def upload_storage(bucket, path, data_bytes, content_type):
         "Content-Type": content_type,
         "x-upsert": "true"
     }
-    req = urllib.request.Request(url, data=data_bytes, headers=req_headers, method="POST")
-    try:
-        with urllib.request.urlopen(req) as resp:
-            return resp.status
-    except urllib.error.HTTPError as e:
-        return e.code
+    for attempt in range(max_retries):
+        req = urllib.request.Request(url, data=data_bytes, headers=req_headers, method="POST")
+        try:
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                return resp.status
+        except urllib.error.HTTPError as e:
+            return e.code
+        except (urllib.error.URLError, socket.error, TimeoutError) as e:
+            if attempt < max_retries - 1:
+                time.sleep(0.5 * (attempt + 1))
+                continue
+            print(f"  [Error] Storage upload failed after {max_retries} attempts: {e} ({bucket}/{path})", file=sys.stderr)
+            raise
 
 # Tiny valid PNG and PDF bytes
 DUMMY_PNG = b"\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x06\x00\x00\x00\x1f\x15c4\x00\x00\x00\rIDATx\x9cc\xf8\xff\xff?\x00\x05\xfe\x02\xfe\r\xef\x8c\xb4\x00\x00\x00\x00IEND\xaeB`\x82"
