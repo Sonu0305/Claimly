@@ -6,7 +6,7 @@ This document provides a turnkey, stage-ready presentation guide for showcasing 
 
 ## 1. Quick Presentation Setup (1-Minute Preparation)
 
-### Step 1: Seed the Database
+### Step 1: Seed the Databasesl
 Run the presentation seeder to populate realistic multi-persona data, 30-day historical analytics, active claims, urgency alerts, and storage fixtures:
 ```bash
 ./tool/seed_demo_data.sh --seed

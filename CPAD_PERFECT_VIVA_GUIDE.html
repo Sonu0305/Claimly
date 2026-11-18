@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CPAD Comprehensive Master Viva Voce Defense Guide & Lab Synthesis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 16mm 14mm 16mm 14mm;
+      @top-center {
+        content: "CPAD Comprehensive Viva Voce Defense Guide — Course Code: R5CO4004L";
+        font-size: 7.5pt;
+        font-family: 'Inter', sans-serif;
+        color: #64748b;
+        border-bottom: 1px solid #e2e8f0;
+        padding-bottom: 4px;
+      }
+      @bottom-left {
+        content: "Candidate: Swayam Shah (PRN: 231070062) | B.Tech Comp Eng Sem VII";
+        font-size: 7.5pt;
+        font-family: 'JetBrains Mono', monospace;
+        color: #94a3b8;
+      }
+      @bottom-right {
+        content: "Page " counter(page);
+        font-size: 7.5pt;
+        font-family: 'Inter', sans-serif;
+        color: #64748b;
+      }
+    }
+
+    @page:first {
+      margin: 0;
+      @top-center { content: none; }
+      @bottom-left { content: none; }
+      @bottom-right { content: none; }
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 8.8pt;
+      line-height: 1.48;
+      color: #1e293b;
+      background-color: #ffffff;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Cover Page */
+    .cover-page {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 50px 45px;
+      background: linear-gradient(135deg, #090d16 0%, #1e1b4b 55%, #1e3a8a 100%);
+      color: #ffffff;
+      page-break-after: always;
+    }
+
+    .cover-dept {
+      font-size: 8.5pt;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #93c5fd;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .cover-course {
+      font-size: 10pt;
+      color: #cbd5e1;
+      font-weight: 500;
+    }
+
+    .cover-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      background-color: rgba(37, 99, 235, 0.35);
+      border: 1px solid #3b82f6;
+      border-radius: 20px;
+      font-size: 8pt;
+      font-weight: 600;
+      color: #60a5fa;
+      letter-spacing: 0.05em;
+      margin-bottom: 16px;
+    }
+
+    .cover-title {
+      font-size: 24pt;
+      font-weight: 800;
+      line-height: 1.2;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .cover-subtitle {
+      font-size: 11pt;
+      line-height: 1.45;
+      color: #94a3b8;
+      max-width: 90%;
+      margin-bottom: 24px;
+    }
+
+    .cover-tagline {
+      font-size: 8.5pt;
+      color: #38bdf8;
+      font-weight: 500;
+      padding-left: 12px;
+      border-left: 3px solid #38bdf8;
+    }
+
+    .cover-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .cover-meta-col {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .cover-meta-label {
+      font-size: 7pt;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #64748b;
+    }
+
+    .cover-meta-value {
+      font-size: 9pt;
+      font-weight: 600;
+      color: #e2e8f0;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      color: #0f172a;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      page-break-after: avoid;
+    }
+
+    h1 { font-size: 18pt; margin-bottom: 8px; color: #1e3a8a; }
+    h2 { font-size: 12.5pt; margin-top: 18px; margin-bottom: 8px; border-bottom: 1.5px solid #2563eb; padding-bottom: 3px; color: #1e40af; }
+    h3 { font-size: 10pt; margin-top: 12px; margin-bottom: 5px; color: #0f172a; }
+    h4 { font-size: 9pt; margin-top: 8px; margin-bottom: 4px; color: #334155; }
+
+    p { margin-bottom: 6px; text-align: justify; }
+    ul, ol { margin-top: 3px; margin-bottom: 6px; padding-left: 18px; }
+    li { margin-bottom: 2px; }
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7.8pt;
+      background-color: #f1f5f9;
+      color: #0f172a;
+      padding: 1px 4px;
+      border-radius: 3px;
+      border: 1px solid #e2e8f0;
+    }
+
+    pre {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7.5pt;
+      background-color: #0f172a;
+      color: #f8fafc;
+      padding: 8px 10px;
+      border-radius: 5px;
+      margin: 6px 0;
+      overflow-x: auto;
+      line-height: 1.35;
+      page-break-inside: avoid;
+    }
+
+    pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      border: none;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0;
+      font-size: 7.8pt;
+      page-break-inside: avoid;
+    }
+
+    th, td {
+      padding: 5px 7px;
+      border: 1px solid #cbd5e1;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background-color: #f1f5f9;
+      font-weight: 700;
+      color: #0f172a;
+      text-transform: uppercase;
+      font-size: 6.8pt;
+      letter-spacing: 0.05em;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #f8fafc;
+    }
+
+    /* Callout & Q&A Cards */
+    .callout {
+      padding: 8px 10px;
+      border-radius: 5px;
+      margin: 8px 0;
+      font-size: 8.2pt;
+      page-break-inside: avoid;
+      border-left: 3.5px solid;
+    }
+
+    .callout-info { background-color: #eff6ff; border-left-color: #2563eb; color: #1e40af; }
+    .callout-success { background-color: #f0fdf4; border-left-color: #16a34a; color: #166534; }
+    .callout-warning { background-color: #fffbeb; border-left-color: #d97706; color: #92400e; }
+    .callout-danger { background-color: #fef2f2; border-left-color: #dc2626; color: #991b1b; }
+    .callout-yap { background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%); border-left-color: #7c3aed; color: #4c1d95; }
+
+    .qa-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 5px;
+      padding: 8px 10px;
+      margin: 6px 0;
+      background: #ffffff;
+      page-break-inside: avoid;
+    }
+
+    .qa-q {
+      font-weight: 700;
+      color: #0f172a;
+      font-size: 8.5pt;
+      margin-bottom: 3px;
+    }
+
+    .qa-a {
+      color: #334155;
+      font-size: 8pt;
+    }
+
+    .page-break {
+      page-break-before: always;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- COVER PAGE -->
+  <div class="cover-page">
+    <div class="cover-header">
+      <div class="cover-dept">Department of Computer Engineering &bull; Academic Year 2025–2026</div>
+      <div class="cover-course">Cross-Platform Application Development Laboratory (Course Code: R5CO4004L)</div>
+    </div>
+    
+    <div class="cover-body">
+      <div class="cover-badge">THE DEFINITIVE MASTER VIVA VOCE PREPARATION GUIDE</div>
+      <div class="cover-title">Cross-Platform Application Development: Complete Lab Synthesis &amp; Viva Voce Defense</div>
+      <div class="cover-subtitle">
+        Exhaustive Laboratory Manual &amp; Oral Defense Playbook Covering Experiments 1 Through 10 Across Flutter, React Native, Xamarin/.NET MAUI, Dart Web DOM, and the Capstone Project Claimly.
+      </div>
+      <div class="cover-tagline">
+        Engineered for High-Scoring Viva Performance, Architectural Fluent Defense, Code Citations, and Flawless Demonstration.
+      </div>
+    </div>
+
+    <div class="cover-footer">
+      <div class="cover-meta-col">
+        <span class="cover-meta-label">Candidate Name</span>
+        <span class="cover-meta-value">Swayam Shah</span>
+      </div>
+      <div class="cover-meta-col">
+        <span class="cover-meta-label">Roll Number / PRN</span>
+        <span class="cover-meta-value">231070062</span>
+      </div>
+      <div class="cover-meta-col">
+        <span class="cover-meta-label">Programme &amp; Batch</span>
+        <span class="cover-meta-value">B.Tech Comp Eng &bull; Sem VII &bull; Batch B</span>
+      </div>
+      <div class="cover-meta-col">
+        <span class="cover-meta-label">Evaluation Date</span>
+        <span class="cover-meta-value">November 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONVERTED MARKDOWN CONTENT -->
+  <div class="content">
+    <h1>Cross-Platform Application Development Laboratory (R5CO4004L)</h1>
+<h1>The Definitive Viva Voce Preparation Guide & Lab Synthesis Manual</h1>
+<div class="callout callout-info"><strong>Candidate Name:</strong> Swayam Shah</div>
+<div class="callout callout-info"><strong>Roll Number / PRN:</strong> 231070062</div>
+<div class="callout callout-info"><strong>Academic Programme:</strong> B.Tech. (Computer Engineering), Semester VII &bull; Batch B</div>
+<div class="callout callout-info"><strong>Department:</strong> Department of Computer Engineering</div>
+<div class="callout callout-info"><strong>Academic Year:</strong> 2025–2026</div>
+<div class="callout callout-info"><strong>Capstone Project:</strong> Claimly — Automated Warranty & Refund Claim Assistant</div>
+<div class="callout callout-info"><strong>Compiled Defense Document:</strong> <code>CPAD_PERFECT_VIVA_GUIDE.pdf</code></div>
+<p>---</p>
+<h2>Table of Contents</h2>
+<li><a href="#1-course-outcomes--curriculum-master-map">Course Outcomes & Curriculum Master Map</a></li>
+<li><a href="#2-experiment-1-flutter-environment--student-profile-card">Experiment 1: Flutter Environment & Student Profile Card</a></li>
+<li><a href="#3-experiment-2-flutter-layouts-row-column-stack--freshbasket">Experiment 2: Flutter Layouts (Row, Column, Stack) — FreshBasket</a></li>
+<li><a href="#4-experiment-3-responsive--adaptive-ui-design--quickbite">Experiment 3: Responsive & Adaptive UI Design — QuickBite</a></li>
+<li><a href="#5-experiment-4-html-dom-application-using-dart--tip-calculator">Experiment 4: HTML DOM Application Using Dart — Tip Calculator</a></li>
+<li><a href="#6-experiment-5-lab-6-react-native-basics--greeting--counter">Experiment 5 (Lab 6): React Native Basics — Greeting & Counter</a></li>
+<li><a href="#7-experiment-6-lab-7-react-native-widgets--expense-manager">Experiment 6 (Lab 7): React Native Widgets — Expense Manager</a></li>
+<li><a href="#8-experiment-7-lab-8-react-native-connectivity-based-app">Experiment 7 (Lab 8): React Native Connectivity-Based App</a></li>
+<li><a href="#9-experiment-8-lab-9-xamarin-widgets--theming">Experiment 8 (Lab 9): Xamarin Widgets & Theming</a></li>
+<li><a href="#10-experiment-9-lab-10-xamarin-layouts--views--multi-section-profile">Experiment 9 (Lab 10): Xamarin Layouts & Views — Multi-Section Profile</a></li>
+<li><a href="#11-experiment-10-maps-api-integration-using-flutter--global-explorer">Experiment 10: Maps API Integration Using Flutter — Global Explorer</a></li>
+<li><a href="#12-master-cross-platform-comparative-framework">Master Cross-Platform Comparative Framework</a></li>
+<li><a href="#13-capstone-project-defense-claimly-architecture">Capstone Project Defense: Claimly Architecture</a></li>
+<li><a href="#14-the-viva-voce-oral-presentation-playbook--yap-guide">The Viva Voce Oral Presentation Playbook & "Yap Guide"</a></li>
+<p>---</p>
+<div class="page-break"></div>
+<h2>1. Course Outcomes & Curriculum Master Map</h2>
+<p>The Cross-Platform Application Development curriculum (R5CO4004L) establishes competencies across the primary cross-platform paradigms in modern software engineering:</p>
+<li><strong>CO1:</strong> Configure development environments and construct user interfaces using <strong>Flutter & Dart</strong>.</li>
+<li><strong>CO2:</strong> Implement multi-device responsiveness, adaptive navigation, and web DOM manipulation using <strong>Dart & Flutter Web</strong>.</li>
+<li><strong>CO3:</strong> Develop native-bridged mobile applications with state management, virtualization, and hardware/network connectivity using <strong>React Native & Expo</strong>.</li>
+<li><strong>CO4:</strong> Architect cross-platform enterprise applications utilizing declarative markup, code-behind logic, and layout containers using <strong>Xamarin.Forms / .NET MAUI</strong>.</li>
+<h3>Curriculum Master Traceability Matrix</h3>
+<table>
+<tr><th>Exp #</th><th>Official Title</th><th>Framework & Tools</th><th>Core Paradigm</th><th>Claimly Production Incorporation</th></tr>
+<tr><td><strong>1</strong></td><td>Student Profile Card App</td><td>Flutter SDK, Dart, Material 3</td><td>Composition over inheritance, widget trees, SnackBar feedback</td><td><code>CustomerProfileScreen</code> (<code>profile_screen.dart</code>), <code>AppButton</code>, <code>StatusBadge</code></td></tr>
+<tr><td><strong>2</strong></td><td>UI Using Row, Column & Stack</td><td>Flutter, Dart (FreshBasket)</td><td>2D Flex layout, Expanded spacers, Z-index coordinate stacking</td><td><code>ClaimCard</code>, <code>ProductCard</code>, <code>WizardStepperHeader</code>, <code>ClaimTimelineWidget</code></td></tr>
+<tr><td><strong>3</strong></td><td>Responsive & Adaptive UI Design</td><td>Flutter, LayoutBuilder (QuickBite)</td><td>Viewport breakpoints, dynamic grid wrapping, adaptive navigation</td><td><code>AppBreakpoints</code>, <code>ResponsiveLayoutBuilder</code>, adaptive <code>CustomerShellScreen</code></td></tr>
+<tr><td><strong>4</strong></td><td>HTML DOM Application Using Dart</td><td>Dart Web, package:web, dart2js</td><td>Client-side DOM mutation, event dispatching, zero-reload math</td><td>Flutter Web engine, client-side <code>WarrantyCalculator</code>, <code>ClaimPdfService</code></td></tr>
+<tr><td><strong>5 (6)</strong></td><td>React Native Basics (Counter)</td><td>React Native, Expo, JSX</td><td>JS-Native bridge, JSX syntax, component state (<code>useState</code>)</td><td>Architectural defense of compiled canvas vs JS bridge; Riverpod 2.6 state</td></tr>
+<tr><td><strong>6 (7)</strong></td><td>React Native Expense Manager</td><td>React Native, FlatList, Flexbox</td><td>Viewport list virtualization, CRUD operations, array reduce</td><td><code>ListView.builder</code> lazy rendering, financial aggregations, <code>FormValidators</code></td></tr>
+<tr><td><strong>7 (8)</strong></td><td>React Native Connectivity App</td><td>React Native, NetInfo, Hooks</td><td>Network state monitoring, async resilience, offline handling</td><td>Riverpod <code>AsyncValue</code> error boundaries, local token caching, PWA offline worker</td></tr>
+<tr><td><strong>8 (9)</strong></td><td>Xamarin Widgets & Theming</td><td>Xamarin.Forms, XAML, C#</td><td>Declarative XAML vs code-behind, events, Light/Dark toggle</td><td>Unified Dart paradigm vs XAML; dynamic Material 3 Dark Mode in Profile</td></tr>
+<tr><td><strong>9 (10)</strong></td><td>Xamarin Layouts & Views</td><td>Xamarin.Forms, Grid, StackLayout</td><td>Multi-container coordination, coordinate definitions, cards</td><td>Responsive <code>AdminDashboardScreen</code> grids, <code>fl_chart</code> analytics, KPI cards</td></tr>
+<tr><td><strong>10</strong></td><td>Maps API Integration in Flutter</td><td>Flutter, flutter_map, OpenStreetMap</td><td>Slippy map tiles, LatLng projections, interactive pins</td><td>Authorized OEM Repair Service Center Locator for approved warranty claims</td></tr>
+</table>
+<p>---</p>
+<div class="page-break"></div>
+<h2>2. Experiment 1: Flutter Environment & Student Profile Card</h2>
+<h3>2.1 Academic Overview</h3>
+<li><strong>Aim:</strong> To successfully configure the Flutter development environment (SDK and IDE), initialize a new Flutter project, and construct a functional Student Profile Card application featuring student details (Name, Roll No., Year, Branch, Semester) using core widgets (<code>Container</code>, <code>Column</code>, <code>Row</code>, <code>CircleAvatar</code>, <code>Text</code>, <code>ElevatedButton</code>) and interactive <code>SnackBar</code> feedback.</li>
+<li><strong>Course Outcome:</strong> CO1 — Develop applications using Flutter core widgets.</li>
+<li><strong>Technology Stack:</strong> Flutter SDK (3.x), Dart SDK (3.x), Android Studio / VS Code, Flutter DevTools.</li>
+<h3>2.2 Theoretical Principles Under the Hood</h3>
+<li><strong>The Widget-Centric Philosophy:</strong> Flutter operates on the principle that <em>everything is a widget</em>. UI is declared as a hierarchical widget tree where composition is favored over inheritance.</li>
+<li><strong>Stateless vs. Stateful Widgets:</strong></li>
+<li><code>StatelessWidget</code>: Immutable UI descriptions. The <code>build()</code> method is pure and re-runs only when parent configuration changes.</li>
+<li><code>StatefulWidget</code>: Maintains mutable internal state via a separate <code>State<T></code> object that persists across widget rebuilds.</li>
+<li><strong>Hot Reload vs. Hot Restart:</strong></li>
+<li><em>Stateful Hot Reload:</em> Injects updated source code into the running Dart VM. JIT compilation re-executes <code>build()</code> methods while preserving application state variables. Takes <1 second.</li>
+<li><em>Hot Restart:</em> Destroys current state, resets the Dart VM runtime, and re-executes <code>main()</code> from scratch.</li>
+<li><strong>Scaffold & Material Design:</strong> <code>Scaffold</code> implements the standard Material Design visual layout structure (app bar, floating action button, body, bottom bar, snackbar messenger).</li>
+<h3>2.3 Key Widgets & Properties Used</h3>
+<li><code>MaterialApp</code>: Root application wrapper configuring theme, title, and initial route.</li>
+<li><code>Scaffold</code>: Top-level visual container providing app bar and snackbar hooks.</li>
+<li><code>Container</code>: Multi-purpose layout element supporting padding, margin, borders, border-radius, and background colors.</li>
+<li><code>CircleAvatar</code>: Circular image/text container with <code>radius</code> and <code>backgroundColor</code>.</li>
+<li><code>Column</code> & <code>Row</code>: 1D flex layout containers arranging children vertically and horizontally.</li>
+<li><code>ElevatedButton</code>: Material 3 button with elevation and ripple animation.</li>
+<li><code>ScaffoldMessenger.of(context).showSnackBar</code>: Non-modal transient feedback notification.</li>
+<h3>2.4 Code Architecture & Flow</h3>
+<pre><code class="language-dart">
+// Academic snippet from Lab 1
+ElevatedButton(
+  onPressed: () {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Profile verification request sent successfully!'),
+        backgroundColor: Colors.blueAccent,
+      ),
+    );
+  },
+  child: const Text('Verify Student Status'),
+)
+</code></pre>
+<h3>2.5 Test Verification & Observed Output</h3>
+<li><strong>Launch Screen:</strong> Clean card rendered centered on screen with avatar, name "Swayam Shah", Roll No "231070062", Department "Computer Engineering", Semester "VII".</li>
+<li><strong>Interaction:</strong> Tapping "Verify Student Status" displays a smooth, floating SnackBar at the bottom edge.</li>
+<h3>2.6 High-Yield Viva Questions & Answers</h3>
+<li><strong>Q1: What is the difference between a widget and an element in Flutter?</strong></li>
+<p><em>Answer:</em> A Widget is a lightweight, immutable configuration blueprint. An Element is the actual instantiation of that widget in the tree, managing lifecycle, structural references, and state retention.</p>
+<li><strong>Q2: Why does Flutter not use XML or HTML for layout?</strong></li>
+<p><em>Answer:</em> Flutter uses Dart for both layout and logic to eliminate the impedance mismatch between markup and code. This enables type safety, code completion, refactoring tools, and dynamic conditional rendering using standard programming constructs.</p>
+<li><strong>Q3: What happens when <code>setState()</code> is called?</strong></li>
+<p><em>Answer:</em> <code>setState()</code> marks the element as dirty and schedules a rebuild for the next frame. Flutter calls the <code>build()</code> method of that specific <code>State</code> object.</p>
+<h3>2.7 Claimly Capstone Elevation</h3>
+<p>In Claimly, Lab 1 is productionized in <code>CustomerProfileScreen</code> (<code>lib/features/customer/profile/screens/profile_screen.dart</code>). Instead of hardcoded strings, user initials are extracted dynamically into a <code>CircleAvatar</code>, user metadata is queried from Supabase, and decoupled atomic widgets (<code>AppButton</code>, <code>AppTextField</code>) enforce Material 3 tokens.</p>
+<h3>2.8 🎙️ The 60-Second Viva Yap Track</h3>
+<div class="callout callout-info"><em>"Sir/Ma'am, Experiment 1 introduced Flutter's declarative widget hierarchy and composition model. In Claimly, I expanded this foundation into an enterprise user management screen. Rather than static text, <code>CustomerProfileScreen</code> dynamically computes initials for the <code>CircleAvatar</code>, structures metadata rows with <code>Row</code> and <code>Column</code>, and uses <code>ScaffoldMessenger</code> for feedback, all wired to live database streams."</em></div>
+<p>---</p>
+<div class="page-break"></div>
+<h2>3. Experiment 2: Flutter Layouts (Row, Column, Stack) — FreshBasket</h2>
+<h3>3.1 Academic Overview</h3>
+<li><strong>Aim:</strong> To design and develop a realistic grocery ordering user interface (FreshBasket) combining <code>Row</code>, <code>Column</code>, and <code>Stack</code> layout widgets together in a single screen.</li>
+<li><strong>Course Outcome:</strong> CO1 — Design complex layouts using Flutter Flex and coordinate widgets.</li>
+<li><strong>Technology Stack:</strong> Flutter SDK, Dart, Material Design Icons, Skia rendering engine.</li>
+<h3>3.2 Theoretical Principles Under the Hood</h3>
+<li><strong>The 2D Flex System:</strong></li>
+<li><code>Row</code> lays children out horizontally; <code>Column</code> lays children out vertically.</li>
+<li><em>Main Axis vs. Cross Axis:</em> For <code>Row</code>, Main is horizontal and Cross is vertical. For <code>Column</code>, Main is vertical and Cross is horizontal.</li>
+<li><code>MainAxisAlignment</code>: <code>start</code>, <code>center</code>, <code>end</code>, <code>spaceBetween</code>, <code>spaceAround</code>, <code>spaceEvenly</code>.</li>
+<li><code>CrossAxisAlignment</code>: <code>start</code>, <code>center</code>, <code>end</code>, <code>stretch</code>, <code>baseline</code>.</li>
+<li><strong>Preventing <code>RenderFlex</code> Overflows:</strong></li>
+<li>Occurs when children request more physical pixels than available along the unconstrained axis.</li>
+<li>Resolved by wrapping children in <code>Expanded</code> (takes all remaining space) or <code>Flexible</code> (takes at most remaining space).</li>
+<li><strong>Z-Axis Coordinate Positioning via <code>Stack</code> & <code>Positioned</code>:</strong></li>
+<li>Unlike <code>Row</code> and <code>Column</code> which place widgets linearly, <code>Stack</code> overlays children on the Z-axis (back to front).</li>
+<li><code>Positioned</code> allows absolute coordinate anchoring (<code>top</code>, <code>bottom</code>, <code>left</code>, <code>right</code>) relative to the Stack's boundaries.</li>
+<h3>3.3 Key Widgets Used</h3>
+<li><code>Stack</code>: Container for layered, overlapping child widgets.</li>
+<li><code>Positioned</code>: Explicit pixel offsets inside a <code>Stack</code>.</li>
+<li><code>Expanded</code>: Flex widget with tight fit forcing child to fill remaining main-axis space.</li>
+<li><code>Card</code>: Surface container with rounded corners and elevation shadow.</li>
+<li><code>SingleChildScrollView</code>: Provides scroll physics to avoid screen overflow on smaller displays.</li>
+<h3>3.4 Code Architecture & Flow</h3>
+<pre><code class="language-dart">
+// Overlapping discount badge and product image
+Stack(
+  children: [
+    Container(height: 120, width: double.infinity, decoration: boxDeco),
+    Positioned(
+      top: 8,
+      left: 8,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+        decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(4)),
+        child: const Text('20% OFF', style: TextStyle(color: Colors.white, fontSize: 10)),
+      ),
+    ),
+  ],
+)
+</code></pre>
+<h3>3.5 Test Verification & Observed Output</h3>
+<li>Rendered header bar with search icon, horizontally scrollable category strip, 2-column product card grid with overlapping discount tags, and a floating bottom cart bar.</li>
+<li>Tested on various aspect ratios; verified 0 pixel layout overflow warnings.</li>
+<h3>3.6 High-Yield Viva Questions & Answers</h3>
+<li><strong>Q1: What is the exact difference between <code>Expanded</code> and <code>Flexible</code>?</strong></li>
+<p><em>Answer:</em> <code>Expanded</code> sets <code>fit: FlexFit.tight</code>, forcing the child to take all remaining space along the main axis. <code>Flexible</code> defaults to <code>FlexFit.loose</code>, allowing the child to take <em>up to</em> the available space without forcing expansion.</p>
+<li><strong>Q2: Why does wrapping an unconstrained child in an <code>Expanded</code> inside a scrollable view cause an error?</strong></li>
+<p><em>Answer:</em> A scroll view provides infinite constraints along its scroll direction. An <code>Expanded</code> requires bounded constraints to calculate its flex share; dividing infinity results in an assertion failure.</p>
+<li><strong>Q3: How does the order of children in a <code>Stack</code> affect rendering?</strong></li>
+<p><em>Answer:</em> Children are painted in order: the first child is painted on the bottom, and each subsequent child is painted on top.</p>
+<h3>3.7 Claimly Capstone Elevation</h3>
+<p>In Claimly, <code>Stack</code> and <code>Positioned</code> are utilized in <a href="file:///home/swayam-shah/repos/Claimly/lib/features/customer/claims/widgets/claim_card.dart"><code>claim_card.dart</code></a> and <a href="file:///home/swayam-shah/repos/Claimly/lib/features/customer/products/widgets/product_card.dart"><code>product_card.dart</code></a> to layer urgent warranty countdown chips, priority badges, and status labels over product imagery. Furthermore, <a href="file:///home/swayam-shah/repos/Claimly/lib/features/customer/claims/claim_wizard/widgets/wizard_stepper_header.dart"><code>wizard_stepper_header.dart</code></a> uses <code>Row</code> with <code>Expanded</code> connecting lines between step nodes to prevent overflow.</p>
+<h3>3.8 🎙️ The 60-Second Viva Yap Track</h3>
+<div class="callout callout-info"><em>"In Experiment 2, we mastered the Flex system and Z-axis coordinate stacking. In Claimly, this architecture is central to our data cards. Notice how <code>ClaimCard</code> anchors urgent warranty countdowns and status chips over card containers using <code>Stack</code> and <code>Positioned</code>. In our 5-step wizard header, <code>Row</code> and <code>Expanded</code> dynamically scale connector lines between steps across all screen widths without overflow."</em></div>
+<p>---</p>
+<div class="page-break"></div>
+<h2>4. Experiment 3: Responsive & Adaptive UI Design — QuickBite</h2>
+<h3>4.1 Academic Overview</h3>
+<li><strong>Aim:</strong> To design and implement a responsive e-commerce application (QuickBite) that automatically adapts its layout and navigation according to device viewport width across mobile (<600px), tablet (600–999px), and desktop (&ge;1000px).</li>
+<li><strong>Course Outcome:</strong> CO2 — Implement multi-device responsiveness and adaptive navigation in Flutter.</li>
+<li><strong>Technology Stack:</strong> Flutter SDK, <code>LayoutBuilder</code>, <code>MediaQuery</code>, Dart.</li>
+<h3>4.2 Theoretical Principles Under the Hood</h3>
+<li><strong>Responsive vs. Adaptive:</strong></li>
+<li><em>Responsive:</em> The layout scales and fluidly reflows based on available dimensions (e.g. 1 column &rarr; 2 columns &rarr; 4 columns).</li>
+<li><em>Adaptive:</em> The application alters its <em>interaction pattern and navigation paradigm</em> to match the hardware context (e.g. mobile bottom <code>NavigationBar</code> &rarr; tablet compact <code>NavigationRail</code> &rarr; desktop extended <code>NavigationRail</code> / permanent drawer).</li>
+<li><strong><code>LayoutBuilder</code> vs. <code>MediaQuery</code>:</strong></li>
+<li><code>MediaQuery.sizeOf(context)</code> returns the dimensions of the entire device screen/window.</li>
+<li><code>LayoutBuilder</code> provides the specific <code>BoxConstraints</code> (min/max width/height) passed by the immediate parent widget. <code>LayoutBuilder</code> is superior for modular, reusable components.</li>
+<h3>4.3 Breakpoints & Adaptive Strategy</h3>
+<li><strong>Mobile (<600px):</strong> Single-column product list, bottom <code>NavigationBar</code>, full-width search bar.</li>
+<li><strong>Tablet (600–999px):</strong> Two-column grid, compact vertical <code>NavigationRail</code> on left edge.</li>
+<li><strong>Desktop (&ge;1000px):</strong> Four-column grid, permanent expanded navigation sidebar with brand header.</li>
+<h3>4.4 Code Architecture & Flow</h3>
+<pre><code class="language-dart">
+Widget build(BuildContext context) {
+  return LayoutBuilder(
+    builder: (context, constraints) {
+      if (constraints.maxWidth &lt; 600) return _buildMobileLayout();
+      if (constraints.maxWidth &lt; 1000) return _buildTabletLayout();
+      return _buildDesktopLayout();
+    },
+  );
+}
+</code></pre>
+<h3>4.5 Test Verification & Observed Output</h3>
+<li>Resized the browser/desktop window dynamically.</li>
+<li>Verified instant, smooth layout switching at 600px and 1000px thresholds without visual jitter or dropped frames.</li>
+<h3>4.6 High-Yield Viva Questions & Answers</h3>
+<li><strong>Q1: Why should you prefer <code>MediaQuery.sizeOf(context)</code> over <code>MediaQuery.of(context).size</code> in modern Flutter?</strong></li>
+<p><em>Answer:</em> <code>MediaQuery.sizeOf(context)</code> only registers a dependency on viewport size changes. Calling <code>MediaQuery.of(context)</code> causes unnecessary rebuilds whenever any media property (like keyboard visibility, brightness, or orientation) changes.</p>
+<li><strong>Q2: What is the purpose of <code>OrientationBuilder</code>?</strong></li>
+<p><em>Answer:</em> It calculates whether the current widget bounds are portrait (height > width) or landscape (width > height), allowing orientation-specific layouts.</p>
+<h3>4.7 Claimly Capstone Elevation</h3>
+<p>In Claimly, this pattern is formalized in <a href="file:///home/swayam-shah/repos/Claimly/lib/core/constants/app_breakpoints.dart"><code>app_breakpoints.dart</code></a> and <a href="file:///home/swayam-shah/repos/Claimly/lib/core/widgets/responsive_layout_builder.dart"><code>responsive_layout_builder.dart</code></a>. The root shell <a href="file:///home/swayam-shah/repos/Claimly/lib/features/customer/shell/customer_shell_screen.dart"><code>customer_shell_screen.dart</code></a> renders a bottom <code>NavigationBar</code> on phones (<600px), a compact <code>NavigationRail</code> on tablets (600–1023px), and an <code>extended: true</code> <code>NavigationRail</code> with full brand headers on desktop (&ge;1024px). <a href="file:///home/swayam-shah/repos/Claimly/lib/core/widgets/responsive_content_wrapper.dart"><code>responsive_content_wrapper.dart</code></a> clamps desktop form inputs to 720px for optimal ergonomic scanability.</p>
+<h3>4.8 🎙️ The 60-Second Viva Yap Track</h3>
+<div class="callout callout-info"><em>"Experiment 3 taught us that responsive design adapts layout dimensions, while adaptive design alters the navigation paradigm. In Claimly, I built a dual responsive-adaptive engine. Through <code>ResponsiveLayoutBuilder</code> and <code>AppBreakpoints</code>, Claimly switches from a mobile bottom navigation bar to an extended desktop navigation rail, while <code>ResponsiveContentWrapper</code> restricts form containers to 720px to prevent visual fatigue on 4K monitors."</em></div>
+<p>---</p>
+<div class="page-break"></div>
+<h2>5. Experiment 4: HTML DOM Application Using Dart — Tip Calculator</h2>
+<h3>5.1 Academic Overview</h3>
+<li><strong>Aim:</strong> To develop an interactive web application using Dart that directly manipulates the browser HTML Document Object Model (DOM), handling events, reading user inputs, performing calculations, and dynamically updating webpage content without requiring full page reloads.</li>
+<li><strong>Course Outcome:</strong> CO2 — Develop client-side web applications using Dart DOM interoperability.</li>
+<li><strong>Technology Stack:</strong> Dart SDK, <code>package:web</code> / <code>dart:html</code>, <code>dart2js</code> compiler, <code>webdev</code> development server, HTML5, CSS3.</li>
+<h3>5.2 Theoretical Principles Under the Hood</h3>
+<li><strong>Dart as a Web Language:</strong> Dart compiles directly to clean, minified JavaScript via <code>dart2js</code> (or modern WebAssembly via <code>dart2wasm</code>), allowing developers to write type-safe, object-oriented code for any browser.</li>
+<li><strong>DOM Representation & Interoperability:</strong> The DOM is represented as a tree of nodes. Dart interacts with DOM elements via typed wrappers (<code>InputElement</code>, <code>ButtonElement</code>, <code>SpanElement</code>).</li>
+<li><strong>Event-Driven Execution:</strong> Event listeners (<code>onClick.listen</code>) are attached to DOM nodes, queuing callbacks on the browser event loop upon user interaction.</li>
+<li><strong>Dynamic DOM Manipulation:</strong> Instead of full page refreshes, Dart mutates <code>element.textContent</code>, <code>element.style</code>, or toggles CSS classes (<code>classList.remove('hidden')</code>) in-place.</li>
+<h3>5.3 Step-by-Step Algorithm</h3>
+<li>Mount UI structure in <code>index.html</code> with unique element IDs (<code>#billAmount</code>, <code>#tipPercent</code>, <code>#calculateBtn</code>, <code>#resultSection</code>).</li>
+<li>Link compiled Dart JavaScript output via <code><script defer src="main.dart.js"></script></code>.</li>
+<li>In <code>main.dart</code>, query DOM elements using <code>document.querySelector('#id')</code> and cast to specific element types.</li>
+<li>Attach <code>calculateBtn.onClick.listen((event) => calculateTip())</code>.</li>
+<li>Read inputs via <code>inputElement.value</code>, sanitize, and parse with <code>double.tryParse()</code>.</li>
+<li>Compute: <code>tipAmount = bill * (tipPercent / 100); totalBill = bill + tipAmount;</code>.</li>
+<li>Write formatted results to result span nodes and unhide the results container.</li>
+<h3>5.4 Test Cases & Verified Results</h3>
+<table>
+<tr><th>Test Case</th><th>Bill Input</th><th>Tip % Input</th><th>Tip Amount (Expected & Actual)</th><th>Total Bill (Expected & Actual)</th><th>Status</th></tr>
+<tr><td><strong>TC1</strong></td><td>$100.00</td><td>15%</td><td>$15.00</td><td>$115.00</td><td><strong>PASS</strong></td></tr>
+<tr><td><strong>TC2</strong></td><td>$250.50</td><td>20%</td><td>$50.10</td><td>$300.60</td><td><strong>PASS</strong></td></tr>
+<tr><td><strong>TC3</strong></td><td>$0.00</td><td>10%</td><td>$0.00</td><td>$0.00</td><td><strong>PASS</strong></td></tr>
+<tr><td><strong>TC4</strong></td><td>$75.25</td><td>18%</td><td>$13.55</td><td>$88.80</td><td><strong>PASS</strong></td></tr>
+</table>
+<h3>5.5 High-Yield Viva Questions & Answers</h3>
+<li><strong>Q1: How does Dart compile to web applications?</strong></li>
+<p><em>Answer:</em> Dart code is compiled to JavaScript using <code>dart2js</code> for production or <code>dartdevc</code> for development. <code>dart2js</code> performs whole-program tree shaking and minification to produce compact, high-speed JS bundles.</p>
+<li><strong>Q2: Why use <code>double.tryParse()</code> instead of <code>double.parse()</code>?</strong></li>
+<p><em>Answer:</em> <code>double.parse()</code> throws a <code>FormatException</code> if the input is malformed, risking an unhandled application crash. <code>double.tryParse()</code> returns <code>null</code> on invalid input, enabling safe null-coalescing and validation.</p>
+<h3>5.6 Claimly Capstone Elevation</h3>
+<p>In Claimly, client-side Dart compilation powers the entire Web application (<a href="file:///home/swayam-shah/repos/Claimly/web/index.html"><code>web/index.html</code></a>). Crucially, complex mathematical and business logic—such as <a href="file:///home/swayam-shah/repos/Claimly/lib/core/utils/warranty_calculator.dart"><code>warranty_calculator.dart</code></a>, the 7-day post-expiry grace period logic, and client-side vector PDF document assembly with embedded QR verification (<a href="file:///home/swayam-shah/repos/Claimly/lib/features/customer/claims/services/claim_pdf_service.dart"><code>claim_pdf_service.dart</code></a>)—executes completely client-side in compiled Dart memory buffers (<code>Uint8List</code>) without requiring round-trip server requests.</p>
+<h3>5.7 🎙️ The 60-Second Viva Yap Track</h3>
+<div class="callout callout-info"><em>"In our Dart DOM experiment, we learned how Dart compiles into optimized client-side JavaScript to manipulate the browser environment without server roundtrips. In Claimly, the entire application compiles to the web, and critical computational operations—like our <code>WarrantyCalculator</code> and our client-side vector PDF claim dossier engine—execute purely on the client runtime using Dart byte buffers, producing verifiable claim dossiers instantly."</em></div>
+<p>---</p>
+<div class="page-break"></div>
+<h2>6. Experiment 5 (Lab 6): React Native Basics — Greeting & Counter</h2>
+<h3>6.1 Academic Overview</h3>
+<li><strong>Aim:</strong> To set up the React Native (Expo) development environment and build a cross-platform mobile application that accepts a user's name, displays a personalized greeting, and provides an interactive counter (Increase, Decrease, Reset buttons) running on both Android and iOS from a single JavaScript codebase.</li>
+<li><strong>Course Outcome:</strong> CO3 — Develop cross-platform applications using React Native.</li>
+<li><strong>Technology Stack:</strong> Node.js, React Native, Expo CLI, Metro Bundler, React Hooks (<code>useState</code>), JavaScript (ES6+).</li>
+<h3>6.2 Theoretical Principles Under the Hood</h3>
+<li><strong>React Native Architecture & The Bridge:</strong></li>
+<li>React Native executes JavaScript code inside a dedicated JavaScript thread (Hermes / JavaScriptCore).</li>
+<li>UI views are native OEM components (<code>android.widget.TextView</code>, <code>UIView</code>).</li>
+<li>The <em>JavaScript-Native Bridge</em> communicates asynchronously by serializing batched JSON messages across threads.</li>
+<li><strong>Declarative State with <code>useState</code>:</strong></li>
+<li>Calling the state setter function schedules a re-render of the component. React calculates the virtual DOM diff and dispatches view updates across the bridge.</li>
+<li><strong>Flexbox Defaults in React Native:</strong></li>
+<li>Unlike CSS on the web where <code>flexDirection</code> defaults to <code>row</code>, in React Native <code>flexDirection</code> defaults to <code>column</code> to match mobile portrait orientations.</li>
+<h3>6.3 Code Architecture & Flow</h3>
+<pre><code class="language-javascript">
+// App.js counter logic
+const [count, setCount] = useState(0);
+const [name, setName] = useState('');
+
+const increase = () =&gt; setCount(prev =&gt; prev + 1);
+const decrease = () =&gt; setCount(prev =&gt; (prev &gt; 0 ? prev - 1 : 0));
+const reset = () =&gt; setCount(0);
+</code></pre>
+<h3>6.4 Test Verification & Observed Output</h3>
+<li>Name Input: Typing "Swayam" dynamically updates greeting text to "Hello, Swayam!".</li>
+<li>Counter Buttons: Tapping "Increase" increments count (0 &rarr; 1 &rarr; 2 &rarr; 3); "Decrease" decrements; "Reset" restores 0.</li>
+<h3>6.5 High-Yield Viva Questions & Answers</h3>
+<li><strong>Q1: What is the role of the Metro bundler in React Native?</strong></li>
+<p><em>Answer:</em> Metro is the JavaScript bundler for React Native. It compiles JSX and ES6+ modules into a single JavaScript bundle and serves it to the device over HTTP/WebSockets during development.</p>
+<li><strong>Q2: What is the architectural difference between Flutter and React Native?</strong></li>
+<p><em>Answer:</em> React Native communicates across a bridge to instantiate native platform views. Flutter compiles AOT to native machine code and draws directly onto the canvas using its own Skia/Impeller graphics engine, eliminating bridge serialization overhead.</p>
+<h3>6.6 Claimly Capstone Elevation & Architectural Contrast</h3>
+<p>While Experiment 6 demonstrated component-local <code>useState</code>, Claimly elevates state management to <strong>Riverpod 2.6</strong> (<a href="file:///home/swayam-shah/repos/Claimly/lib/features/customer/claims/claim_wizard/controllers/wizard_controller.dart"><code>wizard_controller.dart</code></a>). Managing a 5-step claim wizard with local state causes severe prop-drilling; Riverpod provides decoupled, compile-safe, immutable state machines that can be tested in isolation without mocking the entire UI tree.</p>
+<h3>6.7 🎙️ The 60-Second Viva Yap Track</h3>
+<div class="callout callout-info"><em>"Experiment 6 gave us hands-on experience with React Native's architecture and the JS-Native bridge. In Claimly, we leveraged this understanding to defend our framework choice: Flutter avoids the bridge bottleneck by compiling directly to native machine code. Furthermore, while React's <code>useState</code> is sufficient for simple counters, in an enterprise 5-step claim wizard we need global, testable state. That is why Claimly uses Riverpod 2.6 for compile-safe, decoupled state management."</em></div>
+<p>---</p>
+<div class="page-break"></div>
+<h2>7. Experiment 6 (Lab 7): React Native Widgets — Expense Manager</h2>
+<h3>7.1 Academic Overview</h3>
+<li><strong>Aim:</strong> To design and build a cross-platform Expense Manager in React Native allowing users to add expenses (title and amount), view them in a dynamic scrollable list, delete individual entries, and display a running total of all expenses using <code>TextInput</code>, <code>Pressable</code>, <code>FlatList</code>, <code>Modal</code>, <code>Alert</code>, and the <code>useState</code> hook.</li>
+<li><strong>Course Outcome:</strong> CO3 — Develop applications using React Native widgets, list virtualization, and state manipulation.</li>
+<li><strong>Technology Stack:</strong> React Native, Expo, JavaScript, <code>StyleSheet.create</code>.</li>
+<h3>7.2 Theoretical Principles Under the Hood</h3>
+<li><strong>List Virtualization via <code>FlatList</code>:</strong></li>
+<li>Unlike <code>ScrollView</code> which renders all children at once, <code>FlatList</code> uses <em>windowing</em> to render only items currently visible on screen.</li>
+<li><code>keyExtractor</code>: Provides a stable key for each item to optimize virtual DOM reconciliation.</li>
+<li><strong>Immutable State Updates:</strong></li>
+<li>React state must never be mutated directly. Array additions use the spread operator (<code>[...prev, newItem]</code>); deletions use <code>filter()</code>.</li>
+<li><strong>Derived Computations:</strong></li>
+<li>The total expense is computed from state using <code>reduce()</code>: <code>const total = expenses.reduce((sum, item) => sum + item.amount, 0);</code>.</li>
+<h3>7.3 Step-by-Step Algorithm</h3>
+<li>Initialize <code>expenses</code> state array: <code>useState([])</code>.</li>
+<li>Input validation: <code>parseFloat(amount) > 0</code> and <code>title.trim() !== ''</code>.</li>
+<li>Append new entry with unique ID: <code>{ id: Date.now().toString(), title, amount: parseFloat(amount) }</code>.</li>
+<li>Render list via <code><FlatList data={expenses} keyExtractor={item => item.id} renderItem={...} /></code>.</li>
+<li>Implement delete handler: <code>setExpenses(prev => prev.filter(item => item.id !== id))</code>.</li>
+<li>Dynamically update running total badge using <code>reduce()</code>.</li>
+<h3>7.4 Test Cases & Verified Results</h3>
+<table>
+<tr><th>Test Case</th><th>Action</th><th>Input Values</th><th>Expected Result</th><th>Actual Result</th><th>Status</th></tr>
+<tr><td><strong>TC1</strong></td><td>Add Valid Expense</td><td>"Coffee", 50</td><td>Added to list, Total = ₹50</td><td>Added, Total = ₹50</td><td><strong>PASS</strong></td></tr>
+<tr><td><strong>TC2</strong></td><td>Add Second Expense</td><td>"Groceries", 450</td><td>Added to list, Total = ₹500</td><td>Added, Total = ₹500</td><td><strong>PASS</strong></td></tr>
+<tr><td><strong>TC3</strong></td><td>Empty Title Validation</td><td>"", 100</td><td>Alert: "Please enter a title"</td><td>Alert shown, not added</td><td><strong>PASS</strong></td></tr>
+<tr><td><strong>TC4</strong></td><td>Invalid Amount</td><td>"Books", -50</td><td>Alert: "Enter valid amount"</td><td>Alert shown, not added</td><td><strong>PASS</strong></td></tr>
+<tr><td><strong>TC5</strong></td><td>Delete Entry</td><td>Delete "Coffee"</td><td>Item removed, Total = ₹450</td><td>Item removed, Total = ₹450</td><td><strong>PASS</strong></td></tr>
+</table>
+<h3>7.5 High-Yield Viva Questions & Answers</h3>
+<li><strong>Q1: Why is <code>FlatList</code> superior to <code>ScrollView</code> for large datasets?</strong></li>
+<p><em>Answer:</em> <code>ScrollView</code> renders all child items in memory simultaneously, causing exponential memory consumption and dropped frames for large lists. <code>FlatList</code> virtualizes rendering by lazily recycling off-screen views, achieving $O(1)$ memory usage.</p>
+<li><strong>Q2: Why should you avoid using array index as a <code>keyExtractor</code>?</strong></li>
+<p><em>Answer:</em> If items are deleted, reordered, or inserted, index-based keys scramble React's internal element mapping, causing incorrect UI rendering and lost component state.</p>
+<h3>7.6 Claimly Capstone Elevation</h3>
+<p>In Claimly, <code>FlatList</code> virtualization is realized via Flutter's <code>ListView.builder</code> in <a href="file:///home/swayam-shah/repos/Claimly/lib/features/customer/claims/screens/claims_list_screen.dart"><code>claims_list_screen.dart</code></a> and <a href="file:///home/swayam-shah/repos/Claimly/lib/features/customer/products/screens/products_list_screen.dart"><code>products_list_screen.dart</code></a>. Running financial and warranty aggregations (total insured value, pending exposure, claim resolution ratios) are calculated via functional Dart operations (<code>fold</code>, <code>map</code>, <code>where</code>), while <a href="file:///home/swayam-shah/repos/Claimly/lib/core/validators/form_validators.dart"><code>form_validators.dart</code></a> centralizes input validation.</p>
+<h3>7.7 🎙️ The 60-Second Viva Yap Track</h3>
+<div class="callout callout-info"><em>"In Experiment 7, we explored list virtualization with <code>FlatList</code> and aggregate calculations with <code>reduce</code>. In Claimly, both <code>ClaimsListScreen</code> and <code>ProductsListScreen</code> implement <code>ListView.builder</code> for memory-efficient viewport windowing. Our dashboard controllers perform complex functional aggregations over product portfolios—computing total insured value, claim recovery ratios, and imminent expiry alerts in real-time."</em></div>
+<p>---</p>
+<div class="page-break"></div>
+<h2>8. Experiment 7 (Lab 8): React Native Connectivity-Based App</h2>
+<h3>8.1 Academic Overview</h3>
+<li><strong>Aim:</strong> To design and build a cross-platform React Native application that detects the device's network (internet) connectivity status in real time, updating its UI dynamically (showing online/offline state and connection type: Wi-Fi, cellular, none) using <code>@react-native-community/netinfo</code> and React Hooks (<code>useState</code>, <code>useEffect</code>).</li>
+<li><strong>Course Outcome:</strong> CO3 — Develop connectivity-aware mobile applications with real-time hardware subscriptions.</li>
+<li><strong>Technology Stack:</strong> React Native, Expo, <code>@react-native-community/netinfo</code>, JavaScript.</li>
+<h3>8.2 Theoretical Principles Under the Hood</h3>
+<li><strong>Network Daemon Subscriptions:</strong></li>
+<li>The OS network daemon emits broadcast events when hardware interfaces (Wi-Fi radio, cellular modem) change state.</li>
+<li><code>NetInfo.addEventListener()</code> registers an asynchronous listener bridging native network broadcasts into JavaScript.</li>
+<li><strong>Subscription Cleanup in <code>useEffect</code>:</strong></li>
+<li>To prevent memory leaks, the returned unsubscribe function must be called when the component unmounts.</li>
+<li><strong>Internet Reachability vs. Network Connection:</strong></li>
+<li>Being connected to Wi-Fi does <em>not</em> guarantee internet access (e.g. captive portals, no uplink). NetInfo checks both physical interface connection (<code>isConnected</code>) and WAN internet reachability (<code>isInternetReachable</code>).</li>
+<h3>8.3 Code Architecture & Flow</h3>
+<pre><code class="language-javascript">
+useEffect(() =&gt; {
+  const unsubscribe = NetInfo.addEventListener(state =&gt; {
+    setNetInfoState({
+      isConnected: state.isConnected,
+      isInternetReachable: state.isInternetReachable,
+      type: state.type,
+    });
+  });
+  return () =&gt; unsubscribe(); // Cleanup on unmount
+}, []);
+</code></pre>
+<h3>8.4 Test Cases & Verified Results</h3>
+<li><strong>Online (Wi-Fi):</strong> Green status card, "Online", Type: "wifi", Reachable: "Yes".</li>
+<li><strong>Online (Cellular):</strong> Green status card, "Online", Type: "cellular", Reachable: "Yes".</li>
+<li><strong>Offline (Airplane Mode):</strong> Red status card, "Offline", Type: "none", Reachable: "No".</li>
+<h3>8.5 High-Yield Viva Questions & Answers</h3>
+<li><strong>Q1: Why is checking <code>isConnected</code> alone insufficient for verifying internet connectivity?</strong></li>
+<p><em>Answer:</em> A device may be connected to a Wi-Fi router that lacks an active internet uplink. <code>isInternetReachable</code> performs an actual HTTP probe to verify WAN gateway connectivity.</p>
+<li><strong>Q2: What happens if you forget to return the cleanup function in <code>useEffect</code>?</strong></li>
+<p><em>Answer:</em> The listener remains active in the native runtime, continuing to execute callbacks on unmounted components, causing severe memory leaks and state update warnings.</p>
+<h3>8.6 Claimly Capstone Elevation</h3>
+<p>In Claimly, network awareness is integrated into the core state and network layer. All asynchronous queries in Riverpod controllers use <code>AsyncValue</code> (<code>when(data, loading, error)</code>). If network connectivity fails, Claimly renders a dedicated <a href="file:///home/swayam-shah/repos/Claimly/lib/core/widgets/error_view.dart"><code>error_view.dart</code></a> with retry callbacks. Furthermore, offline session tokens are cached in <code>shared_preferences</code>, and the PWA Service Worker (<a href="file:///home/swayam-shah/repos/Claimly/web/manifest.json"><code>web/manifest.json</code></a>) allows users to view cached claims and generate PDF dossiers offline.</p>
+<h3>8.7 🎙️ The 60-Second Viva Yap Track</h3>
+<div class="callout callout-info"><em>"Experiment 8 underscored that mobile applications must be network-resilient. In Claimly, rather than just displaying a passive banner, we architected resilience into the state layer. Every remote data query is wrapped in Riverpod's <code>AsyncValue</code>, guaranteeing that if network connectivity drops, the UI transitions gracefully into an <code>ErrorView</code> with retry mechanics, while our local session cache and Service Worker ensure that previously loaded claims remain accessible offline."</em></div>
+<p>---</p>
+<div class="page-break"></div>
+<h2>9. Experiment 8 (Lab 9): Xamarin Widgets & Theming</h2>
+<h3>9.1 Academic Overview</h3>
+<li><strong>Aim:</strong> To design and develop a cross-platform Xamarin.Forms application that demonstrates the use of common UI widgets (<code>Label</code>, <code>Entry</code>, <code>Button</code>, <code>Switch</code>, <code>Slider</code>, <code>Image</code>) arranged in a <code>StackLayout</code>, with interactive event handling implemented in C# code-behind and dynamic Light/Dark theme toggling.</li>
+<li><strong>Course Outcome:</strong> CO4 — Develop applications using Xamarin.Forms components and event-driven code-behind.</li>
+<li><strong>Technology Stack:</strong> Visual Studio 2022, Xamarin.Forms / .NET MAUI, C#, XAML.</li>
+<h3>9.2 Theoretical Principles Under the Hood</h3>
+<li><strong>XAML and Code-Behind Separation:</strong></li>
+<li>XAML declares the visual UI tree declaratively (markup).</li>
+<li>Code-behind (<code>.xaml.cs</code>) handles procedural logic and event responses.</li>
+<li>Elements are linked via the <code>x:Name</code> attribute, which generates strongly-typed private fields in partial classes during compilation.</li>
+<li><strong>Event Handling Pattern:</strong></li>
+<li>Controls expose .NET events (<code>Clicked</code>, <code>Toggled</code>, <code>ValueChanged</code>) wired directly in XAML attributes to C# event handler methods.</li>
+<li><strong>Dynamic Theming via Property Mutation:</strong></li>
+<li>Toggling the <code>Switch</code> dynamically mutates <code>BackgroundColor</code> and <code>TextColor</code> properties across controls in real time.</li>
+<h3>9.3 Key Code Snippets</h3>
+<pre><code class="language-xml">
+&lt;!-- MainPage.xaml --&gt;
+&lt;StackLayout Padding="20" Spacing="15"&gt;
+    &lt;Entry x:Name="NameEntry" Placeholder="Enter your name" /&gt;
+    &lt;Button Text="Greet Me" Clicked="OnGreetClicked" /&gt;
+    &lt;Switch x:Name="ThemeSwitch" Toggled="OnSwitchToggled" /&gt;
+    &lt;Slider x:Name="ScaleSlider" Minimum="0" Maximum="100" ValueChanged="OnSliderValueChanged" /&gt;
+&lt;/StackLayout&gt;
+</code></pre>
+<pre><code class="language-csharp">
+// MainPage.xaml.cs
+private void OnGreetClicked(object sender, EventArgs e) {
+    if (string.IsNullOrWhiteSpace(NameEntry.Text)) {
+        DisplayAlert("Error", "Please enter your name", "OK");
+    } else {
+        GreetingLabel.Text = $"Welcome, {NameEntry.Text.Trim()}!";
+    }
+}
+</code></pre>
+<h3>9.4 Test Cases & Verified Results</h3>
+<li><strong>Name Entry & Greet:</strong> Entered "Swayam", clicked Greet &rarr; Label displayed "Welcome, Swayam!".</li>
+<li><strong>Empty Name Validation:</strong> Cleared Entry, clicked Greet &rarr; Displayed error alert.</li>
+<li><strong>Theme Switch:</strong> Toggled switch &rarr; Screen background changed from White (<code>#FFFFFF</code>) to Dark (<code>#1E1E1E</code>).</li>
+<li><strong>Slider Scale:</strong> Dragged slider &rarr; Live updated scale label and dynamically scaled the logo image.</li>
+<h3>9.5 High-Yield Viva Questions & Answers</h3>
+<li><strong>Q1: What is the relationship between XAML and C# code-behind?</strong></li>
+<p><em>Answer:</em> They form two halves of the same partial class. At compile time, the XAML parser generates a C# file containing <code>InitializeComponent()</code>, which resolves <code>x:Name</code> attributes into strongly-typed object references.</p>
+<li><strong>Q2: What is the primary drawback of code-behind compared to MVVM?</strong></li>
+<p><em>Answer:</em> Code-behind tightly couples business logic to specific UI view controls, making automated unit testing virtually impossible without instantiating the entire UI window.</p>
+<h3>9.6 Claimly Capstone Elevation & Architectural Contrast</h3>
+<p>In Claimly, we contrasted Xamarin's dual-file XAML/C# architecture with Flutter's unified Dart model. Flutter eliminates the synchronization friction of XML and code-behind. The Dark Mode toggle from Lab 9 is fully realized in Claimly's <a href="file:///home/swayam-shah/repos/Claimly/lib/features/customer/profile/screens/profile_screen.dart"><code>profile_screen.dart</code></a> via our Riverpod <a href="file:///home/swayam-shah/repos/Claimly/lib/core/theme/theme_provider.dart"><code>theme_provider.dart</code></a> and <a href="file:///home/swayam-shah/repos/Claimly/lib/core/theme/app_theme.dart"><code>app_theme.dart</code></a>, instantly swapping Material 3 color tokens across the application.</p>
+<h3>9.7 🎙️ The 60-Second Viva Yap Track</h3>
+<div class="callout callout-info"><em>"In Experiment 9, we examined Xamarin's split between XAML markup and C# code-behind. While that pattern separates concerns, it introduces runtime binding errors and testing friction. In Claimly, Flutter's unified Dart architecture allows us to express widgets, styling, and business logic in one cohesive language. Furthermore, the Dark Mode toggle from Lab 9 is fully realized in Claimly through our Riverpod <code>themeModeProvider</code>, seamlessly swapping color tokens across all widgets in real-time."</em></div>
+<p>---</p>
+<div class="page-break"></div>
+<h2>10. Experiment 9 (Lab 10): Xamarin Layouts & Views — Multi-Section Profile</h2>
+<h3>10.1 Academic Overview</h3>
+<li><strong>Aim:</strong> To design and build a cross-platform Xamarin.Forms application that arranges views using multiple layout containers (<code>StackLayout</code>, <code>Grid</code>, and <code>ListView</code>) to create a well-structured multi-section profile/dashboard screen.</li>
+<li><strong>Course Outcome:</strong> CO4 — Develop applications using Xamarin components, grid coordinates, and layout containers.</li>
+<li><strong>Technology Stack:</strong> Visual Studio 2022, Xamarin.Forms / .NET MAUI, C#, XAML.</li>
+<h3>10.2 Theoretical Principles Under the Hood</h3>
+<li><strong>The Xamarin Layout Hierarchy:</strong></li>
+<li><code>StackLayout</code>: Positions child elements in a single horizontal or vertical line.</li>
+<li><code>Grid</code>: Arranges views in rows and columns defined via <code>RowDefinitions</code> and <code>ColumnDefinitions</code>.</li>
+<li>Grid sizing modes:</li>
+<li><code>Absolute</code>: Exact device-independent units (e.g. <code>Height="50"</code>).</li>
+<li><code>Auto</code>: Sizes to fit the contents of the largest child in the row/column.</li>
+<li><code>Star (<em>)</code>: Proportional weighted sizing (e.g. <code>1</em></code> and <code>2*</code> take 33.3% and 66.6% of remaining space).</li>
+<li><strong>Container Composition:</strong> Nesting linear <code>StackLayout</code> rows inside coordinate <code>Grid</code> cells and wrapping everything in a <code>ScrollView</code> creates complex, multi-section responsive dashboards.</li>
+<h3>10.3 Code Architecture & Flow</h3>
+<pre><code class="language-xml">
+&lt;!-- Metric Grid from Lab 10 --&gt;
+&lt;Grid ColumnSpacing="10" RowSpacing="10"&gt;
+    &lt;Grid.ColumnDefinitions&gt;
+        &lt;ColumnDefinition Width="*" /&gt;
+        &lt;ColumnDefinition Width="*" /&gt;
+        &lt;ColumnDefinition Width="*" /&gt;
+    &lt;/Grid.ColumnDefinitions&gt;
+    &lt;Frame Grid.Column="0" CornerRadius="8" BackgroundColor="#E3F2FD"&gt;
+        &lt;StackLayout HorizontalOptions="Center"&gt;
+            &lt;Label Text="12" FontAttributes="Bold" FontSize="18" /&gt;
+            &lt;Label Text="Projects" FontSize="11" /&gt;
+        &lt;/StackLayout&gt;
+    &lt;/Frame&gt;
+    &lt;!-- Column 1 (CGPA) and Column 2 (Contributions) --&gt;
+&lt;/Grid&gt;
+</code></pre>
+<h3>10.4 Test Verification & Observed Output</h3>
+<li>Header section displaying avatar, name ("Swayam Shah"), and subtitle.</li>
+<li>3-column metric cards displaying Projects (12), CGPA (9.4), and Contributions (450+).</li>
+<li>Scrollable <code>ListView</code> listing technical skills with item selection alerts.</li>
+<h3>10.5 High-Yield Viva Questions & Answers</h3>
+<li><strong>Q1: How does proportional Star (*) sizing work in a Grid?</strong></li>
+<p><em>Answer:</em> Star sizing divides the space remaining after fixed and Auto columns are allocated among star columns according to their proportional weights.</p>
+<li><strong>Q2: What is the purpose of <code>Frame</code> in Xamarin.Forms?</strong></li>
+<p><em>Answer:</em> <code>Frame</code> is a container view used to display rounded corners, elevation drop-shadows, and borders around child elements.</p>
+<h3>10.6 Claimly Capstone Elevation</h3>
+<p>In Claimly, the coordinate grid concepts of Xamarin's <code>Grid</code> are implemented in <a href="file:///home/swayam-shah/repos/Claimly/lib/features/admin/dashboard/screens/admin_dashboard_screen.dart"><code>admin_dashboard_screen.dart</code></a> and <code>CustomerDashboardScreen</code>. Claimly coordinates KPI metric tiles, chart containers (<code>fl_chart</code> vector graphs), and recent claims queues using responsive flex columns and wraps that adapt across tablet and desktop viewports.</p>
+<h3>10.7 🎙️ The 60-Second Viva Yap Track</h3>
+<div class="callout callout-info"><em>"In Experiment 10, we used Xamarin's <code>Grid</code> and <code>StackLayout</code> to construct multi-section profile dashboards. In Claimly, this pattern powers our executive analytics. In <code>AdminDashboardScreen</code>, we combine responsive flex columns with <code>fl_chart</code> vector visualizations to present claim adjudication metrics, volume graphs, and user management tables in a structured layout that adapts across desktop and tablet screens."</em></div>
+<p>---</p>
+<div class="page-break"></div>
+<h2>11. Experiment 10: Maps API Integration Using Flutter — Global Explorer</h2>
+<h3>11.1 Academic Overview</h3>
+<li><strong>Aim:</strong> To design, develop, and implement a cross-platform Flutter application named Global Explorer that integrates a third-party Maps API (OpenStreetMap Tile API via the <code>flutter_map</code> package) to display interactive maps, place location markers, enable smooth camera navigation between geographic coordinates (Paris, New York, Tokyo, Sydney), and layer custom UI overlays via <code>Stack</code>.</li>
+<li><strong>Course Outcome:</strong> CO1 / CO2 — Embed geo-spatial APIs, tile streaming, and coordinate projections into Flutter.</li>
+<li><strong>Technology Stack:</strong> Flutter SDK, <code>flutter_map</code> (v6+), <code>latlong2</code>, OpenStreetMap Tile API, Dart.</li>
+<h3>11.2 Theoretical Principles Under the Hood</h3>
+<li><strong>Tile-Based Web Mercator Mapping:</strong></li>
+<li>Web mapping APIs rely on the <em>Slippy Map</em> standard using the Web Mercator projection (EPSG:3857).</li>
+<li>The globe is mapped onto a flat surface and subdivided into $256 	imes 256$ pixel PNG image tiles organized in a quad-tree pyramid indexed by zoom level <code>z</code> and coordinates <code>x, y</code>:</li>
+<p><code>https://tile.openstreetmap.org/{z}/{x}/{y}.png</code>.</p>
+<li><strong>Layer-Based Architecture in <code>flutter_map</code>:</strong></li>
+<li><code>FlutterMap</code> coordinates multiple rendering layers:</li>
+<li><code>TileLayer</code>: Streams, caches, and paints raster map tiles.</li>
+<li><code>MarkerLayer</code>: Projects geographic coordinates (<code>LatLng</code>) into screen pixel offsets, pinning custom Flutter widgets on the map surface.</li>
+<li><strong>Programmatic Camera Control:</strong></li>
+<li><code>MapController.move(LatLng target, double zoom)</code> animates and re-centers the viewport camera programmatically.</li>
+<h3>11.3 Step-by-Step Code Architecture</h3>
+<pre><code class="language-dart">
+// Academic snippet from Global Explorer
+FlutterMap(
+  mapController: _mapController,
+  options: MapOptions(
+    initialCenter: const LatLng(48.8566, 2.3522), // Paris
+    initialZoom: 13.0,
+  ),
+  children: [
+    TileLayer(
+      urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+      userAgentPackageName: 'com.example.globalexplorer',
+    ),
+    MarkerLayer(
+      markers: [
+        Marker(
+          point: const LatLng(48.8566, 2.3522),
+          child: const Icon(Icons.location_on, color: Colors.red, size: 40),
+        ),
+      ],
+    ),
+  ],
+)
+</code></pre>
+<h3>11.4 Test Cases & Verified Results</h3>
+<li><strong>Initial View:</strong> Centered on Paris, France (<code>Lat: 48.8566, Lng: 2.3522</code>) with Eiffel Tower marker.</li>
+<li><strong>Camera Navigation:</strong> Tapping "New York" chip smoothly moves camera to NYC (<code>Lat: 40.7128, Lng: -74.0060</code>) and renders Statue of Liberty marker.</li>
+<li><strong>Gestures:</strong> Verified pinch-to-zoom, drag-to-pan, and rotation gestures on touch and trackpad.</li>
+<h3>11.5 High-Yield Viva Questions & Answers</h3>
+<li><strong>Q1: Why is passing a valid <code>userAgentPackageName</code> mandatory for OpenStreetMap tiles?</strong></li>
+<p><em>Answer:</em> OpenStreetMap tile usage policy requires all client applications to provide an identifiable user-agent to prevent API abuse and enable rate-limiting of rogue scrapers.</p>
+<li><strong>Q2: How does <code>flutter_map</code> convert latitude and longitude into screen pixel positions?</strong></li>
+<p><em>Answer:</em> It applies the forward Web Mercator projection formulas to convert ellipsoidal WGS84 geographic coordinates into planar coordinates, scaling them by $2^{	ext{zoom}}$ to calculate viewport pixel offsets.</p>
+<h3>11.6 Claimly Capstone Elevation & Architectural Roadmap</h3>
+<p>Within Claimly's warranty lifecycle, once a hardware repair claim is approved in <code>AdminClaimDetailScreen</code>, physical fulfillment requires the consumer to drop off their defective item at an authorized OEM repair center. By incorporating the <code>flutter_map</code> architecture from our Maps lab, Claimly plots verified OEM repair service centers and authorized return drop-off hubs on an interactive map. When the customer opens their approved claim dossier, they can view the nearest repair hub, operating hours, and drop-off instructions mapped directly to their geographic location.</p>
+<h3>11.7 🎙️ The 60-Second Viva Yap Track</h3>
+<div class="callout callout-info"><em>"In the Maps API experiment, we built Global Explorer using <code>flutter_map</code> and OpenStreetMap tile servers to stream map tiles and plot geographic markers with <code>LatLng</code> coordinates. Within Claimly's enterprise architecture, this geo-spatial engine fulfills a vital role: once a warranty repair claim is approved, the system can display nearby authorized OEM service centers and RMA drop-off depots, providing customers with turn-by-turn physical fulfillment right from the claim dossier."</em></div>
+<p>---</p>
+<div class="page-break"></div>
+<h2>12. Master Cross-Platform Comparative Framework</h2>
+<table>
+<tr><th>Technical Dimension</th><th>Flutter (Claimly)</th><th>React Native (Labs 6, 7, 8)</th><th>Xamarin / .NET MAUI (Labs 9, 10)</th><th>Dart Web / DOM (Exp 4)</th></tr>
+<tr><td><strong>Primary Language</strong></td><td><strong>Dart 3</strong> (sound null safety, AOT & JIT)</td><td><strong>JavaScript / TypeScript</strong> (dynamic / typed)</td><td><strong>C#</strong> with XAML markup (.NET runtime)</td><td><strong>Dart</strong> compiled to JS or WebAssembly</td></tr>
+<tr><td><strong>Rendering Model</strong></td><td><strong>Direct Canvas Rasterization:</strong> Draws every pixel via Skia/Impeller. Owns the entire window.</td><td><strong>Native OEM Platform Views:</strong> Maps JSX elements to <code>android.widget</code> and <code>UIView</code>.</td><td><strong>Native Platform Controls:</strong> Handlers map XAML controls to native OS views.</td><td><strong>Browser DOM:</strong> Directly modifies browser document nodes.</td></tr>
+<tr><td><strong>Bridge / Threading</strong></td><td><strong>Zero Bridge:</strong> Dart compiles to native ARM binary. Single UI thread + Dart Isolates.</td><td><strong>Bridge / JSI:</strong> JS thread communicates across bridge or synchronous JSI C++ host objects.</td><td><strong>Mono Runtime:</strong> C# runtime communicates with native OS APIs via interop bindings.</td><td><strong>Browser Event Loop:</strong> Single-threaded microtask queue.</td></tr>
+<tr><td><strong>UI Consistency</strong></td><td><strong>100% Identical Pixel Fidelity</strong> across Android, iOS, Linux, and Web. Zero OEM skin drift.</td><td><strong>OEM-Dependent:</strong> Look & feel varies by OS version and manufacturer skin (Samsung OneUI, MIUI).</td><td><strong>OEM-Dependent:</strong> Native appearance governed by platform handlers.</td><td><strong>Browser/CSS Dependent:</strong> Governed by browser stylesheet resets.</td></tr>
+<tr><td><strong>State Management</strong></td><td><strong>Riverpod 2.6:</strong> Compile-safe, decoupled, auto-disposing, zero context lookup.</td><td><strong>React Hooks:</strong> <code>useState</code>, <code>useReducer</code>, Context API, Redux Toolkit, Zustand.</td><td><strong>MVVM:</strong> <code>INotifyPropertyChanged</code>, XAML data binding, CommunityToolkit.Mvvm.</td><td><strong>DOM Event Listeners:</strong> Manual element attribute and state mutation.</td></tr>
+<tr><td><strong>Development Ergonomics</strong></td><td><strong>Stateful Hot Reload:</strong> Sub-second code updates preserving state.</td><td><strong>Fast Refresh:</strong> Instant module replacement via Metro bundler.</td><td><strong>XAML Hot Reload:</strong> Good UI updates, slower solution rebuilds.</td><td><strong>webdev serve:</strong> Fast browser reloads on source change.</td></tr>
+<tr><td><strong>Production Output</strong></td><td>Native ARM64 binary APK/AAB, Linux ELF binary, CanvasKit static web bundle.</td><td>JS bundle packaged alongside native Android/iOS binary shells.</td><td>Compiled .NET Intermediate Language (IL) inside platform packages.</td><td>Minified JavaScript bundle and HTML/CSS web assets.</td></tr>
+</table>
+<p>---</p>
+<div class="page-break"></div>
+<h2>13. Capstone Project Defense: Claimly Architecture</h2>
+<h3>13.1 Executive Overview</h3>
+<p><strong>Claimly</strong> is an automated warranty and refund claim assistant engineered to protect consumers from the <strong>$40+ billion lost annually</strong> to lapsed warranties and degraded receipts.</p>
+<h3>13.2 Core Architectural Layers</h3>
+<li><strong>Client UI Layer (Flutter 3.x Web & Desktop):</strong></li>
+<li>Material 3 design system with dynamic Light/Dark mode (<a href="file:///home/swayam-shah/repos/Claimly/lib/core/theme/app_theme.dart"><code>app_theme.dart</code></a>).</li>
+<li>Responsive & Adaptive Shell via <a href="file:///home/swayam-shah/repos/Claimly/lib/core/widgets/responsive_layout_builder.dart"><code>ResponsiveLayoutBuilder</code></a> and <a href="file:///home/swayam-shah/repos/Claimly/lib/core/constants/app_breakpoints.dart"><code>app_breakpoints.dart</code></a>.</li>
+<li>Declarative routing and auth guards via <strong>GoRouter 14.8</strong> (<a href="file:///home/swayam-shah/repos/Claimly/lib/core/router/app_router.dart"><code>app_router.dart</code></a>).</li>
+<li><strong>State Management Layer (Riverpod 2.6):</strong></li>
+<li>5-step interactive Claim Wizard state machine (<a href="file:///home/swayam-shah/repos/Claimly/lib/features/customer/claims/claim_wizard/controllers/wizard_controller.dart"><code>wizard_controller.dart</code></a>).</li>
+<li>Decoupled from <code>BuildContext</code>, providing 100% testable controllers and safe dependency injection.</li>
+<li><strong>Backend & Security Layer (Supabase & PostgreSQL 15):</strong></li>
+<li><strong>37 PostgreSQL Row-Level Security (RLS) Policies</strong> enforcing multi-tenant isolation at the database kernel.</li>
+<li>Custom database enums (<code>claim_status</code>, <code>claim_type</code>, <code>claim_priority</code>, <code>user_role</code>).</li>
+<li>Automated database triggers for profile provisioning and claim timestamp updates.</li>
+<li><strong>Serverless Edge Compute (Deno / TypeScript):</strong></li>
+<li><code>claim-processor</code>: Executes a multi-factor priority triage scoring algorithm (0–100 scale) based on claim type, purchase amount, warranty proximity, and NLP keywords.</li>
+<li><code>warranty-expiry-checker</code>: Scheduled daily cron job issuing automated expiry warnings.</li>
+<li><strong>Client-Side Vector PDF & Cryptographic Verification Pipeline:</strong></li>
+<li><a href="file:///home/swayam-shah/repos/Claimly/lib/features/customer/claims/services/claim_pdf_service.dart"><code>claim_pdf_service.dart</code></a> compiles vector PDF claim dossiers in client memory (<code>Uint8List</code>).</li>
+<li>Embeds a dynamic cryptographic QR code containing a secure verification URL to prevent fraudulent claim submissions.</li>
+<li><strong>Testing & Verification Baseline:</strong></li>
+<li><strong>123 automated unit, widget, and integration test suites</strong>.</li>
+<li>0 static analysis errors (<code>flutter analyze</code> clean).</li>
+<p>---</p>
+<div class="page-break"></div>
+<h2>14. The Viva Voce Oral Presentation Playbook & "Yap Guide"</h2>
+<h3>14.1 The 30-Second Elevator Pitch</h3>
+<div class="callout callout-info"><em>"Good morning, examiners. My name is Swayam Shah (Roll No: 231070062), and this is <strong>Claimly</strong>—an enterprise automated warranty and refund claim assistant built with Flutter, Dart, Riverpod, and Supabase. Consumers lose over $40 billion annually in expired warranties and lost receipts. Claimly solves this through digital receipt vaulting, automated countdown tracking, a 5-step guided claim filing wizard, multi-factor priority triage scoring, and instant client-side PDF claim dossier compilation with cryptographic QR verification. Every architectural pattern in Claimly directly synthesizes our 10 CPAD lab experiments into a cohesive, production-ready system."</em></div>
+<h3>14.2 The 2-Minute Architectural Pitch</h3>
+<div class="callout callout-info">*"Claimly is engineered from the ground up as a production realization of our Cross-Platform Application Development curriculum.</div>
+<div class="callout callout-info"><strong>On the Client Layer:</strong> We chose Flutter 3.x and Dart 3 over React Native and Xamarin because Flutter's compiled graphics engine renders directly to the canvas, eliminating bridge bottlenecks and providing 100% UI consistency across Web, Linux, and Mobile. Our UI implements a responsive-adaptive shell via <code>ResponsiveLayoutBuilder</code>, transitioning from a mobile bottom navigation bar to an extended desktop navigation rail.</div>
+<div class="callout callout-info"><strong>On the State Management Layer:</strong> We implemented <strong>Riverpod 2.6</strong>. By decoupling state from the widget tree, our 5-step claim wizard maintains immutable, testable state across all steps without prop-drilling or context lookup errors.</div>
+<div class="callout callout-info"><strong>On the Backend & Edge Layer:</strong> Claimly leverages PostgreSQL 15 via Supabase, protected by 37 Row-Level Security policies. When a claim is filed, an automated Edge Function executes a multi-factor priority triage scoring algorithm, evaluating purchase price, claim type, and deadline proximity. In addition, our consumer advocacy engine enforces a unique 7-day post-expiry grace period.</div>
+<div class="callout callout-info">Finally, Claimly includes client-side PDF document compilation with embedded verification QR codes, fully tested with 123 automated unit, widget, and integration tests."*</div>
+<h3>14.3 Strategic Examiner Trap Defenses</h3>
+<li><strong>TRAP: "Isn't Flutter bad for Web compared to React/Next.js?"</strong></li>
+<p><em>Defense:</em> For static blogs or SEO sites, React/Next.js is better due to smaller HTML payloads. But Claimly is a transactional enterprise tool requiring complex forms, vector PDF generation, and identical UI consistency across mobile, desktop, and web. Flutter Web's CanvasKit provides hardware-accelerated 60 FPS graphics and 100% shared business logic.</p>
+<li><strong>TRAP: "Doesn't React Native's new JSI architecture make bridge arguments obsolete?"</strong></li>
+<p><em>Defense:</em> JSI replaces asynchronous JSON serialization with synchronous C++ host objects, but it <em>still maps to platform OEM controls</em>. An Android button is still subject to OEM vendor theming quirks and OS fragmentation. Flutter owns every pixel on the canvas, guaranteeing absolute design fidelity.</p>
+<li><strong>TRAP: "Isn't using Supabase a shortcut instead of writing a Node/Express backend?"</strong></li>
+<p><em>Defense:</em> Supabase is not a toy wrapper; it is an enterprise open-source platform on PostgreSQL 15. We enforce security at the database kernel via 37 Row-Level Security policies and run serverless compute via TypeScript Edge Functions. Custom Node middleware would have duplicated these capabilities without added security.</p>
+<h3>14.4 Live Demo Flow (4-Minute Presentation Sequence)</h3>
+<li><strong>Show Responsive Shell:</strong> Start at 1400px (extended <code>NavigationRail</code>). Resize to 500px (smoothly collapses to <code>NavigationBar</code> with unread badges). <em>Cites Lab 3 & Lab 10.</em></li>
+<li><strong>Show Dashboard & Overlays:</strong> Point out <code>ExpiryAlertCard</code> and <code>ProductCard</code> with <code>Stack</code> and <code>Positioned</code> countdown chips. <em>Cites Lab 2 & Lab 7.</em></li>
+<li><strong>Execute 5-Step Claim Wizard:</strong> Walk through Product &rarr; Type &rarr; Issue Description (regex validation) &rarr; Attachments &rarr; Submit. Highlight Riverpod state machine. <em>Cites Lab 2, 6, 7.</em></li>
+<li><strong>Generate Client-Side PDF Dossier:</strong> Open an approved claim, click "Export PDF Dossier", and display the vector PDF with dynamic verification QR code. <em>Cites Exp 4 & Lab 1.</em></li>
+<li><strong>Toggle Dark/Light Mode:</strong> Switch theme in Profile; show instantaneous token swapping. <em>Cites Lab 9 & Lab 1.</em></li>
+<li><strong>Open Admin Portal:</strong> Display FL Chart graphs and claims triage priority scores (Urgent, High, Standard) from Edge Function. <em>Cites Lab 10 & Edge Compute.</em></li>
+<li><strong>Show Test Baseline:</strong> Show terminal with 123 tests passing with 0 errors. Conclude confidently!</li>
+  </div>
+
+</body>
+</html>

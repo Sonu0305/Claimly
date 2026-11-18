@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Claimly: CPAD Comprehensive Viva Voce Defense Guide & Lab Synthesis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================================================
+       CSS PAGED MEDIA & PRINT RULES
+       ========================================================================== */
+    @page {
+      size: A4 portrait;
+      margin: 18mm 14mm 18mm 14mm;
+      @top-center {
+        content: "Claimly: CPAD Comprehensive Viva Defense Guide & Lab Synthesis — Course: R5CO4004L";
+        font-size: 7.5pt;
+        font-family: 'Inter', sans-serif;
+        color: #64748b;
+        border-bottom: 1px solid #e2e8f0;
+        padding-bottom: 4px;
+      }
+      @bottom-left {
+        content: "Candidate: Swayam Shah (PRN: 231070062) | B.Tech Comp Eng Sem VII";
+        font-size: 7.5pt;
+        font-family: 'JetBrains Mono', monospace;
+        color: #94a3b8;
+      }
+      @bottom-right {
+        content: "Page " counter(page);
+        font-size: 7.5pt;
+        font-family: 'Inter', sans-serif;
+        color: #64748b;
+      }
+    }
+
+    @page:first {
+      margin: 0;
+      @top-center { content: none; }
+      @bottom-left { content: none; }
+      @bottom-right { content: none; }
+    }
+
+    /* ==========================================================================
+       BASE RESETS & TYPOGRAPHY
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 9pt;
+      line-height: 1.5;
+      color: #1e293b;
+      background-color: #ffffff;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      color: #0f172a;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      page-break-after: avoid;
+    }
+
+    h1 { font-size: 20pt; line-height: 1.2; margin-bottom: 8px; }
+    h2 { font-size: 13pt; line-height: 1.3; margin-top: 18px; margin-bottom: 8px; border-bottom: 1.5px solid #2563eb; padding-bottom: 4px; color: #1e40af; }
+    h3 { font-size: 10.5pt; line-height: 1.35; margin-top: 14px; margin-bottom: 6px; color: #0f172a; }
+    h4 { font-size: 9.5pt; line-height: 1.35; margin-top: 10px; margin-bottom: 4px; color: #334155; }
+
+    p {
+      margin-bottom: 8px;
+      text-align: justify;
+    }
+
+    ul, ol {
+      margin-top: 4px;
+      margin-bottom: 8px;
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 3px;
+    }
+
+    code, pre {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8pt;
+    }
+
+    code {
+      background-color: #f1f5f9;
+      color: #0f172a;
+      padding: 1px 4px;
+      border-radius: 3px;
+      border: 1px solid #e2e8f0;
+    }
+
+    pre {
+      background-color: #0f172a;
+      color: #f8fafc;
+      padding: 10px 12px;
+      border-radius: 6px;
+      margin: 8px 0;
+      overflow-x: auto;
+      line-height: 1.4;
+      page-break-inside: avoid;
+    }
+
+    pre code {
+      background-color: transparent;
+      color: inherit;
+      padding: 0;
+      border: none;
+    }
+
+    /* ==========================================================================
+       COVER PAGE
+       ========================================================================== */
+    .cover-page {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 50px 45px;
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #1e3a8a 100%);
+      color: #ffffff;
+      page-break-after: always;
+      position: relative;
+    }
+
+    .cover-header {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding-bottom: 20px;
+    }
+
+    .cover-dept {
+      font-size: 8.5pt;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #93c5fd;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .cover-course {
+      font-size: 10pt;
+      color: #cbd5e1;
+      font-weight: 500;
+    }
+
+    .cover-body {
+      margin: auto 0;
+    }
+
+    .cover-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background-color: rgba(37, 99, 235, 0.35);
+      border: 1px solid #3b82f6;
+      border-radius: 20px;
+      font-size: 8pt;
+      font-weight: 600;
+      color: #60a5fa;
+      letter-spacing: 0.05em;
+      margin-bottom: 16px;
+    }
+
+    .cover-title {
+      font-size: 26pt;
+      font-weight: 800;
+      line-height: 1.15;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .cover-subtitle {
+      font-size: 12pt;
+      line-height: 1.45;
+      color: #94a3b8;
+      max-width: 90%;
+      margin-bottom: 24px;
+    }
+
+    .cover-tagline {
+      font-size: 9pt;
+      color: #38bdf8;
+      font-weight: 500;
+      padding-left: 12px;
+      border-left: 3px solid #38bdf8;
+    }
+
+    .cover-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .cover-meta-col {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .cover-meta-label {
+      font-size: 7pt;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #64748b;
+    }
+
+    .cover-meta-value {
+      font-size: 9pt;
+      font-weight: 600;
+      color: #e2e8f0;
+    }
+
+    /* ==========================================================================
+       TABLES
+       ========================================================================== */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0;
+      font-size: 8pt;
+      page-break-inside: avoid;
+    }
+
+    th, td {
+      padding: 6px 8px;
+      border: 1px solid #cbd5e1;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background-color: #f1f5f9;
+      font-weight: 700;
+      color: #0f172a;
+      text-transform: uppercase;
+      font-size: 7pt;
+      letter-spacing: 0.05em;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #f8fafc;
+    }
+
+    /* ==========================================================================
+       CALLOUT BOXES & CARDS
+       ========================================================================== */
+    .callout {
+      padding: 10px 12px;
+      border-radius: 6px;
+      margin: 10px 0;
+      font-size: 8.5pt;
+      page-break-inside: avoid;
+      border-left: 4px solid;
+    }
+
+    .callout-info {
+      background-color: #eff6ff;
+      border-left-color: #2563eb;
+      color: #1e40af;
+    }
+
+    .callout-success {
+      background-color: #f0fdf4;
+      border-left-color: #16a34a;
+      color: #166534;
+    }
+
+    .callout-warning {
+      background-color: #fffbeb;
+      border-left-color: #d97706;
+      color: #92400e;
+    }
+
+    .callout-danger {
+      background-color: #fef2f2;
+      border-left-color: #dc2626;
+      color: #991b1b;
+    }
+
+    .callout-yap {
+      background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+      border-left-color: #7c3aed;
+      color: #4c1d95;
+    }
+
+    .callout-title {
+      font-weight: 700;
+      margin-bottom: 3px;
+      font-size: 9pt;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 6.5pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-blue { background: #dbeafe; color: #1e40af; }
+    .badge-green { background: #dcfce7; color: #15803d; }
+    .badge-purple { background: #f3e8ff; color: #6b21a8; }
+    .badge-amber { background: #fef3c7; color: #b45309; }
+    .badge-red { background: #fee2e2; color: #b91c1c; }
+
+    /* ==========================================================================
+       Q&A CARDS
+       ========================================================================== */
+    .qa-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 10px 12px;
+      margin: 10px 0;
+      background: #ffffff;
+      page-break-inside: avoid;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+
+    .qa-question {
+      font-weight: 700;
+      color: #0f172a;
+      font-size: 9pt;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .qa-tag {
+      font-size: 6.5pt;
+      font-weight: 800;
+      padding: 1px 5px;
+      border-radius: 3px;
+      background: #2563eb;
+      color: #ffffff;
+      text-transform: uppercase;
+    }
+
+    .qa-answer {
+      color: #334155;
+      font-size: 8.5pt;
+      line-height: 1.45;
+    }
+
+    .qa-talking-point {
+      margin-top: 6px;
+      padding: 6px 8px;
+      background: #f8fafc;
+      border-left: 3px solid #3b82f6;
+      border-radius: 3px;
+      font-size: 8pt;
+      color: #1e293b;
+    }
+
+    .qa-talking-point strong {
+      color: #1d4ed8;
+    }
+
+    .two-column {
+      display: flex;
+      gap: 14px;
+      margin: 8px 0;
+    }
+
+    .two-column > div {
+      flex: 1;
+    }
+
+    .page-break {
+      page-break-before: always;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================================================
+       1. COVER PAGE
+       ========================================================================= -->
+  <div class="cover-page">
+    <div class="cover-header">
+      <div class="cover-dept">Department of Computer Engineering &bull; Academic Year 2025–2026</div>
+      <div class="cover-course">Cross-Platform Application Development Laboratory (Course Code: R5CO4004L)</div>
+    </div>
+    
+    <div class="cover-body">
+      <div class="cover-badge">COMPREHENSIVE SEMESTER VIVA VOCE &amp; ARCHITECTURAL DEFENSE</div>
+      <div class="cover-title">Claimly: Automated Warranty &amp; Refund Assistant</div>
+      <div class="cover-subtitle">
+        A Rigorous Synthesis &amp; Production-Grade Realization of Course Experiments (Labs 1–10, Dart DOM &amp; Maps API) Across Flutter, React Native, Xamarin/.NET MAUI, and Dart Web Architectures.
+      </div>
+      <div class="cover-tagline">
+        Engineered for Articulate Defense, Technical Fluency, Architectural Contrast, and Flawless Viva Voce Presentation.
+      </div>
+    </div>
+
+    <div class="cover-footer">
+      <div class="cover-meta-col">
+        <span class="cover-meta-label">Candidate Name</span>
+        <span class="cover-meta-value">Swayam Shah</span>
+      </div>
+      <div class="cover-meta-col">
+        <span class="cover-meta-label">Roll No / PRN</span>
+        <span class="cover-meta-value">231070062</span>
+      </div>
+      <div class="cover-meta-col">
+        <span class="cover-meta-label">Degree &amp; Branch</span>
+        <span class="cover-meta-value">B.Tech (Computer Engineering)</span>
+      </div>
+      <div class="cover-meta-col">
+        <span class="cover-meta-label">Semester &amp; Batch</span>
+        <span class="cover-meta-value">Semester VII &bull; Batch B</span>
+      </div>
+      <div class="cover-meta-col">
+        <span class="cover-meta-label">Evaluation Date</span>
+        <span class="cover-meta-value">November 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       2. EXECUTIVE SUMMARY & CURRICULUM SYNTHESIS
+       ========================================================================= -->
+  <h2>1. Executive Summary: Curriculum Synthesis &amp; Project Vision</h2>
+  <p>
+    The <strong>Cross-Platform Application Development (CPAD)</strong> curriculum is systematically designed to impart core proficiencies across multiple modern UI frameworks, compilation pipelines, reactive paradigms, and architectural abstractions. Across the semester, 10 laboratory experiments explored distinct facets of cross-platform engineering:
+  </p>
+  <ul>
+    <li><strong>Flutter &amp; Dart Foundations:</strong> Widget hierarchies, reactive composition, and flex layout systems (<em>Labs 1 &amp; 2</em>).</li>
+    <li><strong>Multi-Device Responsiveness &amp; Adaptive Navigation:</strong> Dynamic viewport breakpoints, fluid grids, and adaptive screen shells (<em>Lab 3</em>).</li>
+    <li><strong>Web Compilation &amp; Browser DOM Interoperability:</strong> Client-side Dart compilation, asynchronous event dispatching, and DOM mutation (<em>Dart DOM Experiment</em>).</li>
+    <li><strong>React Native &amp; Component-Driven Architecture:</strong> The JavaScript-Native bridge, JSX, hooks-based state management, virtualized lists, and network awareness (<em>Labs 6, 7 &amp; 8</em>).</li>
+    <li><strong>Xamarin/.NET MAUI Enterprise Patterns:</strong> XAML markup separation, code-behind event handling, multi-container layout grids, and dynamic theming (<em>Labs 9 &amp; 10</em>).</li>
+    <li><strong>Geo-Spatial APIs &amp; Layered Rendering:</strong> Slippy map tile streaming, geographic coordinate projections, and interactive marker positioning (<em>Maps API Experiment</em>).</li>
+  </ul>
+  
+  <p>
+    <strong>Claimly</strong> does not merely treat these experiments as isolated academic exercises. Instead, <strong>Claimly</strong> is the <em>culmination and production hardening</em> of these exact principles into an enterprise-grade, multi-platform consumer protection platform. Built on Flutter 3.x, Dart 3, Riverpod 2.6, GoRouter 14.8, and Supabase (PostgreSQL 15 with Row-Level Security), Claimly takes the toy models from the laboratory and elevates them into a commercial-grade, multi-tenant warranty management suite featuring a 5-step interactive claim wizard, automated multi-factor triage scoring, client-side PDF document generation with cryptographic QR verification, and real-time administrative analytics.
+  </p>
+
+  <div class="callout callout-info">
+    <div class="callout-title">The Viva Voce Core Thesis</div>
+    "Every architectural decision in Claimly—from selecting Flutter's zero-bridge compiled graphics pipeline over React Native's JS bridge, to replacing component-local state with decoupled Riverpod providers, to implementing responsive breakpoints and offline-ready PWA service workers—is directly justified by the empirical trade-offs evaluated during the 10 CPAD laboratory experiments."
+  </div>
+
+  <!-- =========================================================================
+       3. MASTER EXPERIMENT TO CLAIMLY MAPPING MATRIX
+       ========================================================================= -->
+  <h2>2. Master Lab Experiments to Claimly Mapping Matrix</h2>
+  <p>
+    The following matrix establishes the 1-to-1 traceability between every laboratory experiment completed in the course and its concrete, production implementation in Claimly:
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 14%;">Lab / Experiment</th>
+        <th style="width: 18%;">Academic Scope &amp; Tech</th>
+        <th style="width: 32%;">Claimly Production Incorporation</th>
+        <th style="width: 22%;">Code Location &amp; Files</th>
+        <th style="width: 14%;">Evolution Factor</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Lab 1: Flutter Widgets</strong></td>
+        <td>Student Profile Card, Container, Column, Row, CircleAvatar, ElevatedButton, SnackBar.</td>
+        <td><strong>Customer Profile Screen &amp; Atomic UI:</strong> User dossier card with initials avatar, metadata rows, and profile edit flow; reusable <code>AppButton</code>, <code>AppTextField</code>, and snackbar alerts.</td>
+        <td><code>lib/features/customer/profile/screens/profile_screen.dart</code><br><code>lib/core/widgets/app_button.dart</code></td>
+        <td><span class="badge badge-green">Productionized</span> Static card &rarr; dynamic user profile with DB sync.</td>
+      </tr>
+      <tr>
+        <td><strong>Lab 2: Flutter Layouts</strong></td>
+        <td>FreshBasket Grocery UI: Row, Column, Stack, Positioned, Expanded, Card, Badge overlays.</td>
+        <td><strong>Complex Multi-Layer UI Cards:</strong> <code>ClaimCard</code> and <code>ProductCard</code> with Stack/Positioned status badges, warranty countdown overlays, and <code>WizardStepperHeader</code> flex connectors.</td>
+        <td><code>lib/features/customer/claims/widgets/claim_card.dart</code><br><code>lib/features/customer/products/widgets/product_card.dart</code></td>
+        <td><span class="badge badge-green">Productionized</span> Flat layout &rarr; nested responsive cards with z-index badges.</td>
+      </tr>
+      <tr>
+        <td><strong>Lab 3: Responsive UI</strong></td>
+        <td>QuickBite E-Commerce: LayoutBuilder, MediaQuery, Breakpoints (&lt;600, 600-999, &ge;1000px), Adaptive Navigation.</td>
+        <td><strong>3-Tier Breakpoints &amp; Adaptive Shell:</strong> <code>AppBreakpoints</code>, <code>ResponsiveLayoutBuilder</code>, and <code>CustomerShellScreen</code> switching from <code>NavigationBar</code> (mobile) to <code>NavigationRail</code> (tablet/desktop).</td>
+        <td><code>lib/core/constants/app_breakpoints.dart</code><br><code>lib/core/widgets/responsive_layout_builder.dart</code><br><code>lib/features/customer/shell/customer_shell_screen.dart</code></td>
+        <td><span class="badge badge-green">Productionized</span> Basic media query &rarr; full enterprise adaptive navigation shell.</td>
+      </tr>
+      <tr>
+        <td><strong>Dart DOM Application</strong></td>
+        <td>Tip Calculator: Dart Web, <code>package:web</code>, querySelector, dynamic DOM mutation without reload, <code>dart2js</code>.</td>
+        <td><strong>Flutter Web Architecture &amp; Client Logic:</strong> Compiles Dart to JS/Wasm via <code>flutter_web_plugins</code>; client-side warranty math, 7-day grace period logic, and client-side PDF document generation.</td>
+        <td><code>web/index.html</code><br><code>lib/core/utils/warranty_calculator.dart</code><br><code>lib/features/customer/claims/services/claim_pdf_service.dart</code></td>
+        <td><span class="badge badge-purple">Architectural</span> Single script &rarr; multi-platform compiled web canvas &amp; client PDF engine.</td>
+      </tr>
+      <tr>
+        <td><strong>Lab 6: React Native Basics</strong></td>
+        <td>Greeting &amp; Counter: Expo, JSX, <code>useState</code>, View, Text, TouchableOpacity, JS-Native Bridge.</td>
+        <td><strong>State Management &amp; Rendering Model:</strong> Used for architectural defense: contrasts React Native's JS Bridge/JSI with Flutter's compiled Skia/Impeller engine; replaced <code>useState</code> with <strong>Riverpod 2.6</strong>.</td>
+        <td><code>lib/features/customer/claims/claim_wizard/controllers/wizard_controller.dart</code><br><code>lib/core/theme/theme_provider.dart</code></td>
+        <td><span class="badge badge-blue">Comparative</span> Local useState &rarr; decoupled compile-safe Riverpod providers.</td>
+      </tr>
+      <tr>
+        <td><strong>Lab 7: RN Expense Manager</strong></td>
+        <td>Expense Tracker: FlatList, TextInput, Modal, Alert, CRUD operations, array reduce, running totals.</td>
+        <td><strong>Virtualized Data Grids &amp; Claim Analytics:</strong> <code>ListView.builder</code> lazy-rendering for claims/products, CRUD controllers, form validation, modal confirmation dialogues, and financial KPI calculations.</td>
+        <td><code>lib/features/customer/claims/screens/claims_list_screen.dart</code><br><code>lib/features/customer/products/screens/products_list_screen.dart</code><br><code>lib/core/validators/form_validators.dart</code></td>
+        <td><span class="badge badge-green">Productionized</span> Array state &rarr; PostgreSQL backed virtualized lists &amp; KPI analytics.</td>
+      </tr>
+      <tr>
+        <td><strong>Lab 8: RN Connectivity</strong></td>
+        <td>Network State: <code>@react-native-community/netinfo</code>, online/offline detection, ping check, graceful degradation.</td>
+        <td><strong>Network Resilience &amp; Async Handling:</strong> Handled via Riverpod's <code>AsyncValue</code> (data/loading/error), <code>ErrorView</code> with retry, local Supabase session persistence, and PWA offline service workers.</td>
+        <td><code>lib/core/widgets/error_view.dart</code><br><code>lib/core/network/supabase_client.dart</code><br><code>web/manifest.json</code></td>
+        <td><span class="badge badge-green">Productionized</span> Simple banner &rarr; systemic error boundary &amp; offline PDF generation.</td>
+      </tr>
+      <tr>
+        <td><strong>Lab 9: Xamarin Widgets</strong></td>
+        <td>Widget Demo: XAML vs C# code-behind, Label, Entry, Button, Switch, Slider, Light/Dark theme toggle.</td>
+        <td><strong>Unified Declarative UI &amp; Theme Engine:</strong> Replaced dual-file XAML/C# with unified Dart widgets; implemented dynamic Light/Dark mode via <code>Switch</code> and <code>themeModeProvider</code> in Profile.</td>
+        <td><code>lib/core/theme/app_theme.dart</code><br><code>lib/core/theme/theme_provider.dart</code><br><code>lib/features/customer/profile/screens/profile_screen.dart</code></td>
+        <td><span class="badge badge-blue">Comparative</span> XAML/code-behind &rarr; single-language declarative Material 3 theming.</td>
+      </tr>
+      <tr>
+        <td><strong>Lab 10: Xamarin Layouts</strong></td>
+        <td>Profile &amp; Contacts: StackLayout, Grid (Row/ColumnDefinitions), ListView, Frame, coordinate hierarchy.</td>
+        <td><strong>Responsive Dashboard Grids:</strong> Translated Xamarin Grid and StackLayout into Flutter's <code>LayoutBuilder</code>, <code>Row</code>, <code>Column</code>, <code>Wrap</code>, and <code>fl_chart</code> analytic dashboards.</td>
+        <td><code>lib/features/admin/dashboard/screens/admin_dashboard_screen.dart</code><br><code>lib/features/customer/dashboard/screens/customer_dashboard_screen.dart</code></td>
+        <td><span class="badge badge-green">Productionized</span> Static phone grid &rarr; multi-screen responsive analytics dashboard.</td>
+      </tr>
+      <tr>
+        <td><strong>Maps API Experiment</strong></td>
+        <td>Global Explorer: <code>flutter_map</code>, OpenStreetMap Tiles, MarkerLayer, Marker, LatLng, MapController.</td>
+        <td><strong>Service Center &amp; RMA Drop-Off Locator:</strong> Architectural extension for Claimly: mapping approved claims to nearby authorized OEM repair centers and drop-off hubs using coordinates.</td>
+        <td><code>lib/features/customer/claims/screens/claim_detail_screen.dart</code><br><em>(Architectural Roadmap &amp; Service Locator Design)</em></td>
+        <td><span class="badge badge-purple">Architectural</span> City explorer &rarr; authorized warranty service center dispatch engine.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- =========================================================================
+       4. DEEP EXPERIMENT-BY-EXPERIMENT BREAKDOWN
+       ========================================================================= -->
+  <div class="page-break"></div>
+  <h2>3. Detailed Experiment-by-Experiment Analysis &amp; Viva Talking Points</h2>
+
+  <!-- Experiment 1 -->
+  <h3>3.1 Experiment 1: Flutter Environment &amp; Core Widgets (Student Profile Card)</h3>
+  <p>
+    <strong>Core Academic Objective:</strong> Configure Flutter SDK and IDE, understand the widget tree, build a Student Profile Card using <code>Container</code>, <code>Column</code>, <code>Row</code>, <code>CircleAvatar</code>, <code>Text</code>, <code>ElevatedButton</code>, and display interactive feedback via <code>SnackBar</code>.
+  </p>
+  <p>
+    <strong>How Incorporated in Claimly:</strong>
+  </p>
+  <ul>
+    <li><strong>The Customer Profile Dossier:</strong> In <code>lib/features/customer/profile/screens/profile_screen.dart</code>, the academic profile card concept is transformed into a full-fledged enterprise profile screen. It features an initials-generating <code>CircleAvatar</code> (lines 142–151), a structured metadata card arranged via <code>Row</code> and <code>Column</code> flex containers (<code>_infoRow</code> and <code>_statColumn</code>), and live database persistence.</li>
+    <li><strong>Design System &amp; Atomic UI:</strong> Reusable atomic widgets in <code>lib/core/widgets/</code> (<code>AppButton</code>, <code>AppTextField</code>, <code>StatusBadge</code>) embody the composition-over-inheritance principle taught in Lab 1.</li>
+    <li><strong>User Feedback Loop:</strong> <code>ScaffoldMessenger.of(context).showSnackBar</code> is used throughout Claimly (e.g. claim submission confirmations, profile update toasts, and authentication error banners).</li>
+  </ul>
+  <div class="callout callout-yap">
+    <div class="callout-title">🎙️ How to Yap in Viva:</div>
+    "Sir/Ma'am, in Experiment 1, we learned that Flutter's fundamental design philosophy is 'composition over inheritance'—every visual and structural element is a declarative widget. In Claimly, I expanded the basic Student Profile Card into an enterprise user management screen (<code>profile_screen.dart</code>). Instead of hardcoding strings, the profile dynamically extracts initials into a <code>CircleAvatar</code>, queries live statistics from Supabase, and uses decoupled atomic widgets like <code>AppButton</code> with Material 3 design tokens."
+  </div>
+
+  <!-- Experiment 2 -->
+  <h3>3.2 Experiment 2: UI in Flutter Using Row, Column, and Stack Widgets (FreshBasket)</h3>
+  <p>
+    <strong>Core Academic Objective:</strong> Master the 2D layout engine: <code>MainAxisAlignment</code>, <code>CrossAxisAlignment</code>, <code>Expanded</code>/<code>Flexible</code> to resolve <code>RenderFlex</code> overflows, and coordinate layering with <code>Stack</code> and <code>Positioned</code>.
+  </p>
+  <p>
+    <strong>How Incorporated in Claimly:</strong>
+  </p>
+  <ul>
+    <li><strong>Multi-Layer Z-Index Badging:</strong> In <code>ClaimCard</code> (<code>lib/features/customer/claims/widgets/claim_card.dart</code>) and <code>ProductCard</code> (<code>lib/features/customer/products/widgets/product_card.dart</code>), <code>Stack</code> and <code>Positioned</code> are used to anchor status badges (<code>StatusBadge</code>), priority chips, and urgent warranty countdown timers over product artwork and metadata cards.</li>
+    <li><strong>Multi-Step Wizard Progress Header:</strong> In <code>WizardStepperHeader</code> (<code>lib/features/customer/claims/claim_wizard/widgets/wizard_stepper_header.dart</code>), a horizontal <code>Row</code> uses <code>Expanded</code> connector bars between circular step indicators to dynamically adapt to varying screen widths without layout overflow.</li>
+    <li><strong>Vertical Claim Timeline:</strong> In <code>ClaimTimelineWidget</code> (<code>lib/features/customer/claims/widgets/claim_timeline_widget.dart</code>), nested <code>Row</code> and <code>Column</code> structures coordinate milestone checkmarks, vertical tracking lines, and timestamp details.</li>
+  </ul>
+  <div class="callout callout-yap">
+    <div class="callout-title">🎙️ How to Yap in Viva:</div>
+    "In Experiment 2, we mastered the Flex system and Z-axis coordinate stacking. In Claimly, this is demonstrated in the <code>ClaimCard</code> and <code>ProductCard</code>. Notice how the warranty countdown and priority chips sit directly on top of the card container using a <code>Stack</code> with <code>Positioned</code> widgets. Furthermore, in the 5-step Claim Filing Wizard, the progress track between steps uses <code>Row</code> with <code>Expanded</code> flex spacers, ensuring that on any screen size—from a narrow 360px phone to a 4K desktop monitor—the stepper connectors scale proportionally without throwing <code>RenderFlex</code> overflow exceptions."
+  </div>
+
+  <!-- Experiment 3 -->
+  <h3>3.3 Experiment 3: Responsive &amp; Adaptive UI Design in Flutter (QuickBite)</h3>
+  <p>
+    <strong>Core Academic Objective:</strong> Build a responsive e-commerce application using <code>LayoutBuilder</code>, <code>MediaQuery</code>, and adaptive navigation (switching from a mobile bottom bar to a desktop side rail/drawer).
+  </p>
+  <p>
+    <strong>How Incorporated in Claimly:</strong>
+  </p>
+  <ul>
+    <li><strong>Standardized Breakpoints:</strong> Defined in <code>lib/core/constants/app_breakpoints.dart</code> with exact thresholds: Mobile (&lt;600px), Tablet (600–1023px), and Desktop (&ge;1024px).</li>
+    <li><strong>Declarative Responsive Builder:</strong> <code>ResponsiveLayoutBuilder</code> (<code>lib/core/widgets/responsive_layout_builder.dart</code>) wraps <code>LayoutBuilder</code> to provide clean, declarative slots for <code>mobile</code>, <code>tablet</code>, and <code>desktop</code> builders based on incoming <code>BoxConstraints</code>.</li>
+    <li><strong>Adaptive Shell Navigation:</strong> In <code>CustomerShellScreen</code> (<code>lib/features/customer/shell/customer_shell_screen.dart</code>), Claimly dynamically switches its root navigation:
+      <ul>
+        <li>On <em>Mobile</em> (&lt;600px): Renders a bottom <code>NavigationBar</code> with icons and unread alert badges.</li>
+        <li>On <em>Tablet</em> (600–1023px): Renders a compact vertical <code>NavigationRail</code>.</li>
+        <li>On <em>Desktop</em> (&ge;1024px): Renders an <code>extended: true</code> <code>NavigationRail</code> displaying the full Claimly brand header and text labels.</li>
+      </ul>
+    </li>
+    <li><strong>Ergonomic Content Constraint:</strong> <code>ResponsiveContentWrapper</code> (<code>lib/core/widgets/responsive_content_wrapper.dart</code>) clamps forms to <code>maxFormWidth: 720px</code> and dashboards to <code>maxContentWidth: 1200px</code>, preventing stretched, unreadable UIs on wide desktop monitors.</li>
+  </ul>
+  <div class="callout callout-yap">
+    <div class="callout-title">🎙️ How to Yap in Viva:</div>
+    "Experiment 3 taught us that 'responsive' means adapting layout dimensions, while 'adaptive' means changing the interaction paradigm based on the device context. In Claimly, I built a dual responsive-adaptive engine. Through <code>ResponsiveLayoutBuilder</code> and <code>AppBreakpoints</code>, Claimly detects viewport constraints. On a mobile phone, users get a thumb-friendly bottom <code>NavigationBar</code>. But as soon as you resize the window past 1024px on desktop, the shell seamlessly transitions into an extended <code>NavigationRail</code> with full text labels and a persistent brand header, while <code>ResponsiveContentWrapper</code> clamps form inputs to 720px for optimal ergonomic scanability."
+  </div>
+
+  <!-- Experiment 4: Dart DOM -->
+  <h3>3.4 Dart DOM Application: HTML DOM Application Using Dart (Tip Calculator)</h3>
+  <p>
+    <strong>Core Academic Objective:</strong> Develop an interactive web application manipulating the HTML Document Object Model via Dart (<code>package:web</code> / <code>dart:html</code>), handling events, reading user inputs, modifying attributes, and compiling Dart to JavaScript.
+  </p>
+  <p>
+    <strong>How Incorporated in Claimly:</strong>
+  </p>
+  <ul>
+    <li><strong>Production Dart Web Compilation:</strong> Claimly compiles directly to modern web standards using Dart's web toolchain (<code>dart2js</code> / <code>dart2wasm</code>). The entry point in <code>web/index.html</code> bootstraps the Flutter Web engine, mounting the UI onto HTML5 Canvas and DOM elements.</li>
+    <li><strong>Pure Client-Side Algorithmic Execution:</strong> Just like the Tip Calculator executed all financial calculations client-side without page refreshes, Claimly's <code>WarrantyCalculator</code> (<code>lib/core/utils/warranty_calculator.dart</code>) and 7-day post-expiry grace period engine run entirely in client-side compiled Dart, instantly computing warranty health, days remaining, and urgency tiers.</li>
+    <li><strong>Client-Side PDF Document Compilation:</strong> In <code>ClaimPdfService</code> (<code>lib/features/customer/claims/services/claim_pdf_service.dart</code>), Claimly compiles complete binary PDF dossiers with embedded QR codes entirely inside the browser's Dart memory buffer (<code>Uint8List</code>), providing immediate downloading and printing without requiring round-trip server generation.</li>
+  </ul>
+  <div class="callout callout-yap">
+    <div class="callout-title">🎙️ How to Yap in Viva:</div>
+    "In our Dart DOM experiment, we learned how Dart compiles into highly optimized client-side JavaScript to manipulate the browser environment without round-trip server refreshes. In Claimly, we take this capability to its logical zenith: the entire application runs as a production Flutter Web application. Furthermore, critical computational features—such as our <code>WarrantyCalculator</code> and our client-side PDF claim dossier engine (<code>ClaimPdfService</code>)—execute purely on the client runtime using Dart byte buffers, generating cryptographically verifiable claim reports in milliseconds."
+  </div>
+
+  <!-- Experiment 6: React Native Basics -->
+  <h3>3.5 Experiment 6: React Native Basics (Greeting &amp; Interactive Counter via Expo)</h3>
+  <p>
+    <strong>Core Academic Objective:</strong> Set up React Native with Expo, explore JSX, the React Native bridge/threading model, and state management via the <code>useState</code> hook.
+  </p>
+  <p>
+    <strong>How Incorporated &amp; Contrasted in Claimly:</strong>
+  </p>
+  <ul>
+    <li><strong>Architectural Contrast (Bridge vs Direct Compilation):</strong> Experiment 6 demonstrated how React Native coordinates between the JavaScript thread and the native UI thread across an asynchronous JSON bridge (or modern JSI). In Claimly's defense, we explain why Flutter was chosen: Flutter bypasses the bridge entirely by compiling ahead-of-time (AOT) to native ARM machine code and drawing every pixel directly onto the canvas using the Skia / Impeller graphics engine.</li>
+    <li><strong>State Management Evolution (useState &rarr; Riverpod 2.6):</strong> React Native's component-local <code>useState</code> hook causes prop-drilling in complex apps. Claimly replaces this with <strong>Riverpod 2.6</strong> (<code>StateNotifierProvider</code> and <code>ConsumerWidget</code>). For example, <code>WizardController</code> (<code>lib/features/customer/claims/claim_wizard/controllers/wizard_controller.dart</code>) manages a complex 5-step wizard state machine with immutability, compile-time safety, and zero prop-drilling.</li>
+  </ul>
+  <div class="callout callout-yap">
+    <div class="callout-title">🎙️ How to Yap in Viva:</div>
+    "Experiment 6 gave us hands-on experience with React Native's architecture. While React Native uses a JavaScript thread communicating over a bridge to instantiate native platform views, Claimly utilizes Flutter's compiled architecture where the Skia/Impeller engine renders directly to the canvas at 60/120 FPS. Furthermore, while React's <code>useState</code> is sufficient for simple counters, in an enterprise app like Claimly with a 5-step claim wizard, we need global, testable, and immutable state. That is why Claimly uses <strong>Riverpod 2.6</strong>, providing unidirectional data flow and compile-time provider safety without the boilerplate of Redux or Bloc."
+  </div>
+
+  <!-- Experiment 7: React Native Expense Manager -->
+  <h3>3.6 Experiment 7: React Native Widgets &amp; Expense Manager (CRUD, FlatList, Reduce)</h3>
+  <p>
+    <strong>Core Academic Objective:</strong> Build an Expense Manager in React Native utilizing <code>FlatList</code> for memory virtualization, <code>TextInput</code>, modal dialogs, array manipulation (<code>spread</code>, <code>filter</code>, <code>reduce</code>), and financial aggregation.
+  </p>
+  <p>
+    <strong>How Incorporated in Claimly:</strong>
+  </p>
+  <ul>
+    <li><strong>Virtualized List Performance:</strong> React Native's <code>FlatList</code> memory windowing is mirrored and elevated in Claimly using Flutter's <code>ListView.builder</code> (in <code>ClaimsListScreen</code> and <code>ProductsListScreen</code>). This ensures $O(1)$ memory consumption by lazily recycling off-screen list items.</li>
+    <li><strong>Financial &amp; Warranty Aggregations:</strong> The running total calculations from Lab 7 (using JavaScript <code>reduce</code>) are implemented in Claimly's dashboard controllers using functional Dart operations (<code>fold</code>, <code>map</code>, <code>where</code>) to compute total protected value, pending refund exposure, and warranty survival statistics for both customer and admin dashboards.</li>
+    <li><strong>Rigorous Input Validation:</strong> <code>FormValidators</code> (<code>lib/core/validators/form_validators.dart</code>) provides centralized, unit-tested regex validation for emails, passwords, serial numbers, and currency amounts, preventing malformed data from ever reaching the database.</li>
+  </ul>
+  <div class="callout callout-yap">
+    <div class="callout-title">🎙️ How to Yap in Viva:</div>
+    "In Experiment 7, we explored list virtualization with <code>FlatList</code> and aggregate calculations with <code>reduce</code>. In Claimly, both <code>ClaimsListScreen</code> and <code>ProductsListScreen</code> implement <code>ListView.builder</code> for memory-efficient viewport windowing. On top of that, our dashboard controllers perform complex functional aggregations over product portfolios—computing total insured value, claim recovery ratios, and imminent expiry alerts in real-time."
+  </div>
+
+  <!-- Experiment 8: React Native Connectivity -->
+  <h3>3.7 Experiment 8: React Native Connectivity-Based Application (NetInfo)</h3>
+  <p>
+    <strong>Core Academic Objective:</strong> Monitor device network status in real-time using <code>@react-native-community/netinfo</code>, display online/offline status banners, measure ping latency, and ensure graceful degradation.
+  </p>
+  <p>
+    <strong>How Incorporated in Claimly:</strong>
+  </p>
+  <ul>
+    <li><strong>Asynchronous State Determinism:</strong> Claimly handles network dropouts and API latency through Riverpod's <code>AsyncValue</code> pattern (<code>.when(data: ..., loading: ..., error: ...)</code>). If connectivity fails, the app renders a dedicated <code>ErrorView</code> (<code>lib/core/widgets/error_view.dart</code>) with a manual "Retry" callback rather than crashing.</li>
+    <li><strong>Offline Session Persistence:</strong> User authentication tokens and profile caches are stored locally via <code>shared_preferences</code> and Supabase's secure local storage, allowing users to browse cached products and claim history without an active internet connection.</li>
+    <li><strong>PWA Offline Caching:</strong> Claimly's web build includes a registered Service Worker and Web App Manifest (<code>web/manifest.json</code>), caching application assets for instant launching even under offline or low-bandwidth conditions.</li>
+  </ul>
+  <div class="callout callout-yap">
+    <div class="callout-title">🎙️ How to Yap in Viva:</div>
+    "Experiment 8 underscored that mobile and cross-platform apps must be network-resilient. In Claimly, rather than just displaying a passive offline banner, we architected resilience into the state layer. Every remote data query is wrapped in Riverpod's <code>AsyncValue</code>, guaranteeing that if network connectivity drops, the UI transitions gracefully into an <code>ErrorView</code> with retry mechanics, while our local session cache and Service Worker ensure that previously loaded claims and products remain accessible offline."
+  </div>
+
+  <!-- Experiment 9: Xamarin Widgets -->
+  <h3>3.8 Experiment 9: Xamarin Widgets (.NET MAUI / Xamarin.Forms)</h3>
+  <p>
+    <strong>Core Academic Objective:</strong> Design a cross-platform UI using Xamarin.Forms widgets (<code>Label</code>, <code>Entry</code>, <code>Button</code>, <code>Switch</code>, <code>Slider</code>, <code>Image</code>) arranged in a <code>StackLayout</code>, handle C# code-behind events, and toggle between Light and Dark themes.
+  </p>
+  <p>
+    <strong>How Incorporated &amp; Contrasted in Claimly:</strong>
+  </p>
+  <ul>
+    <li><strong>Unified Dart Paradigm vs XAML Separation:</strong> In Xamarin, the visual layout is written in XML/XAML while the event logic is written in C# code-behind, often causing type-binding mismatches. Claimly demonstrates the superiority of Flutter's single-language model: Dart defines both layout structure, styling tokens, and event handlers in a unified, type-safe tree.</li>
+    <li><strong>Direct Widget Translation:</strong>
+      <ul>
+        <li>Xamarin <code>Label</code> &rarr; Flutter <code>Text</code> with <code>AppTheme</code> typography tokens.</li>
+        <li>Xamarin <code>Entry</code> &rarr; Claimly <code>AppTextField</code> with prefix icons and reactive validation.</li>
+        <li>Xamarin <code>Button</code> &rarr; Claimly <code>AppButton</code> with Material 3 state elevation.</li>
+        <li>Xamarin <code>Switch</code> &rarr; Claimly's dynamic Theme Mode Switch in <code>CustomerProfileScreen</code>.</li>
+      </ul>
+    </li>
+    <li><strong>Dynamic Light / Dark Theme Engine:</strong> Claimly implements an enterprise theme engine in <code>lib/core/theme/app_theme.dart</code> and <code>theme_provider.dart</code>, supporting Light, Dark, and System modes with instant, flicker-free runtime switching.</li>
+  </ul>
+  <div class="callout callout-yap">
+    <div class="callout-title">🎙️ How to Yap in Viva:</div>
+    "In Experiment 9, we examined Xamarin's split between XAML markup and C# code-behind. While that pattern separates concerns, it introduces runtime binding errors. In Claimly, Flutter's unified Dart architecture allows us to express widgets, styling, and business logic in one cohesive language. Furthermore, the Dark Mode toggle from Lab 9 is fully realized in Claimly's <code>CustomerProfileScreen</code> through our Riverpod <code>themeModeProvider</code>, seamlessly swapping color tokens across the entire widget tree in real-time."
+  </div>
+
+  <!-- Experiment 10: Xamarin Layouts -->
+  <h3>3.9 Experiment 10: Xamarin Layouts &amp; Views (Multi-Section Profile &amp; Grid)</h3>
+  <p>
+    <strong>Core Academic Objective:</strong> Construct a multi-section profile and contact dashboard using Xamarin layout containers: <code>StackLayout</code>, <code>Grid</code> (with <code>RowDefinitions</code> and <code>ColumnDefinitions</code>), <code>Frame</code>, and <code>ListView</code>.
+  </p>
+  <p>
+    <strong>How Incorporated in Claimly:</strong>
+  </p>
+  <ul>
+    <li><strong>Enterprise Dashboard Coordinate Grids:</strong> The layout principles of Xamarin's <code>Grid</code> are implemented in Claimly's <code>AdminDashboardScreen</code> (<code>lib/features/admin/dashboard/screens/admin_dashboard_screen.dart</code>) and <code>CustomerDashboardScreen</code>. Claimly coordinates KPI metric tiles, chart containers (<code>fl_chart</code> status breakdowns and volume trends), and recent claim queues using nested <code>Row</code>, <code>Column</code>, and <code>Wrap</code> grids.</li>
+    <li><strong>Structured Container Elevation:</strong> Xamarin's <code>Frame</code> container is realized through Claimly's card components (<code>DashboardKpiCard</code>, <code>ExpiryAlertCard</code>), featuring border radiuses, subtle drop shadows, and border stroke tokens matching enterprise design standards.</li>
+    <li><strong>Multi-Section Profile Architecture:</strong> Claimly's <code>CustomerProfileScreen</code> mirrors the multi-section visual hierarchy designed in Lab 10: header identity card &rarr; quick statistics strip &rarr; personal details section &rarr; administrative role switcher.</li>
+  </ul>
+  <div class="callout callout-yap">
+    <div class="callout-title">🎙️ How to Yap in Viva:</div>
+    "In Experiment 10, we used Xamarin's <code>Grid</code> and <code>StackLayout</code> to build multi-section layouts. In Claimly, this pattern powers our executive dashboards. In <code>AdminDashboardScreen</code>, we combine responsive flex columns with <code>fl_chart</code> vector visualizations to present claim adjudication metrics, volume graphs, and user management tables in a structured, hierarchical layout that adapts across desktop and tablet viewports."
+  </div>
+
+  <!-- Maps API Experiment -->
+  <h3>3.10 Maps API Experiment: Maps API Integration in Flutter (Global Explorer)</h3>
+  <p>
+    <strong>Core Academic Objective:</strong> Integrate a third-party Maps API (OpenStreetMap tile server via <code>flutter_map</code>) into a Flutter application, position coordinates with <code>LatLng</code>, render <code>MarkerLayer</code> pins, and control camera navigation with <code>MapController</code>.
+  </p>
+  <p>
+    <strong>How Incorporated &amp; Architected in Claimly:</strong>
+  </p>
+  <ul>
+    <li><strong>Authorized OEM Service Center Locator:</strong> In the warranty and refund claim lifecycle, once an administrator approves a physical repair claim (e.g., screen replacement, battery recall), the next critical customer action is locating an authorized repair hub. The <code>flutter_map</code> architecture from the lab provides the foundational framework for Claimly's <strong>Authorized Service Center Locator</strong>.</li>
+    <li><strong>Geo-Spatial Dispatch Architecture:</strong> When a claim is marked <code>approved</code> in <code>AdminClaimDetailScreen</code>, the customer detail screen can render an interactive OpenStreetMap widget displaying nearby certified warranty drop-off hubs, complete with distance indicators, operating hours, and drop-off instructions using <code>MarkerLayer</code> and coordinate mapping.</li>
+  </ul>
+  <div class="callout callout-yap">
+    <div class="callout-title">🎙️ How to Yap in Viva:</div>
+    "In the Maps API experiment, we built Global Explorer using <code>flutter_map</code> and OpenStreetMap tile servers to stream map tiles and plot geographic markers with <code>LatLng</code> coordinates. Within Claimly's enterprise architecture, this geo-spatial engine fulfills a vital role: once a warranty repair claim is approved, the system can display nearby authorized OEM service centers and RMA drop-off depots, providing customers with turn-by-turn physical fulfillment right from the claim dossier."
+  </div>
+
+  <!-- =========================================================================
+       5. ARCHITECTURAL COMPARISON MATRIX
+       ========================================================================= -->
+  <div class="page-break"></div>
+  <h2>4. Cross-Platform Architectural Comparison: Flutter vs React Native vs Xamarin vs Dart Web</h2>
+  <p>
+    A crucial component of the CPAD viva voce examination is defending framework selection and demonstrating deep comprehension of cross-platform execution internals. The following comparison matrix contrasts the four frameworks explored in the course:
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 16%;">Evaluation Dimension</th>
+        <th style="width: 22%;">Flutter (Claimly)</th>
+        <th style="width: 22%;">React Native (Labs 6, 7, 8)</th>
+        <th style="width: 20%;">Xamarin / MAUI (Labs 9, 10)</th>
+        <th style="width: 20%;">Dart Web / DOM (Exp 4)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Primary Language</strong></td>
+        <td><strong>Dart 3</strong> (strongly typed, sound null safety, AOT &amp; JIT compilation).</td>
+        <td><strong>JavaScript / TypeScript</strong> (dynamically typed, executed via Hermes/V8).</td>
+        <td><strong>C#</strong> with XAML markup (strongly typed, .NET runtime).</td>
+        <td><strong>Dart</strong> compiled to JavaScript (<code>dart2js</code>) or WebAssembly (Wasm).</td>
+      </tr>
+      <tr>
+        <td><strong>Rendering Engine</strong></td>
+        <td><strong>Skia / Impeller:</strong> Direct rasterization onto canvas. Owns every single pixel. Zero native view wrappers.</td>
+        <td><strong>Native Platform Views:</strong> Maps JSX to <code>android.widget</code> and <code>UIView</code> via Bridge or JSI.</td>
+        <td><strong>Platform Renderers:</strong> Maps XAML controls to native Android/iOS platform controls.</td>
+        <td><strong>Browser DOM / HTML5 Canvas:</strong> Direct browser document tree manipulation.</td>
+      </tr>
+      <tr>
+        <td><strong>Bridge / Threading Model</strong></td>
+        <td><strong>Zero Bridge:</strong> Dart code compiles to native ARM binary. Single UI thread with background isolates for CPU work.</td>
+        <td><strong>Bridge / JSI:</strong> JavaScript thread communicates with Native UI thread over JSON bridge (or JSI C++ pointers).</td>
+        <td><strong>Mono Runtime:</strong> C# runtime communicates with native OS layer via interop bindings.</td>
+        <td><strong>Single-Threaded Event Loop:</strong> Native browser JavaScript microtask queue.</td>
+      </tr>
+      <tr>
+        <td><strong>UI Consistency</strong></td>
+        <td><strong>100% Identical Pixel Fidelity:</strong> Identical look across Android, iOS, Web, and Linux. No OEM version drift.</td>
+        <td><strong>Native Look &amp; Feel:</strong> UI appearance depends on device OS version and OEM skin (Samsung OneUI, MIUI).</td>
+        <td><strong>Native Look &amp; Feel:</strong> Dependent on platform-specific handler implementations.</td>
+        <td><strong>CSS-Dependent:</strong> Governed by browser stylesheet standards and viewport resets.</td>
+      </tr>
+      <tr>
+        <td><strong>State Management</strong></td>
+        <td><strong>Riverpod 2.6:</strong> Compile-safe, decoupled, auto-disposing, zero context lookup required.</td>
+        <td><strong>React Hooks:</strong> <code>useState</code>, <code>useReducer</code>, Context API, Redux Toolkit, or Zustand.</td>
+        <td><strong>MVVM:</strong> <code>INotifyPropertyChanged</code>, XAML Data Binding, CommunityToolkit.Mvvm.</td>
+        <td><strong>DOM Event Listeners:</strong> Manual element attribute and state mutation.</td>
+      </tr>
+      <tr>
+        <td><strong>Development Experience</strong></td>
+        <td><strong>Stateful Hot Reload:</strong> Near-instant sub-second code updates preserving app state.</td>
+        <td><strong>Fast Refresh:</strong> React Native instant module replacement via Metro bundler.</td>
+        <td><strong>XAML Hot Reload:</strong> Good UI previewing, but slower full-solution re-compiles.</td>
+        <td><strong>webdev serve:</strong> Instant browser reload upon source change.</td>
+      </tr>
+      <tr>
+        <td><strong>Production Build Output</strong></td>
+        <td>Native ARM64 binaries (Android APK/AAB, Linux binary) &amp; static CanvasKit Web bundle.</td>
+        <td>JavaScript bundle packaged alongside native Android/iOS binary shells.</td>
+        <td>Compiled .NET Intermediate Language (IL) inside platform packages.</td>
+        <td>Minified JavaScript bundle and HTML/CSS web assets.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- =========================================================================
+       6. HIGH-YIELD VIVA VOCE QUESTIONS & ANSWERS (CATEGORIZED)
+       ========================================================================= -->
+  <div class="page-break"></div>
+  <h2>5. High-Yield Viva Voce Questions &amp; Model Technical Answers</h2>
+
+  <!-- ==================== CATEGORY 1 ==================== -->
+  <h3>Category 1: Flutter Framework Internals &amp; Dart Architecture</h3>
+
+  <div class="qa-card">
+    <div class="qa-question">
+      <span class="qa-tag">Q1</span> How does Flutter render UI, and why does it not use platform native widgets like React Native does?
+    </div>
+    <div class="qa-answer">
+      Flutter uses its own high-performance 2D graphics engine (<strong>Skia</strong> or modern <strong>Impeller</strong>) to draw directly onto the operating system's graphics surface (via Vulkan, Metal, or OpenGL). Unlike React Native, which translates JSX components into platform-native Android <code>ViewGroup</code> or iOS <code>UIView</code> controls across a bridge, Flutter treats the screen as an empty canvas and renders every widget pixel-by-pixel.
+    </div>
+    <div class="qa-talking-point">
+      <strong>🎙️ Viva Yap Takeaway:</strong> "Sir/Ma'am, this guarantees 100% pixel-perfect consistency across all devices, eliminates OEM vendor skinning bugs, and completely avoids the serialization latency of a JavaScript-Native bridge."
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-question">
+      <span class="qa-tag">Q2</span> What are the three trees in Flutter's rendering pipeline?
+    </div>
+    <div class="qa-answer">
+      Flutter maintains three synchronized trees:
+      <ol>
+        <li><strong>Widget Tree:</strong> The lightweight, immutable configuration tree created in your build methods. Rebuilt frequently at near-zero memory cost.</li>
+        <li><strong>Element Tree:</strong> The lifecycle manager and skeleton holding the structural graph. It maps widgets to render objects and preserves state across widget rebuilds.</li>
+        <li><strong>RenderObject Tree:</strong> The heavyweight layout and painting tree. It handles sizing, coordinate layout (constraints down, sizes up), hit testing, and GPU rasterization.</li>
+      </ol>
+    </div>
+    <div class="qa-talking-point">
+      <strong>🎙️ Viva Yap Takeaway:</strong> "Widgets are immutable configuration blue-prints; Elements manage runtime identity and lifecycle; RenderObjects perform actual measurement, layout, and canvas painting."
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-question">
+      <span class="qa-tag">Q3</span> What is the layout rule in Flutter?
+    </div>
+    <div class="qa-answer">
+      The fundamental law of Flutter layout is: <strong>Constraints go down, sizes go up, parent sets position.</strong>
+      The parent passes layout constraints (min/max width and height) to its child. The child calculates its own size within those constraints and returns that size to the parent. Finally, the parent determines the child's coordinate offset on the canvas.
+    </div>
+    <div class="qa-talking-point">
+      <strong>🎙️ Viva Yap Takeaway:</strong> "This directly explains Lab 2: if an unconstrained Row sits inside a horizontal scroll view, infinite constraints go down, resulting in a <code>RenderFlex</code> overflow exception unless bounded by an <code>Expanded</code> or fixed container."
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-question">
+      <span class="qa-tag">Q4</span> What is the difference between JIT and AOT compilation in Flutter?
+    </div>
+    <div class="qa-answer">
+      Dart utilizes a dual compilation pipeline:
+      <ul>
+        <li><strong>Just-In-Time (JIT):</strong> Used during development. Code is compiled dynamically on device, enabling sub-second <strong>Stateful Hot Reload</strong> while preserving variable states.</li>
+        <li><strong>Ahead-Of-Time (AOT):</strong> Used during release builds. Dart code is compiled directly to native ARM64/x86-64 machine instructions, yielding fast cold startup and rock-solid 60/120 FPS performance.</li>
+      </ul>
+    </div>
+    <div class="qa-talking-point">
+      <strong>🎙️ Viva Yap Takeaway:</strong> "JIT optimizes developer ergonomics and rapid iteration; AOT optimizes runtime performance, binary size, and battery efficiency."
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-question">
+      <span class="qa-tag">Q5</span> What is the exact lifecycle of a <code>StatefulWidget</code>?
+    </div>
+    <div class="qa-answer">
+      A <code>StatefulWidget</code> lifecycle follows seven sequential phases:
+      <ol>
+        <li><code>createState()</code>: Instantiates the mutable <code>State</code> object.</li>
+        <li><code>initState()</code>: One-time initialization (setting up controllers, subscribing to streams). <code>BuildContext</code> is not fully available yet.</li>
+        <li><code>didChangeDependencies()</code>: Called immediately after <code>initState</code> and whenever an <code>InheritedWidget</code> this state depends on updates.</li>
+        <li><code>build()</code>: Called repeatedly whenever <code>setState()</code> is triggered or parent re-renders. Must remain pure and idempotent.</li>
+        <li><code>didUpdateWidget()</code>: Called when the parent widget rebuilds and provides a new widget instance with the same <code>runtimeType</code> and <code>Key</code>.</li>
+        <li><code>deactivate()</code>: Called when the State is temporarily removed from the tree.</li>
+        <li><code>dispose()</code>: Permanent destruction. Used to close streams, text controllers, animations, and avoid memory leaks.</li>
+      </ol>
+    </div>
+    <div class="qa-talking-point">
+      <strong>🎙️ Viva Yap Takeaway:</strong> Point to <code>CustomerProfileScreen</code> where <code>dispose()</code> cleanly releases <code>_fullNameController</code> and <code>_phoneController</code> to prevent leaks.
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-question">
+      <span class="qa-tag">Q6</span> What is Dart sound null safety and how does it benefit Claimly?
+    </div>
+    <div class="qa-answer">
+      Dart 3 features <strong>Sound Null Safety</strong>. Unlike languages with nullable defaults (like Java or JavaScript), in Dart types are non-nullable by default (e.g. <code>String</code> cannot be null; <code>String?</code> can). "Sound" means the guarantee is backed by the static compiler: if a variable is typed as non-nullable, it is mathematically impossible for it to be null at runtime. This eliminates null pointer exceptions (the "billion-dollar mistake") and enables compiler optimizations such as removing defensive null checks in compiled ARM assembly.
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-question">
+      <span class="qa-tag">Q7</span> What is an <code>InheritedWidget</code> and why does Flutter use it?
+    </div>
+    <div class="qa-answer">
+      <code>InheritedWidget</code> is a specialized widget that allows data to be efficiently passed down the widget tree without explicit constructor prop-drilling. When an <code>InheritedWidget</code> changes, only the descendant widgets that registered a dependency via <code>BuildContext.dependOnInheritedWidgetOfExactType()</code> are rebuilt. Framework features like <code>Theme.of(context)</code>, <code>MediaQuery.of(context)</code>, and traditional Provider rely on it under the hood.
+    </div>
+  </div>
+
+  <!-- ==================== CATEGORY 2 ==================== -->
+  <div class="page-break"></div>
+  <h3>Category 2: State Management &amp; Riverpod 2.6</h3>
+
+  <div class="qa-card">
+    <div class="qa-question">
+      <span class="qa-tag">Q8</span> Why did you choose Riverpod 2.6 over Provider, Bloc, or setState for Claimly?
+    </div>
+    <div class="qa-answer">
+      While <code>setState</code> is suitable for local widget state (like Lab 1), it leads to prop-drilling in multi-step enterprise workflows like our 5-step Claim Wizard. <strong>Provider</strong>, while popular, relies on Flutter's <code>InheritedWidget</code> and <code>BuildContext</code>, meaning accessing a provider outside the widget tree throws runtime <code>ProviderNotFoundException</code> errors. <strong>Bloc</strong> introduces immense boilerplate with events, states, and streams.
+      <strong>Riverpod 2.6</strong> solves all of these problems:
+      <ul>
+        <li>It is completely decoupled from <code>BuildContext</code>, enabling safe dependency injection in services and repositories.</li>
+        <li>All provider dependencies are validated at <strong>compile-time</strong>.</li>
+        <li>It natively supports declarative asynchronous data fetching via <code>AsyncValue</code>, eliminating manual loading/error flags.</li>
+        <li>It supports auto-disposing unneeded state (<code>ref.autoDispose</code>) to prevent memory leaks.</li>
+      </ul>
+    </div>
+    <div class="qa-talking-point">
+      <strong>🎙️ Viva Yap Takeaway:</strong> Cite <code>WizardController</code> in <code>lib/features/customer/claims/claim_wizard/controllers/wizard_controller.dart</code> as a concrete example of managing complex multi-step form state cleanly.
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-question">
+      <span class="qa-tag">Q9</span> What is the difference between <code>ref.watch</code>, <code>ref.read</code>, and <code>ref.listen</code> in Riverpod?
+    </div>
+    <div class="qa-answer">
+      <ul>
+        <li><code>ref.watch(provider)</code>: Subscribes to the provider. Whenever the provider's value changes, the calling widget's <code>build</code> method re-executes. Used inside UI build methods.</li>
+        <li><code>ref.read(provider)</code>: Obtains the current snapshot of a provider without subscribing to future changes. Used inside button callbacks and event handlers.</li>
+        <li><code>ref.listen(provider, (prev, next) { ... })</code>: Listens for changes to execute side-effects (e.g. showing a SnackBar or navigating with GoRouter) without triggering a widget rebuild.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-question">
+      <span class="qa-tag">Q10</span> What is the difference between <code>StateProvider</code>, <code>StateNotifierProvider</code>, and <code>AsyncNotifierProvider</code>?
+    </div>
+    <div class="qa-answer">
+      <ul>
+        <li><code>StateProvider</code>: For trivial primitive state (e.g., filter toggles, counter values).</li>
+        <li><code>StateNotifierProvider</code>: For synchronous complex state machines. Enforces immutable state updates via a dedicated <code>StateNotifier&lt;T&gt;</code> class (e.g. <code>WizardController</code>).</li>
+        <li><code>AsyncNotifierProvider</code>: Modern Riverpod 2.x standard for asynchronous business logic. Natively encapsulates loading, error, and data states in an <code>AsyncValue&lt;T&gt;</code>.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-question">
+      <span class="qa-tag">Q11</span> How does Riverpod enable unit testing without mocking the entire Flutter framework?
+    </div>
+    <div class="qa-answer">
+      Because Riverpod providers are stored in a standalone container (<code>ProviderContainer</code>) completely independent of <code>BuildContext</code>, business logic can be tested in pure Dart unit tests. In widget tests, we wrap the test subject in a <code>ProviderScope</code> with <code>overrides: [...]</code> to substitute real repositories with mocktail mock instances in one line of code:
+      <pre><code>ProviderScope(
+  overrides: [
+    claimRepositoryProvider.overrideWithValue(mockClaimRepository),
+  ],
+  child: const ClaimsListScreen(),
+)</code></pre>
+    </div>
+  </div>
+
+  <!-- ==================== CATEGORY 3 ==================== -->
+  <h3>Category 3: UI Layouts, Flex &amp; Virtualization</h3>
+
+  <div class="qa-card">
+    <div class="qa-question">
+      <span class="qa-tag">Q12</span> What is the difference between <code>Expanded</code> and <code>Flexible</code>?
+    </div>
+    <div class="qa-answer">
+      Both widgets must be immediate children of a <code>Row</code>, <code>Column</code>, or <code>Flex</code>:
+      <ul>
+        <li><code>Expanded</code>: Forces its child to fill <strong>all</strong> remaining space along the main axis. Equivalent to <code>Flexible(fit: FlexFit.tight)</code>.</li>
+        <li><code>Flexible</code>: Defaults to <code>FlexFit.loose</code>. Allows its child to take up <strong>at most</strong> the available space, but does not force the child to expand if it requires less.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-question">
+      <span class="qa-tag">Q13</span> How does <code>ListView.builder</code> achieve $O(1)$ memory virtualization compared to a regular <code>ListView</code>?
+    </div>
+    <div class="qa-answer">
+      A standard <code>ListView(children: [...])</code> instantiates every child widget immediately, consuming memory proportional to the total dataset size $O(N)$.
+      In contrast, <code>ListView.builder</code> implements <strong>lazy viewport windowing</strong>. It only instantiates widgets currently visible within the scroll viewport plus a small cache buffer (defined by <code>cacheExtent</code>). As items scroll off screen, their elements and render objects are recycled or garbage collected, maintaining constant memory overhead $O(1)$ even for 10,000+ items.
+    </div>
+    <div class="qa-talking-point">
+      <strong>🎙️ Viva Yap Takeaway:</strong> "In Claimly, <code>ClaimsListScreen</code> uses <code>ListView.separated</code> to provide smooth 60 FPS scrolling through large claim portfolios without memory spikes."
+    </div>
+  </div>
+
+  <!-- ==================== CATEGORY 4 ==================== -->
+  <div class="page-break"></div>
+  <h3>Category 4: Responsive Architecture &amp; Breakpoints</h3>
+
+  <div class="qa-card">
+    <div class="qa-question">
+      <span class="qa-tag">Q14</span> How does Claimly implement responsive and adaptive layouts across mobile, tablet, and desktop?
+    </div>
+    <div class="qa-answer">
+      Claimly implements a dedicated 3-tier breakpoint architecture defined in <code>lib/core/constants/app_breakpoints.dart</code>:
+      <ul>
+        <li><strong>Mobile:</strong> Width &lt; 600px. Single column layouts, bottom <code>NavigationBar</code>, full-width cards.</li>
+        <li><strong>Tablet:</strong> Width 600px–1023px. Two-column grids, compact vertical <code>NavigationRail</code>.</li>
+        <li><strong>Desktop:</strong> Width &ge; 1024px. Multi-column dashboards, extended <code>NavigationRail</code> with brand headers, and <code>ResponsiveContentWrapper</code> restricting forms to 720px for optimal scanning.</li>
+      </ul>
+      The custom <code>ResponsiveLayoutBuilder</code> widget takes separate builder functions for each screen class and evaluates incoming <code>BoxConstraints</code> dynamically.
+    </div>
+    <div class="qa-talking-point">
+      <strong>🎙️ Viva Yap Takeaway:</strong> Highlight that this directly operationalizes the teachings of <strong>Experiment 3 (QuickBite E-Commerce)</strong> into an enterprise dashboard.
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-question">
+      <span class="qa-tag">Q15</span> What is the difference between Responsive Design and Adaptive Design?
+    </div>
+    <div class="qa-answer">
+      <ul>
+        <li><strong>Responsive Design:</strong> The UI smoothly scales and reflows across different dimensions (e.g., resizing columns, fluid font sizing, grid wrapping).</li>
+        <li><strong>Adaptive Design:</strong> The application changes its <em>behavior and interaction paradigm</em> based on the target platform or device capabilities (e.g., mouse hover states vs touch taps, desktop <code>NavigationRail</code> with keyboard shortcuts vs mobile swipe gestures and <code>NavigationBar</code>).</li>
+      </ul>
+      Claimly employs both: responsive layout wrapping combined with adaptive navigation shells.
+    </div>
+  </div>
+
+  <!-- ==================== CATEGORY 5 ==================== -->
+  <h3>Category 5: Routing &amp; Navigation (GoRouter 14.8)</h3>
+
+  <div class="qa-card">
+    <div class="qa-question">
+      <span class="qa-tag">Q16</span> How does Claimly use GoRouter for declarative routing and authentication guards?
+    </div>
+    <div class="qa-answer">
+      Claimly uses <strong>GoRouter 14.8</strong> (<code>lib/core/router/app_router.dart</code>). Instead of imperative pushes, GoRouter uses declarative URI paths (e.g. <code>/customer/claims/:id</code>).
+      Crucially, Claimly implements a reactive <code>GoRouterRefreshStream</code> listening to <code>supabase.auth.onAuthStateChange</code>. The top-level <code>redirect</code> handler evaluates session state:
+      <ul>
+        <li>Unauthenticated users attempting to access protected routes are redirected to <code>/login</code>.</li>
+        <li>Authenticated customers attempting to access admin routes are intercepted and redirected.</li>
+        <li>Persistent bottom/rail shells are created using <code>ShellRoute</code>, allowing page transitions without destroying navigation headers.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ==================== CATEGORY 6 ==================== -->
+  <div class="page-break"></div>
+  <h3>Category 6: Backend, PostgreSQL &amp; Security (Supabase &amp; Edge Functions)</h3>
+
+  <div class="qa-card">
+    <div class="qa-question">
+      <span class="qa-tag">Q17</span> How does Claimly enforce multi-tenant security and prevent customers from seeing other users' claims?
+    </div>
+    <div class="qa-answer">
+      Claimly does not rely solely on client-side routing filters. Instead, data security is enforced at the database engine level via <strong>PostgreSQL Row-Level Security (RLS)</strong> policies (37 total active policies across the database).
+      Every table includes a <code>user_id</code> foreign key. Policies ensure that:
+      <ul>
+        <li>Customers can only <code>SELECT</code>, <code>INSERT</code>, or <code>UPDATE</code> rows where <code>auth.uid() = user_id</code>.</li>
+        <li>Administrators are verified through an <code>is_admin()</code> security definer function that inspects the <code>profiles</code> table, granting them elevated triage and review access.</li>
+      </ul>
+    </div>
+    <div class="qa-talking-point">
+      <strong>🎙️ Viva Yap Takeaway:</strong> "Even if an attacker bypassed the Flutter client and issued direct REST calls to Supabase, PostgreSQL RLS policies reject unauthorized reads and writes at the database core."
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-question">
+      <span class="qa-tag">Q18</span> What is the Priority Triage Algorithm and how is it executed?
+    </div>
+    <div class="qa-answer">
+      When a claim is submitted, an asynchronous database trigger invokes Claimly's <strong>Edge Function</strong> (<code>claim-processor</code>). The serverless TypeScript function calculates a multi-factor priority score from 0 to 100:
+      <pre><code>Score = (Claim_Type * 0.25) + (Purchase_Amount * 0.25) + (Warranty_Proximity * 0.30) + (NLP_Keywords * 0.20)</code></pre>
+      Claims scoring &ge; 70 are categorized as <strong>URGENT</strong>, 45–69 as <strong>HIGH</strong>, and &lt; 45 as <strong>STANDARD</strong>. This ensures high-value or imminent-deadline consumer claims are automatically triaged to the top of the admin queue.
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-question">
+      <span class="qa-tag">Q19</span> How does Claimly's 7-Day Grace Period logic protect consumers?
+    </div>
+    <div class="qa-answer">
+      Traditional warranty systems automatically reject claims if filed one day after manufacturer warranty expiry. Claimly implements a consumer-advocacy <strong>7-Day Post-Expiry Grace Period</strong> (<code>WarrantyCalculator.isInGracePeriod</code>). If a defect manifested during the warranty window but the user logged it within 7 days post-expiry, Claimly marks the claim as <code>grace_period</code>, recalculates a dedicated priority weighting, and flags it for administrator good-will adjudication.
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-question">
+      <span class="qa-tag">Q20</span> What are Supabase Edge Functions and why are they preferable to a monolithic Node server?
+    </div>
+    <div class="qa-answer">
+      Supabase Edge Functions run on <strong>Deno</strong> deployed globally at the edge (close to the user). Unlike monolithic Express servers that must run 24/7 on rented VMs, Edge Functions execute serverless compute on-demand with near-zero cold starts. In Claimly, they handle automated background tasks: the <code>claim-processor</code> computes triage scores, and the <code>warranty-expiry-checker</code> runs on a daily cron schedule to issue automated expiry warning notifications.
+    </div>
+  </div>
+
+  <!-- ==================== CATEGORY 7 ==================== -->
+  <h3>Category 7: Client-Side PDF Generation &amp; Verification</h3>
+
+  <div class="qa-card">
+    <div class="qa-question">
+      <span class="qa-tag">Q21</span> How does Claimly generate PDF dossiers on the client side, and how is authenticity verified?
+    </div>
+    <div class="qa-answer">
+      Claimly uses the <code>pdf</code> and <code>printing</code> packages (<code>ClaimPdfService</code>) to render vector-based PDF claim dossiers directly in the client runtime memory buffer (<code>Uint8List</code>).
+      Each generated dossier includes:
+      <ul>
+        <li>Full customer and product metadata, serial numbers, and purchase dates.</li>
+        <li>The claim issue statement, requested resolution, and chronological timeline.</li>
+        <li>An embedded <strong>Cryptographic QR Code</strong> encoding the unique report ID, timestamp, and a verification URL. When an RMA technician scans the QR code, it verifies the claim against Claimly's live database to prevent forged warranty documents.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ==================== CATEGORY 8 ==================== -->
+  <div class="page-break"></div>
+  <h3>Category 8: Testing, Quality Assurance &amp; Verification</h3>
+
+  <div class="qa-card">
+    <div class="qa-question">
+      <span class="qa-tag">Q22</span> What testing pyramid did you implement for Claimly?
+    </div>
+    <div class="qa-answer">
+      Claimly enforces a rigorous 3-tier testing strategy consisting of 123 automated test suites:
+      <ul>
+        <li><strong>Unit Tests (Tier 1):</strong> Pure Dart tests validating business logic (<code>WarrantyCalculator</code>, <code>FormValidators</code>, triage models).</li>
+        <li><strong>Widget Tests (Tier 2):</strong> Component tests verifying that UI elements (<code>ClaimCard</code>, <code>AppButton</code>, <code>WizardStepperHeader</code>) render properly under simulated screen constraints.</li>
+        <li><strong>Integration / E2E Tests (Tier 3):</strong> End-to-end integration runners verifying complete user journeys (authentication &rarr; product creation &rarr; 5-step claim wizard filing &rarr; admin adjudication) against local Supabase test instances.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-question">
+      <span class="qa-tag">Q23</span> How do you mock Supabase network calls in Flutter tests?
+    </div>
+    <div class="qa-answer">
+      We use the <strong>mocktail</strong> library. We define mock classes implementing repositories and controllers (e.g. <code>class MockClaimRepository extends Mock implements ClaimRepository {}</code>). Because Riverpod providers can be overridden using <code>provider.overrideWithValue()</code>, we inject mock responses into the test harness without making real HTTP requests or mutating live database state.
+    </div>
+  </div>
+
+  <!-- ==================== CATEGORY 9 ==================== -->
+  <h3>Category 9: Geo-Spatial Mapping &amp; Maps API Integration</h3>
+
+  <div class="qa-card">
+    <div class="qa-question">
+      <span class="qa-tag">Q24</span> How does tile-based mapping work in <code>flutter_map</code> and OpenStreetMap?
+    </div>
+    <div class="qa-answer">
+      OpenStreetMap uses a <strong>Slippy Map tile coordinate system</strong> based on the Web Mercator projection (EPSG:3857). The world is divided into $256 	imes 256$ pixel PNG image tiles arranged in a quad-tree structure indexed by <code>{z}/{x}/{y}</code>:
+      <ul>
+        <li><code>z</code> is the zoom level ($0$ to $19$).</li>
+        <li><code>x</code> and <code>y</code> are column and row coordinates.</li>
+      </ul>
+      In Flutter, <code>flutter_map</code>'s <code>TileLayer</code> calculates visible coordinate bounding boxes from viewport metrics and streams required tile images from OpenStreetMap tile servers, rendering markers and polygons on layered canvas surfaces over the tiles.
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-question">
+      <span class="qa-tag">Q25</span> How does Maps API integration fit into Claimly's warranty lifecycle?
+    </div>
+    <div class="qa-answer">
+      Once an administrator approves a hardware repair claim, physical fulfillment requires the consumer to visit an authorized repair center or drop-off location. By incorporating the <code>flutter_map</code> architecture from our Maps lab, Claimly plots verified OEM repair service centers and authorized return drop-off hubs on an interactive map. When the customer opens their approved claim dossier, they can view the nearest repair hub, operating hours, and drop-off instructions mapped directly to their geographic location.
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       7. EXAMINER TRAP QUESTIONS & COUNTER-DEFENSES
+       ========================================================================= -->
+  <div class="page-break"></div>
+  <h2>6. "Examiner Trap Questions" &amp; Strategic Counter-Defenses</h2>
+  <p>
+    Examiners frequently ask deliberately provocative or skeptical questions to test the limits of your understanding. Here is how to disarm them with technical precision:
+  </p>
+
+  <div class="qa-card">
+    <div class="qa-question">
+      <span class="qa-tag" style="background: #dc2626;">TRAP 1</span>
+      "Isn't Flutter bad for Web development compared to React or Vue? Why did you use Flutter for Claimly's web portal?"
+    </div>
+    <div class="qa-answer">
+      <strong>The Counter-Defense:</strong>
+      "Sir/Ma'am, that is a nuanced trade-off. For content-heavy public websites (like blogs or SEO-driven landing pages), React or Next.js with Server-Side Rendering is indeed preferable due to smaller initial JS bundle payloads.
+      However, Claimly is not a static document website—it is an <em>enterprise transactional application</em> requiring complex interactive forms, canvas-rendered vector graphics, client-side PDF document compilation, and identical UI fidelity across mobile, desktop, and web. Flutter Web's CanvasKit renderer provides hardware-accelerated 60 FPS graphics, identical typography, and 100% shared business logic with mobile and desktop, reducing engineering overhead by over 70%."
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-question">
+      <span class="qa-tag" style="background: #dc2626;">TRAP 2</span>
+      "Since React Native introduced JSI (JavaScript Studio Interface) and TurboModules, the bridge bottleneck is gone. So wasn't choosing Flutter unnecessary?"
+    </div>
+    <div class="qa-answer">
+      <strong>The Counter-Defense:</strong>
+      "While the New Architecture in React Native (Fabric and TurboModules via JSI) replaces asynchronous JSON message passing with synchronous C++ host objects, it <em>still maps to platform-native OEM widgets</em>.
+      That means on Android, a button is still an <code>android.widget.Button</code> subject to OEM manufacturer theming quirks and fragmentation across Android 10, 12, and 14. Flutter's architecture is fundamentally different: because Skia/Impeller draws every pixel itself, Claimly looks and behaves identically regardless of the underlying OEM operating system. Furthermore, Dart's sound null safety and unified language model avoid the language boundaries inherent in React Native's JS-to-C++-to-Kotlin/Swift stack."
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-question">
+      <span class="qa-tag" style="background: #dc2626;">TRAP 3</span>
+      "Isn't using Supabase Backend-as-a-Service just a shortcut? Why didn't you build a custom Node.js/Express REST backend?"
+    </div>
+    <div class="qa-answer">
+      <strong>The Counter-Defense:</strong>
+      "Supabase is not merely a toy wrapper; it is an open-source, enterprise-grade architecture built directly on top of <strong>PostgreSQL 15</strong>.
+      By leveraging Supabase, we enforce security at the database layer through 37 PostgreSQL Row-Level Security (RLS) policies, manage database migrations cleanly, and run serverless compute via TypeScript Edge Functions. Furthermore, Supabase provides instant WebSocket replication for real-time notifications. Implementing custom Node.js middleware would have duplicated these battle-tested database capabilities without providing any additional security or performance benefits."
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-question">
+      <span class="qa-tag" style="background: #dc2626;">TRAP 4</span>
+      "What happens if an end user loses network connectivity right when submitting Step 5 of the Claim Wizard?"
+    </div>
+    <div class="qa-answer">
+      <strong>The Counter-Defense:</strong>
+      "Our system handles this gracefully on two levels. First, the 5-step wizard state is managed by <code>WizardController</code> in Riverpod memory, which is completely isolated from network volatility; the user's form inputs and attachments are never lost if the connection drops. Second, the repository call is wrapped in a try-catch returning a deterministic <code>Failure</code> object, prompting the UI to display a non-destructive retry dialog while preserving the draft claim."
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       8. THE YAP GUIDE: HIGH-IMPACT PRESENTATION SCRIPTS
+       ========================================================================= -->
+  <div class="page-break"></div>
+  <h2>7. "The Yap Guide": High-Impact Presentation Scripts &amp; Pitch Playbooks</h2>
+  <p>
+    When presenting in front of an examiner, delivery, pacing, and technical vocabulary are as important as the code. Use these scripted talk tracks tailored for different presentation time windows:
+  </p>
+
+  <h3>7.1 The 30-Second Elevator Pitch (The Instant Hook)</h3>
+  <div class="callout callout-yap">
+    "Good morning, examiners. My name is Swayam Shah (Roll No: 231070062), and this is <strong>Claimly</strong>—an enterprise automated warranty and refund claim assistant built with Flutter, Dart, Riverpod, and Supabase.
+    Consumers lose over $40 billion annually in expired warranties and lost receipts. Claimly solves this through digital receipt vaulting, automated countdown tracking, a 5-step guided claim filing wizard, multi-factor priority triage scoring, and instant client-side PDF claim dossier compilation with cryptographic QR verification. Every architectural pattern in Claimly directly synthesizes our 10 CPAD lab experiments into a cohesive, production-ready system."
+  </div>
+
+  <h3>7.2 The 2-Minute Architectural Pitch (The Technical Deep-Dive)</h3>
+  <div class="callout callout-yap">
+    "Claimly is engineered from the ground up as a production realization of our Cross-Platform Application Development curriculum.
+    <br><br>
+    <strong>On the Client Layer:</strong> We chose Flutter 3.x and Dart 3 over React Native and Xamarin because Flutter's compiled graphics engine renders directly to the canvas, eliminating bridge bottlenecks and providing 100% UI consistency across Web, Linux, and Mobile. Our UI implements a responsive-adaptive shell via <code>ResponsiveLayoutBuilder</code>, transitioning from a mobile bottom navigation bar to an extended desktop navigation rail.
+    <br><br>
+    <strong>On the State Management Layer:</strong> We implemented <strong>Riverpod 2.6</strong>. By decoupling state from the widget tree, our 5-step claim wizard maintains immutable, testable state across all steps without prop-drilling or context lookup errors.
+    <br><br>
+    <strong>On the Backend &amp; Edge Layer:</strong> Claimly leverages PostgreSQL 15 via Supabase, protected by 37 Row-Level Security policies. When a claim is filed, an automated Edge Function executes a multi-factor priority triage scoring algorithm, evaluating purchase price, claim type, and deadline proximity. In addition, our consumer advocacy engine enforces a unique 7-day post-expiry grace period.
+    <br><br>
+    Finally, Claimly includes client-side PDF document compilation with embedded verification QR codes, fully tested with 123 automated unit, widget, and integration tests."
+  </div>
+
+  <h3>7.3 Key Buzzwords &amp; Power Vocabulary Matrix</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 25%;">Domain</th>
+        <th style="width: 35%;">Power Buzzword / Concept</th>
+        <th style="width: 40%;">How to Use in a Sentence</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Rendering Architecture</strong></td>
+        <td>Zero-bridge AOT compiled rasterization; Impeller/Skia 2D canvas pipeline.</td>
+        <td>"Flutter avoids the runtime serialization overhead of React Native's bridge by compiling Dart directly to native ARM machine instructions."</td>
+      </tr>
+      <tr>
+        <td><strong>State Architecture</strong></td>
+        <td>Compile-time safe dependency injection; unidirectional immutable state flow.</td>
+        <td>"Riverpod 2.6 guarantees that provider bindings are resolved at compile time, eliminating runtime <code>ProviderNotFoundException</code> defects."</td>
+      </tr>
+      <tr>
+        <td><strong>Responsive Engineering</strong></td>
+        <td>BoxConstraints-driven adaptive shell; ergonomic scanability bounds.</td>
+        <td>"Through <code>ResponsiveContentWrapper</code>, Claimly clamps desktop form containers to 720px to prevent visual fatigue on ultra-wide viewports."</td>
+      </tr>
+      <tr>
+        <td><strong>Security &amp; Multi-Tenancy</strong></td>
+        <td>Kernel-level PostgreSQL Row-Level Security (RLS); Security Definer functions.</td>
+        <td>"Tenant isolation is guaranteed by database RLS policies matching <code>auth.uid()</code>, preventing horizontal privilege escalation."</td>
+      </tr>
+      <tr>
+        <td><strong>Business Logic</strong></td>
+        <td>Multi-factor priority triage heuristic; 7-day post-expiry grace adjudication.</td>
+        <td>"Our edge triage function scores incoming claims on a 0-to-100 scale, dynamically elevating high-value imminent claims to the admin review queue."</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- =========================================================================
+       9. LIVE DEMO SCRIPT & VERIFICATION WALKTHROUGH
+       ========================================================================= -->
+  <div class="page-break"></div>
+  <h2>8. Step-by-Step Live Viva Voce Demo Script</h2>
+  <p>
+    Follow this exact 7-step sequence when demonstrating Claimly on screen to the examiners. This flow is calibrated to highlight every laboratory experiment within 4 minutes:
+  </p>
+
+  <ol>
+    <li>
+      <strong>Step 1: The Adaptive Shell &amp; Responsive Resize (Demonstrates Lab 3 &amp; Lab 10)</strong>
+      <p>
+        <em>Action:</em> Launch Claimly on Desktop or Web. Start with the browser window at full width (~1400px).
+        <br>
+        <em>Say:</em> "Examiners, notice how on desktop, Claimly displays an extended <code>NavigationRail</code> with our logo and navigation labels. Now observe what happens when I resize the browser window to mobile width (&lt;600px)—the navigation rail seamlessly collapses into a mobile-friendly <code>NavigationBar</code> with notification badges. This realizes Experiment 3's responsive and adaptive navigation principles."
+      </p>
+    </li>
+    <li>
+      <strong>Step 2: Customer Dashboard &amp; Warranty Countdown (Demonstrates Lab 2 &amp; Lab 7)</strong>
+      <p>
+        <em>Action:</em> Point to the KPI metric cards and the warranty expiry carousel.
+        <br>
+        <em>Say:</em> "Here on the dashboard, we see aggregate portfolio calculations inspired by Lab 7's reduce operations. Notice the <code>ExpiryAlertCard</code> and product cards: they use <code>Stack</code> and <code>Positioned</code> from Lab 2 to overlay real-time warranty badges and countdown indicators computed client-side by our <code>WarrantyCalculator</code>."
+      </p>
+    </li>
+    <li>
+      <strong>Step 3: The 5-Step Claim Filing Wizard (Demonstrates Lab 2, Lab 6 &amp; Lab 7)</strong>
+      <p>
+        <em>Action:</em> Click "File a Claim" or navigate to a product and click "Claim". Walk through Step 1 (Product), Step 2 (Type), Step 3 (Issue description with regex validation), Step 4 (Attachments), and Step 5 (Review).
+        <br>
+        <em>Say:</em> "This is Claimly's core interactive feature: the 5-step Claim Wizard. The progress header uses <code>Row</code> and <code>Expanded</code> from Lab 2. The entire form state is managed immutably by our Riverpod <code>WizardController</code>, elevating the basic state hooks from Lab 6 into an enterprise state machine. Step 3 enforces regex validation from Lab 7."
+      </p>
+    </li>
+    <li>
+      <strong>Step 4: Client-Side PDF Generation &amp; QR Verification (Demonstrates Exp 4 &amp; Lab 1)</strong>
+      <p>
+        <em>Action:</em> Navigate to an existing claim in Claims List and click "Export Claim Dossier (PDF)".
+        <br>
+        <em>Say:</em> "In Experiment 4, we saw how Dart executes rich logic in the browser. Watch as Claimly compiles a complete, multi-page vector PDF claim dossier in memory using <code>ClaimPdfService</code>. It embeds a dynamic cryptographic QR code containing a secure verification URL for RMA repair technicians."
+      </p>
+    </li>
+    <li>
+      <strong>Step 5: Dynamic Dark / Light Theming (Demonstrates Lab 9 &amp; Lab 1)</strong>
+      <p>
+        <em>Action:</em> Navigate to Profile &amp; Settings. Toggle the Theme Mode Switch between Light and Dark mode.
+        <br>
+        <em>Say:</em> "In Experiment 9, we built a light/dark mode switch in Xamarin. In Claimly, this is powered by our Riverpod <code>themeModeProvider</code> and Material 3 design tokens, instantly swapping colors across all widgets without re-rendering unnecessary components."
+      </p>
+    </li>
+    <li>
+      <strong>Step 6: Administrator Mode &amp; Automated Triage Scoring (Demonstrates Lab 10 &amp; Edge Compute)</strong>
+      <p>
+        <em>Action:</em> Click "Open Admin Portal" to switch into Administrator mode. Show the Admin Dashboard with FL Chart visual graphs and the claims review queue.
+        <br>
+        <em>Say:</em> "Here in the Admin Portal, we have a multi-section dashboard layout reflecting Experiment 10's Grid system. Notice how claims are categorized by their automated Priority Score (Urgent, High, Standard) generated by our Supabase Edge Function."
+      </p>
+    </li>
+    <li>
+      <strong>Step 7: Concluding Statement &amp; Test Suite Verification</strong>
+      <p>
+        <em>Action:</em> Show the terminal or report summary confirming all 123 automated tests passed with 0 static analysis errors.
+        <br>
+        <em>Say:</em> "In conclusion, Claimly brings together the cross-platform principles of Flutter, React Native, Xamarin, and Dart Web into a robust, secure, and production-tested application. I am now open to your questions."
+      </p>
+    </li>
+  </ol>
+
+  <!-- =========================================================================
+       10. CONCLUSION & SIGN-OFF
+       ========================================================================= -->
+  <div class="callout callout-success" style="margin-top: 20px;">
+    <div class="callout-title">Final Candidate Summary</div>
+    <strong>Student:</strong> Swayam Shah (Roll No: 231070062) &bull; <strong>Course:</strong> CPAD Lab (R5CO4004L) &bull; <strong>Status:</strong> All 10 Laboratory Experiments &amp; Claimly Production System Fully Integrated and Verified.
+  </div>
+
+</body>
+</html>
